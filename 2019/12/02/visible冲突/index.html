@@ -1,9 +1,109 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="baidu-site-verification" content="1EB8XoOl0C"><meta name="google-site-verification" content="K7thEgdLm0UfRWJ5MGdF7sCcjClSzAlxFLPv2Oz5CGM"><title> 布局：display:flex和Bootstrap的visible生效 · Blog|leeMon's</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="布局：display:flex和Bootstrap的visible生效 - leeMon"><meta name="keywords"><meta name="author" content="leeMon"><link rel="short icon" href="/images/favicon.ico"><link rel="stylesheet" href="/css/bubuzou.css"><link rel="search" type="application/opensearchdescription+xml" href="http://lenmon54231.github.io.git/atom.xml" title="Blog|leeMon's"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script><link rel="alternate" href="/atom.xml" title="Blog|leeMon's" type="application/atom+xml">
-</head><body><header><div class="header row"> <a href="/" class="logo-link"><img src="/images/logo.png"></a><ul id="nav_list" class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" data-hover="博文" class="nav-list-link">博文</a></li><li class="nav-list-item"><a href="/archives/" target="_self" data-hover="归档" class="nav-list-link">归档</a></li></ul><div class="search"><a id="search_btn" href="#search"></a></div><div id="nav_btn" class="nav-btn"><span></span><span></span><span></span></div></div></header><div class="row scroll-con"><section class="container"><!-- for archive page--><div id="postAr" class="post"><article class="post-block"><h1 class="post-title">布局：display:flex和Bootstrap的visible生效</h1><div class="post-info">2019-12-02<p class="visit"><i data-identity="2019/12/02/visible冲突/" class="article-timer"></i><span>次访问</span></p></div><div class="post-content"><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/bootstrap.jpg" alt="bootstrap"></p>
-<h2 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h2><a id="more"></a>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="baidu-site-verification" content="1EB8XoOl0C"><meta name="google-site-verification" content="K7thEgdLm0UfRWJ5MGdF7sCcjClSzAlxFLPv2Oz5CGM"><title> 布局：display:flex和Bootstrap的visible生效 · Blog|lenMon's</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="布局：display:flex和Bootstrap的visible生效 - lenMon"><meta name="keywords"><meta name="author" content="lenMon"><link rel="short icon" href="/images/favicon.ico"><link rel="stylesheet" href="/css/bubuzou.css"><link rel="search" type="application/opensearchdescription+xml" href="http://lenmon54231.github.io.git/atom.xml" title="Blog|lenMon's"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script><link rel="alternate" href="/atom.xml" title="Blog|lenMon's" type="application/atom+xml">
+</head><body><header><div class="header row"> <a href="/" class="logo-link"><img src="/images/logo.png"></a><ul id="nav_list" class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" data-hover="博文" class="nav-list-link">博文</a></li><li class="nav-list-item"><a href="/archives/" target="_self" data-hover="归档" class="nav-list-link">归档</a></li></ul><div class="search"><a id="search_btn" href="#search"></a></div><div id="nav_btn" class="nav-btn"><span></span><span></span><span></span></div></div></header><div class="row scroll-con"><section class="container"><!-- for archive page--><div id="postAr" class="post"><article class="post-block"><h1 class="post-title">布局：display:flex和Bootstrap的visible生效</h1><div class="post-info">2019-12-02<p class="visit"><i data-identity="2019/12/02/visible冲突/" class="article-timer"></i><span>次访问</span></p></div><div class="post-content"><meta name="referrer" content="no-referrer">
 
-</div></article></div><div class="right-container"><div class="widget"><div id="arAnchorBar"></div></div></div></section></div><div class="right-menu"></div><div class="modal search-modal"><div class="input-field"><input type="text" id="search_input"><label for="search-input">搜索</label></div><div id="search_result" class="search-result"></div></div><div class="blog-overlay"></div><footer class="row"><div class="footer-con"><div class="paginator"><a href="/2019/12/02/%E8%AE%BE%E7%BD%AEGitHub/" title="设置GitHub" class="prev">上一篇</a><a href="/2019/12/01/markdown%E8%AF%AD%E6%B3%95/" title="markdown语法" class="next">下一篇</a></div><a href="#comment" class="comment-anchor"></a><div id="vcomments"></div><script>new Valine({
+<h2 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h2><p>Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。</p>
+<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/bootstrap.jpg" alt="bootstrap"></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>使用bootstrap做布局，通过不同的col-*标签可以让不同的分辨率下的设备有不同的显示，同时还可以用visible和hidden来实现隐藏和显示一些html，但是使用的时候，有发现一些问题：当使用visible和display：flex的时候，flex不生效！</p>
+<a id="more"></a>
+
+<h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p>查找bootstrap相关文档，了解了下visible和hidden的一些说明如下：</p>
+<ol>
+<li><p>需要谨慎使用这些工具，避免在同一个站点创建完全不同的版本。<strong>响应式实用工具目前只适用于块和表切换。</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">超小屏幕 手机 (&lt;768px)</th>
+<th align="left">小屏幕 平板 (≥768px)</th>
+<th align="left">中等屏幕 桌面 (≥992px)</th>
+<th>大屏幕 桌面 (≥1200px)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">.visible-xs-*</td>
+<td align="left">可见</td>
+<td align="left">隐藏</td>
+<td align="left">隐藏</td>
+<td>隐藏</td>
+</tr>
+<tr>
+<td align="left">.visible-sm-*</td>
+<td align="left">隐藏</td>
+<td align="left">可见</td>
+<td align="left">隐藏</td>
+<td>隐藏</td>
+</tr>
+<tr>
+<td align="left">.visible-md-*</td>
+<td align="left">隐藏</td>
+<td align="left">隐藏</td>
+<td align="left">可见</td>
+<td>隐藏</td>
+</tr>
+<tr>
+<td align="left">.visible-lg-*</td>
+<td align="left">隐藏</td>
+<td align="left">隐藏</td>
+<td align="left">隐藏</td>
+<td>可见</td>
+</tr>
+<tr>
+<td align="left">.hidden-xs</td>
+<td align="left">隐藏</td>
+<td align="left">可见</td>
+<td align="left">可见</td>
+<td>可见</td>
+</tr>
+<tr>
+<td align="left">.hidden-sm</td>
+<td align="left">可见</td>
+<td align="left">隐藏</td>
+<td align="left">可见</td>
+<td>可见</td>
+</tr>
+<tr>
+<td align="left">.hidden-md</td>
+<td align="left">可见</td>
+<td align="left">可见</td>
+<td align="left">隐藏</td>
+<td>可见</td>
+</tr>
+<tr>
+<td align="left">.hidden-lg</td>
+<td align="left">可见</td>
+<td align="left">可见</td>
+<td align="left">可见</td>
+<td>隐藏</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>从 v3.2.0 版本起，形如 .visible-<em>-</em> 的类针对每种屏幕大小都有了三种变体，每个针对 CSS 中不同的 display 属性，列表如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类组</th>
+<th align="left">CSS display</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">.visible-*-block</td>
+<td align="left">display: block;</td>
+</tr>
+<tr>
+<td align="left">.visible-*-inline</td>
+<td align="left">display: inline;</td>
+</tr>
+<tr>
+<td align="left">.visible-*-inline-block</td>
+<td align="left">display: inline-block;</td>
+</tr>
+</tbody></table>
+<p>可以看到，不同的visible形式是对应的不同的CSS display形式。</p>
+</li>
+</ol>
+<h3 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h3><p>在同一个html元素上使用display：felx；和在class上添加visible会被后者覆盖，从而失效。</p>
+</div></article></div><div class="right-container"><div class="widget"><div id="arAnchorBar"></div></div></div></section></div><div class="right-menu"></div><div class="modal search-modal"><div class="input-field"><input type="text" id="search_input"><label for="search-input">搜索</label></div><div id="search_result" class="search-result"></div></div><div class="blog-overlay"></div><footer class="row"><div class="footer-con"><div class="paginator"><a href="/2019/12/02/%E9%9D%99%E6%80%81%E5%B8%83%E5%B1%80%E3%80%81%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80%E3%80%81%E6%B5%81%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E7%AD%89%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8C%BA%E5%88%AB/" title="静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别" class="prev">上一篇</a><a href="/2019/12/01/%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/" title="清除浮动的3种方法" class="next">下一篇</a></div><a href="#comment" class="comment-anchor"></a><div id="vcomments"></div><script>new Valine({
     el: "#vcomments",
     appId: "aD8jJBpu4oew3ovNY73z6Rdq-gzGzoHsz",
     appKey: "FdzS5SOPHdhYQoEUngQ8K2QW",
@@ -12,7 +112,7 @@
     avatar: "robohash",
     visitor: true,
     placeholder: "随便说点什么～.～",
-});</script><div class="copyright"><p>© 2016 - 2019 <a target="_blank">leeMon</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <br> and <a href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">hexo-theme-bubuzou</a></p><p> <span style="padding-right: 6px;"> </span></p></div><div class="totop"><i></i></div></div></footer><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script src="/scripts/jquery-1.8.2.min.js"></script><script src="/scripts/ar-anchor.js"></script><script src="/scripts/main.js"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script><script>const valineAPI = (() => {
+});</script><div class="copyright"><p>© 2016 - 2019 <a target="_blank">lenMon</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <br> and <a href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">hexo-theme-bubuzou</a></p><p> <span style="padding-right: 6px;"> </span></p></div><div class="totop"><i></i></div></div></footer><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script src="/scripts/jquery-1.8.2.min.js"></script><script src="/scripts/ar-anchor.js"></script><script src="/scripts/main.js"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script><script>const valineAPI = (() => {
 try {
     AV.init("aD8jJBpu4oew3ovNY73z6Rdq-gzGzoHsz", "FdzS5SOPHdhYQoEUngQ8K2QW");
 } catch(error) {}
