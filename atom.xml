@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lenmon54231.github.io.git/"/>
-  <updated>2019-12-29T13:27:21.822Z</updated>
+  <updated>2019-12-03T06:53:12.373Z</updated>
   <id>http://lenmon54231.github.io.git/</id>
   
   <author>
@@ -15,30 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>记录网站功能实现-搜索功能</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/29/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/29/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/</id>
-    <published>2019-12-29T13:12:44.920Z</published>
-    <updated>2019-12-29T13:27:21.822Z</updated>
-    
-    <content type="html"><![CDATA[<p>title: 记录网站功能实现-搜索功能<br>date: 2019-12-02 17:16:26<br>tags: [github,hexo]</p><meta name="referrer" content="no-referrer"><h2 id="记录网站功能实现-搜索功能"><a href="#记录网站功能实现-搜索功能" class="headerlink" title="记录网站功能实现-搜索功能"></a>记录网站功能实现-搜索功能</h2><h3 id="网站搜索功能"><a href="#网站搜索功能" class="headerlink" title="网站搜索功能"></a>网站搜索功能</h3><p>很多的导航网站会再头顶设置不同的搜索引擎的搜索框，提供更方便的搜索功能，如图：</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD1.png" alt></p><p>这个实现也不复杂，如下：</p><a id="more"></a><h3 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h3><p>功能的实现也不复杂，是通过一个form，不停的变换form中的action和name去切换不同的搜索引擎的</p><p>代码如下：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"https://www.baidu.com/s"</span> <span class="attr">target</span>=<span class="string">"__blank"</span> <span class="attr">id</span>=<span class="string">"searchForm"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">"searchInput"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"text"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">"请输入要搜索的内容："</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">"searchValue"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"word"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">autofocus</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="tag">  /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"搜索"</span> /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">data() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    items: [</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        text: <span class="string">"谷歌"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        searchUrl: <span class="string">"http://www.google.com.hk/search?q="</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        name: <span class="string">"q"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">      &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">      &#123; <span class="attr">text</span>: <span class="string">"百度"</span>, <span class="attr">searchUrl</span>: <span class="string">"https://www.baidu.com/s"</span>, <span class="attr">name</span>: <span class="string">"word"</span> &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">      &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        text: <span class="string">"搜狗"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        searchUrl: <span class="string">"http://www.sogou.com/web"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        name: <span class="string">"query"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">      &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">      &#123; <span class="attr">text</span>: <span class="string">"必应"</span>, <span class="attr">searchUrl</span>: <span class="string">"https://cn.bing.com/search"</span>, <span class="attr">name</span>: <span class="string">"q"</span> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    ],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    checkindex: <span class="number">1</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    searchValue: <span class="string">""</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">isActive(item, index) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">this</span>.checkindex = index;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"searchForm"</span>).action = item.searchUrl;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"searchInput"</span>).name = item.name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure><p>通过v-for去循环data中的items，去生成不同的搜索引擎按钮，点击不同的按钮，去切换form中的action和input中的name就可以实现搜索功能。</p><p>这个其中主要是通过各大搜索引擎提供的地址去操作，例如百度等，已经提供了公共的搜索接口，非常的方便。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;title: 记录网站功能实现-搜索功能&lt;br&gt;date: 2019-12-02 17:16:26&lt;br&gt;tags: [github,hexo]&lt;/p&gt;
-&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h2 id=&quot;记录网站功能实现-搜索功能&quot;&gt;&lt;a href=&quot;#记录网站功能实现-搜索功能&quot; class=&quot;headerlink&quot; title=&quot;记录网站功能实现-搜索功能&quot;&gt;&lt;/a&gt;记录网站功能实现-搜索功能&lt;/h2&gt;&lt;h3 id=&quot;网站搜索功能&quot;&gt;&lt;a href=&quot;#网站搜索功能&quot; class=&quot;headerlink&quot; title=&quot;网站搜索功能&quot;&gt;&lt;/a&gt;网站搜索功能&lt;/h3&gt;&lt;p&gt;很多的导航网站会再头顶设置不同的搜索引擎的搜索框，提供更方便的搜索功能，如图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://limengtupian.oss-cn-beijing.aliyuncs.com/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD1.png&quot; alt&gt;&lt;/p&gt;
-&lt;p&gt;这个实现也不复杂，如下：&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>文字图片居中</title>
@@ -74,57 +50,23 @@
   </entry>
   
   <entry>
-    <title>静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/02/%E9%9D%99%E6%80%81%E5%B8%83%E5%B1%80%E3%80%81%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80%E3%80%81%E6%B5%81%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E7%AD%89%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8C%BA%E5%88%AB/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/02/%E9%9D%99%E6%80%81%E5%B8%83%E5%B1%80%E3%80%81%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80%E3%80%81%E6%B5%81%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E7%AD%89%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8C%BA%E5%88%AB/</id>
+    <title>初始模板</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/api%E8%B0%83%E7%94%A8%E5%9B%BE%E7%89%87403/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/api%E8%B0%83%E7%94%A8%E5%9B%BE%E7%89%87403/</id>
     <published>2019-12-02T09:16:26.000Z</published>
-    <updated>2019-12-03T15:01:01.272Z</updated>
+    <updated>2019-12-11T11:31:24.345Z</updated>
     
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别"><a href="#静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别" class="headerlink" title="静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别"></a>静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别</h2><h3 id="静态布局"><a href="#静态布局" class="headerlink" title="静态布局"></a>静态布局</h3><ol><li><p>布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。</p></li><li><p>布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。</p><p>常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。</p></li><li><ul><li>优点：这种布局方式对设计师和CSS编写者来说都是最简单的，亦没有兼容性问题。</li><li>缺点：显而易见，即不能根据用户的屏幕尺寸做出不同的表现。<a id="more"></a></li></ul></li></ol><h3 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h3><ol><li><p>流式布局（Liquid）的特点（也叫”Fluid”) 是页面元素的宽度按照屏幕分辨率进行适配调整，但整体布局不变。代表作栅栏系统（网格系统）。</p></li><li><p>网页中主要的划分区域的尺寸使用百分数（搭配min-<em>、max-</em>属性使用），例如，设置网页主体的宽度为80%，min-width为960px。图片也作类似处理（width:100%, max-width一般设定为图片本身的尺寸，防止被拉伸而失真）。</p></li><li><p>布局和设计</p><ul><li><p>布局特点：屏幕分辨率变化时，页面里元素的大小会变化而但布局不变。【这就导致如果屏幕太大或者太小都会导致元素无法正常显示】</p></li><li><p>设计方法：使用%百分比定义宽度，高度大都是用px来固定住，可以根据可视区域 (viewport) 和父元素的实时尺寸进行调整，尽可能的适应各种分辨率。往往配合 max-width/min-width 等属性控制尺寸流动范围以免过大或者过小影响阅读。</p></li></ul></li><li><p>优点和缺点</p><ul><li>按照屏幕分辨率进行适配调整，但整体布局不变。适应早期的web布局，兼容性高</li><li><strong>缺点明显</strong>：<strong>主要的问题</strong>是如果屏幕尺度跨度太大，那么在相对其原始设计而言过小或过大的屏幕上不能正常显示。因为宽度使用%百分比定义，但是高度和文字大小等大都是用px来固定，所以在大屏幕的手机下显示效果会变成有些页面元素宽度被拉的很长，但是高度、文字大小还是和原来一样（即：<strong>这些东西无法变得“流式”</strong>），显示非常不协调。</li></ul></li></ol><h3 id="自适应布局"><a href="#自适应布局" class="headerlink" title="自适应布局"></a>自适应布局</h3><ol><li>自适应布局的特点是分别为不同的屏幕分辨率定义布局，即创建多个静态布局，每个静态布局对应一个屏幕分辨率范围。</li><li>实现方法<ul><li>使用 @media 媒体查询给不同尺寸和介质的设备切换不同的样式。在优秀的响应范围设计下可以给适配范围内的设备最好的体验，在同一个设备下实际还是固定的布局。</li></ul></li><li>特点<ul><li>布局特点：屏幕分辨率变化时，页面里面元素的位置会变化而大小不会变化。</li></ul></li><li>本质上是多个多个<strong><em>静态布局</em></strong>。</li></ol><h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><ol><li><strong>可以把响应式布局看作是流式布局和自适应布局设计理念的融合</strong>。</li><li>响应式设计的目标是确保一个页面在所有终端上（各种尺寸的PC、手机、手表、冰箱的Web浏览器等等）都能显示出令人满意的效果，对CSS编写者而言，在实现上不拘泥于具体手法，但通常是糅合了流式布局+弹性布局，再搭配媒体查询技术使用。</li><li>设计方法：<ul><li>媒体查询+流式布局。通常使用 @media 媒体查询 和网格系统 (Grid System) 配合相对布局单位进行布局，实际上就是综合响应式、流动等上述技术通过 CSS 给单一网页不同设备返回不同样式的技术统称。</li></ul></li><li>特点：<ul><li>每个屏幕分辨率下面会有一个布局样式，即元素位置和大小都会变。</li></ul></li><li>优点和缺点：<ul><li>适应pc和移动端，如果足够耐心，效果完美</li><li>（1）媒体查询是有限的，也就是可以枚举出来的，只能适应主流的宽高。（2）要匹配足够多的屏幕大小，工作量不小，设计也需要多个版本。需要很多个@media。</li></ul></li><li>代表比如bootstrap，element等都是响应式的设计布局</li></ol><h3 id="弹性布局"><a href="#弹性布局" class="headerlink" title="弹性布局"></a>弹性布局</h3><ol><li>这类布局的特点是，<strong>包裹文字的各元素的尺寸采用em/rem做单位，而页面的主要划分区域的尺寸仍使用百分数或px做单位（同「流式布局」或「静态/固定布局」）</strong>。<strong>早期浏览器不支持整个页面按比例缩放</strong>，仅支持网页内文字尺寸的放大，这种情况下。使用em/rem做单位，可以使包裹文字的元素随着文字的缩放而缩放。</li><li><strong>rem,em区别</strong>：<ul><li>rem,em都是顺应不同网页字体大小展现而产生的。其中，em是相对其父元素，在实际应用中相对而言会带来很多不便；而rem是始终相对于html大小，即页面根元素。</li></ul></li><li>根据不同的屏幕尺寸，rem改变的是font-size的大小，但是本质上，客户看到的布局是没有改变的，这一点不同于响应式布局。</li><li><strong>响应式和弹性布局之间的对比：</strong><ul><li>rem布局：改变浏览器宽度，页面所有元素的高宽都等比例缩放，也就是大屏幕下导航是横的，小屏幕下还是横的只不过变小了。</li><li>响应式布局：改变浏览器宽度，“布局”会随之变化，不是一成不变的，例如导航栏在大屏幕下是横排，在小屏幕下是竖排，在超小屏幕下隐藏为菜单，也就是说如果有足够的耐心，在每一种屏幕下都应该有合理的布局，完美的效果。</li></ul></li></ol><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><ol><li><p>如果只做pc端，那么静态布局（定宽度）是最好的选择；</p></li><li><p>如果做移动端，且设计对高度和元素间距要求不高，那么弹性布局（rem+js）是最好的选择，一份css+一份js调节font-size搞定；</p></li><li><p>如果pc，移动要兼容，而且要求很高那么响应式布局还是最好的选择，前提是设计根据不同的高宽做不同的设计，响应式根据媒体查询做不同的布局。</p></li></ol></blockquote>]]></content>
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="豆瓣api调用图片403提示"><a href="#豆瓣api调用图片403提示" class="headerlink" title="豆瓣api调用图片403提示"></a>豆瓣api调用图片403提示</h2><h3 id="豆瓣api"><a href="#豆瓣api" class="headerlink" title="豆瓣api"></a>豆瓣api</h3><p>需要搭建一个电影类的分类网站，所以会调用到豆瓣的api，现在官方没有给公共的api使用，于是网上找了下有提供备份的api使用，地址如下：<a href="https://douban.uieee.com/" target="_blank" rel="noopener">豆瓣api</a></p><p>使用这个地址，可以直接访问到豆瓣的内容，但是使用过程中，发现关于电影的名字，类型，上映年份都可以直接访问，只有图片没有办法访问，有提示403错误。</p><h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>豆瓣使用了防盗链：</p><p>很多时候别人直接把我们的网站的资源拿去在他们网站展示，但是消费的是我们的流量，为了解决这种问题，才会有防盗链这个思路</p><p>这里说的只是一个简单的概念，既使用host和reffer请求头做对比，简单的做一个处理，主要是用来熟悉http头</p><a id="more"></a><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>在页面中加上 <meta name="referrer" content="never"></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E9%98%B2%E7%9B%97%E9%93%BE.png" alt="fangdao"></p><p>实现了正常的访问！</p>]]></content>
     
     <summary type="html">
     
       &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
 
-&lt;h2 id=&quot;静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&quot;&gt;&lt;a href=&quot;#静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&quot; class=&quot;headerlink&quot; title=&quot;静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&quot;&gt;&lt;/a&gt;静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&lt;/h2&gt;&lt;h3 id=&quot;静态布局&quot;&gt;&lt;a href=&quot;#静态布局&quot; class=&quot;headerlink&quot; title=&quot;静态布局&quot;&gt;&lt;/a&gt;静态布局&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。&lt;/p&gt;
-&lt;p&gt;常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;ul&gt;
-&lt;li&gt;优点：这种布局方式对设计师和CSS编写者来说都是最简单的，亦没有兼容性问题。&lt;/li&gt;
-&lt;li&gt;缺点：显而易见，即不能根据用户的屏幕尺寸做出不同的表现。&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ol&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="自适应布局" scheme="http://lenmon54231.github.io.git/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/"/>
-    
-      <category term="响应式布局，弹性布局" scheme="http://lenmon54231.github.io.git/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%EF%BC%8C%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设置GitHub</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/02/vue%E4%B8%AD%E5%BC%95%E5%85%A5%E5%9B%BE%E7%89%87/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/02/vue%E4%B8%AD%E5%BC%95%E5%85%A5%E5%9B%BE%E7%89%87/</id>
-    <published>2019-12-02T09:16:26.000Z</published>
-    <updated>2019-12-04T16:59:39.730Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="Vue中引入图片失效"><a href="#Vue中引入图片失效" class="headerlink" title="Vue中引入图片失效"></a>Vue中引入图片失效</h2><h2 id="引入图片"><a href="#引入图片" class="headerlink" title="引入图片"></a>引入图片</h2><p>自己本地开发引入图片可以选择相对路径或者绝对路径，比如：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"../images/1.png"</span>&gt;</span></span></pre></td></tr></table></figure><p>这样是可以在网页中显示的，或者将图片放在网络存储中，引用网络地址。</p><p>但是，在使用Vue进行开发的时候，有遇到一个问题：本地引入图片生效，但是使用Js去替换图片的时候，使用相对路径，就不能正确的生成图片，查阅资料发现了需要更换引入方式。</p><a id="more"></a><h3 id="想要实现的样式"><a href="#想要实现的样式" class="headerlink" title="想要实现的样式"></a>想要实现的样式</h3><p>密码的显示和隐藏样式：</p><p><strong>显示：</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/open.png" alt="open"></p><p><strong>隐藏:</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/close.png" alt="close"></p><h2 id="在Vue中引入图片"><a href="#在Vue中引入图片" class="headerlink" title="在Vue中引入图片"></a>在Vue中引入图片</h2><ol><li><p>直接使用相对路径</p><p>直接使用相对路径生成的html里面，可以发现在引用的图片地址处，会被加上一串唯一编码。</p><p>如果用JS去修改img的src，生成的图片地址里面是没有编码的，所以不会正确的加载地址。</p></li><li><p>正确的引入</p><ol><li><p><strong>html</strong></p><p>img直接引入地址，需要在src上加上v-bind，也就是冒号：</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/html.png" alt="html"></p></li><li><p><strong>data</strong></p><p>data对应的应该有该名称的对应地址属性</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/icon.png" alt="data"></p></li><li><p><strong>methds</strong></p><p>直接在方法里面去让src的属性等于对应的src名称</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/function.png" alt="methds"></p></li></ol></li></ol><p>这样，可以正确的显示图片，从F12解析可以看到，图片的地址都是已经加上了编码。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-
-&lt;h2 id=&quot;Vue中引入图片失效&quot;&gt;&lt;a href=&quot;#Vue中引入图片失效&quot; class=&quot;headerlink&quot; title=&quot;Vue中引入图片失效&quot;&gt;&lt;/a&gt;Vue中引入图片失效&lt;/h2&gt;&lt;h2 id=&quot;引入图片&quot;&gt;&lt;a href=&quot;#引入图片&quot; class=&quot;headerlink&quot; title=&quot;引入图片&quot;&gt;&lt;/a&gt;引入图片&lt;/h2&gt;&lt;p&gt;自己本地开发引入图片可以选择相对路径或者绝对路径，比如：&lt;/p&gt;
-&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:src&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;../images/1.png&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;这样是可以在网页中显示的，或者将图片放在网络存储中，引用网络地址。&lt;/p&gt;
-&lt;p&gt;但是，在使用Vue进行开发的时候，有遇到一个问题：本地引入图片生效，但是使用Js去替换图片的时候，使用相对路径，就不能正确的生成图片，查阅资料发现了需要更换引入方式。&lt;/p&gt;
+&lt;h2 id=&quot;豆瓣api调用图片403提示&quot;&gt;&lt;a href=&quot;#豆瓣api调用图片403提示&quot; class=&quot;headerlink&quot; title=&quot;豆瓣api调用图片403提示&quot;&gt;&lt;/a&gt;豆瓣api调用图片403提示&lt;/h2&gt;&lt;h3 id=&quot;豆瓣api&quot;&gt;&lt;a href=&quot;#豆瓣api&quot; class=&quot;headerlink&quot; title=&quot;豆瓣api&quot;&gt;&lt;/a&gt;豆瓣api&lt;/h3&gt;&lt;p&gt;需要搭建一个电影类的分类网站，所以会调用到豆瓣的api，现在官方没有给公共的api使用，于是网上找了下有提供备份的api使用，地址如下：&lt;a href=&quot;https://douban.uieee.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;豆瓣api&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;使用这个地址，可以直接访问到豆瓣的内容，但是使用过程中，发现关于电影的名字，类型，上映年份都可以直接访问，只有图片没有办法访问，有提示403错误。&lt;/p&gt;
+&lt;h3 id=&quot;原因&quot;&gt;&lt;a href=&quot;#原因&quot; class=&quot;headerlink&quot; title=&quot;原因&quot;&gt;&lt;/a&gt;原因&lt;/h3&gt;&lt;p&gt;豆瓣使用了防盗链：&lt;/p&gt;
+&lt;p&gt;很多时候别人直接把我们的网站的资源拿去在他们网站展示，但是消费的是我们的流量，为了解决这种问题，才会有防盗链这个思路&lt;/p&gt;
+&lt;p&gt;这里说的只是一个简单的概念，既使用host和reffer请求头做对比，简单的做一个处理，主要是用来熟悉http头&lt;/p&gt;
     
     </summary>
     
@@ -160,6 +102,92 @@
     
     
       <category term="闭包" scheme="http://lenmon54231.github.io.git/tags/%E9%97%AD%E5%8C%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设置GitHub</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/%E8%AE%BE%E7%BD%AEGitHub/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/%E8%AE%BE%E7%BD%AEGitHub/</id>
+    <published>2019-12-02T09:16:26.000Z</published>
+    <updated>2019-12-03T06:54:53.789Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><p>GitHub是一个面向<a href="https://baike.baidu.com/item/开源/20720669" target="_blank" rel="noopener">开源</a>及私有<a href="https://baike.baidu.com/item/软件/12053" target="_blank" rel="noopener">软件</a>项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名GitHub。</p><h2 id="初始设置github"><a href="#初始设置github" class="headerlink" title="初始设置github"></a>初始设置github</h2><p>记录开始使用GitHub中三点注意：</p><ol><li><p>注册账号会验证邮箱，而163邮箱不能接受验证邮件</p><p><strong><em>注意</em></strong>：注册需要设置邮箱，需要选用qq邮箱或者gmail邮箱，163邮箱发现不能接收到GitHub的邮件！</p><a id="more"></a></li><li><p>新的库，需要设置sshkeys</p><ol><li><p>检查是否有sshkeys</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">~&#x2F;.ssh</span></pre></td></tr></table></figure></li><li><p>创建ssh</p><p>首先创建一个SSH，在Git Bash中输入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C “你的邮箱”</span></pre></td></tr></table></figure><p>然后他就会显示这两行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Generating public&#x2F;private rsa key pair.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Enter file in which to save the key (&#x2F;c&#x2F;Users&#x2F;16627&#x2F;.ssh&#x2F;id_rsa):</span></pre></td></tr></table></figure><p>这是让你输入一个文件名，用于保存刚才生成的 SSH key 代码。如果你不输入，直接回车，那么就会默认生成id_rsa和id_rsa.pub两个秘钥文件（如下提示）。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Created directory ‘&#x2F;c&#x2F;Users&#x2F;16627&#x2F;.ssh’.</span></pre></td></tr></table></figure><p>紧接着又会提示你</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Enter same passphrase again:</span></pre></td></tr></table></figure><p>接着又会提示你输入两次密码（该密码是你push文件的时候要输入的密码，而不是github管理者的密码），当然你还可以不输入密码，直接按回车。那么fetch和push的时候就不需要输入密码。</p><p><img src="https://img-blog.csdn.net/20180118114145818?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="chegngong"></p><p>已经创建成功</p><p><img src="https://img-blog.csdn.net/20180118115923234?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="chenggong"></p></li><li><p>添加ssh到GitHub</p><p>按照以下的步骤操作：</p><p><img src="https://img-blog.csdn.net/20180118120316317?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="1"></p><p><img src="https://img-blog.csdn.net/20180118120349241?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="2"></p><p><img src="https://img-blog.csdn.net/20180118120556118?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="3"></p><p>title随便给他起个名字就好。然后是key，这时候你要打开你刚才在电脑上的SSH key。刚才提示你建立的那段文字有SSH key的地址，按照地址找到你的文件，用记事本<strong>打开id_rsa.pub文件，全选其中的内容粘贴到网页的Key中即可。</strong></p><p><img src="https://img-blog.csdn.net/20180118121323658?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="4"></p><p><img src="https://img-blog.csdn.net/20180118121457269?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="5"></p><p><strong>然后你就会受到建立成功的邮件了。</strong></p><p><img src="https://img-blog.csdn.net/20180118121751176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="6"></p></li><li><p>测试一下ssh key</p><p>在git Bash 中输入以下代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">注意是git@github.com，不是你的邮箱。</span></pre></td></tr></table></figure><p>然后会提示你：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">The authenticity of host ‘github.com (192.30.255.112)’ can’t be established.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)?</span></pre></td></tr></table></figure><p>正常提示，你只需要YES就可以。如果你创建 SSH key 的时候设置了密码，接下来就会提示你输入密码，如果你没设置密码会提示你:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Warning: Permanently added ‘github.com,192.30.255.112’ (RSA) to the list of known hosts.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Hi “用户名”! You’ve successfully authenticated, but GitHub does not provide shell access.</span></pre></td></tr></table></figure></li></ol></li><li><p>需要设置config.name和config.email</p><ul><li><p>按照以下的步骤操作</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot; 设置用户名</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">git config --global user.email myemail@qq.com 设置用户邮箱</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">git config --list 查看git设置列表信息</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">git config user.name  查看用户名</span></pre></td></tr></table></figure></li></ul></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;GitHub&quot;&gt;&lt;a href=&quot;#GitHub&quot; class=&quot;headerlink&quot; title=&quot;GitHub&quot;&gt;&lt;/a&gt;GitHub&lt;/h2&gt;&lt;p&gt;GitHub是一个面向&lt;a href=&quot;https://baike.baidu.com/item/开源/20720669&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;开源&lt;/a&gt;及私有&lt;a href=&quot;https://baike.baidu.com/item/软件/12053&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;软件&lt;/a&gt;项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名GitHub。&lt;/p&gt;
+&lt;h2 id=&quot;初始设置github&quot;&gt;&lt;a href=&quot;#初始设置github&quot; class=&quot;headerlink&quot; title=&quot;初始设置github&quot;&gt;&lt;/a&gt;初始设置github&lt;/h2&gt;&lt;p&gt;记录开始使用GitHub中三点注意：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;注册账号会验证邮箱，而163邮箱不能接受验证邮件&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;注意&lt;/em&gt;&lt;/strong&gt;：注册需要设置邮箱，需要选用qq邮箱或者gmail邮箱，163邮箱发现不能接收到GitHub的邮件！&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="github" scheme="http://lenmon54231.github.io.git/tags/github/"/>
+    
+      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo链接网络图片不显示</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/hexo%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/hexo%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA/</id>
+    <published>2019-12-02T09:16:26.000Z</published>
+    <updated>2019-12-03T09:24:47.416Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="Hexo图片不显示"><a href="#Hexo图片不显示" class="headerlink" title="Hexo图片不显示"></a>Hexo图片不显示</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>博客内需要引用一些图片，使用的是阿里云Oss，图片设置的公共读，图片地址从浏览器打开可以直接访问，但是博客内引用不能显示。</p><p><strong>在chrome浏览器中检查会发现有403的错误</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/403%E5%9B%BE%E7%89%87.png" alt="403"></p><a id="more"></a><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>方法其实很简单，只需要文章的头部如下图所示位置添加<meta name="referrer" content="no-referrer">这一句话就可以完美解决问题</p><p><img src="https://img-blog.csdnimg.cn/20190721223929809.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21xZHhpYW94aWFv,size_16,color_FFFFFF,t_70" alt="referrer"></p><h3 id="referrer是什么"><a href="#referrer是什么" class="headerlink" title="referrer是什么"></a>referrer是什么</h3><p><code>&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;</code></p><p>referrer是用于追踪用户是从哪个页面跳转过来，js中使用document.referrer来得到值，一般用户做移动端back按钮，如用户通过别人发送时候链接进入页面时，可以隐藏back按钮。</p><p>referrer有五种属性:</p><ul><li><p>No Referrer （永远不做记录）</p></li><li><p>No Referrer When Downgrade（浏览器默认，当降级时候不记录，从https跳转到http）</p></li><li><p>Origin Only（只记录 协议+ host）</p></li><li><p>Origin When Cross-origin（仅在发生跨域访问时记录 协议+host）</p></li><li><p>Unsafe URL（永远记录）</p></li></ul><p><em>参考链接</em> ：[<a href="https://imququ.com/post/referrer-policy.html" target="_blank" rel="noopener">Referrer Policy 介绍</a>]、<a href="http://www.jb51.net/article/117739.htm" target="_blank" rel="noopener">document.referrer的用法详解</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;h2 id=&quot;Hexo图片不显示&quot;&gt;&lt;a href=&quot;#Hexo图片不显示&quot; class=&quot;headerlink&quot; title=&quot;Hexo图片不显示&quot;&gt;&lt;/a&gt;Hexo图片不显示&lt;/h2&gt;&lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h3&gt;&lt;p&gt;博客内需要引用一些图片，使用的是阿里云Oss，图片设置的公共读，图片地址从浏览器打开可以直接访问，但是博客内引用不能显示。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在chrome浏览器中检查会发现有403的错误&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://limengtupian.oss-cn-beijing.aliyuncs.com/403%E5%9B%BE%E7%89%87.png&quot; alt=&quot;403&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
+    
+      <category term="图片地址" scheme="http://lenmon54231.github.io.git/tags/%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80/"/>
+    
+      <category term="refer" scheme="http://lenmon54231.github.io.git/tags/refer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设置GitHub</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/vue%E4%B8%AD%E5%BC%95%E5%85%A5%E5%9B%BE%E7%89%87/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/vue%E4%B8%AD%E5%BC%95%E5%85%A5%E5%9B%BE%E7%89%87/</id>
+    <published>2019-12-02T09:16:26.000Z</published>
+    <updated>2019-12-04T16:59:39.730Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="Vue中引入图片失效"><a href="#Vue中引入图片失效" class="headerlink" title="Vue中引入图片失效"></a>Vue中引入图片失效</h2><h2 id="引入图片"><a href="#引入图片" class="headerlink" title="引入图片"></a>引入图片</h2><p>自己本地开发引入图片可以选择相对路径或者绝对路径，比如：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"../images/1.png"</span>&gt;</span></span></pre></td></tr></table></figure><p>这样是可以在网页中显示的，或者将图片放在网络存储中，引用网络地址。</p><p>但是，在使用Vue进行开发的时候，有遇到一个问题：本地引入图片生效，但是使用Js去替换图片的时候，使用相对路径，就不能正确的生成图片，查阅资料发现了需要更换引入方式。</p><a id="more"></a><h3 id="想要实现的样式"><a href="#想要实现的样式" class="headerlink" title="想要实现的样式"></a>想要实现的样式</h3><p>密码的显示和隐藏样式：</p><p><strong>显示：</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/open.png" alt="open"></p><p><strong>隐藏:</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/close.png" alt="close"></p><h2 id="在Vue中引入图片"><a href="#在Vue中引入图片" class="headerlink" title="在Vue中引入图片"></a>在Vue中引入图片</h2><ol><li><p>直接使用相对路径</p><p>直接使用相对路径生成的html里面，可以发现在引用的图片地址处，会被加上一串唯一编码。</p><p>如果用JS去修改img的src，生成的图片地址里面是没有编码的，所以不会正确的加载地址。</p></li><li><p>正确的引入</p><ol><li><p><strong>html</strong></p><p>img直接引入地址，需要在src上加上v-bind，也就是冒号：</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/html.png" alt="html"></p></li><li><p><strong>data</strong></p><p>data对应的应该有该名称的对应地址属性</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/icon.png" alt="data"></p></li><li><p><strong>methds</strong></p><p>直接在方法里面去让src的属性等于对应的src名称</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/function.png" alt="methds"></p></li></ol></li></ol><p>这样，可以正确的显示图片，从F12解析可以看到，图片的地址都是已经加上了编码。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+&lt;h2 id=&quot;Vue中引入图片失效&quot;&gt;&lt;a href=&quot;#Vue中引入图片失效&quot; class=&quot;headerlink&quot; title=&quot;Vue中引入图片失效&quot;&gt;&lt;/a&gt;Vue中引入图片失效&lt;/h2&gt;&lt;h2 id=&quot;引入图片&quot;&gt;&lt;a href=&quot;#引入图片&quot; class=&quot;headerlink&quot; title=&quot;引入图片&quot;&gt;&lt;/a&gt;引入图片&lt;/h2&gt;&lt;p&gt;自己本地开发引入图片可以选择相对路径或者绝对路径，比如：&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;:src&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;../images/1.png&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;这样是可以在网页中显示的，或者将图片放在网络存储中，引用网络地址。&lt;/p&gt;
+&lt;p&gt;但是，在使用Vue进行开发的时候，有遇到一个问题：本地引入图片生效，但是使用Js去替换图片的时候，使用相对路径，就不能正确的生成图片，查阅资料发现了需要更换引入方式。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="github" scheme="http://lenmon54231.github.io.git/tags/github/"/>
+    
+      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
     
   </entry>
   
@@ -203,61 +231,6 @@
   </entry>
   
   <entry>
-    <title>初始模板</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/02/%E5%88%9D%E5%A7%8B%E6%A8%A1%E6%9D%BF/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/02/%E5%88%9D%E5%A7%8B%E6%A8%A1%E6%9D%BF/</id>
-    <published>2019-12-02T09:16:26.000Z</published>
-    <updated>2019-12-11T11:19:59.706Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="title"><a href="#title" class="headerlink" title="title"></a>title</h2><a id="more"></a>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-
-&lt;h2 id=&quot;title&quot;&gt;&lt;a href=&quot;#title&quot; class=&quot;headerlink&quot; title=&quot;title&quot;&gt;&lt;/a&gt;title&lt;/h2&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="github" scheme="http://lenmon54231.github.io.git/tags/github/"/>
-    
-      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo链接网络图片不显示</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/02/hexo%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/02/hexo%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA/</id>
-    <published>2019-12-02T09:16:26.000Z</published>
-    <updated>2019-12-03T09:24:47.416Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="Hexo图片不显示"><a href="#Hexo图片不显示" class="headerlink" title="Hexo图片不显示"></a>Hexo图片不显示</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>博客内需要引用一些图片，使用的是阿里云Oss，图片设置的公共读，图片地址从浏览器打开可以直接访问，但是博客内引用不能显示。</p><p><strong>在chrome浏览器中检查会发现有403的错误</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/403%E5%9B%BE%E7%89%87.png" alt="403"></p><a id="more"></a><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>方法其实很简单，只需要文章的头部如下图所示位置添加<meta name="referrer" content="no-referrer">这一句话就可以完美解决问题</p><p><img src="https://img-blog.csdnimg.cn/20190721223929809.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21xZHhpYW94aWFv,size_16,color_FFFFFF,t_70" alt="referrer"></p><h3 id="referrer是什么"><a href="#referrer是什么" class="headerlink" title="referrer是什么"></a>referrer是什么</h3><p><code>&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;</code></p><p>referrer是用于追踪用户是从哪个页面跳转过来，js中使用document.referrer来得到值，一般用户做移动端back按钮，如用户通过别人发送时候链接进入页面时，可以隐藏back按钮。</p><p>referrer有五种属性:</p><ul><li><p>No Referrer （永远不做记录）</p></li><li><p>No Referrer When Downgrade（浏览器默认，当降级时候不记录，从https跳转到http）</p></li><li><p>Origin Only（只记录 协议+ host）</p></li><li><p>Origin When Cross-origin（仅在发生跨域访问时记录 协议+host）</p></li><li><p>Unsafe URL（永远记录）</p></li></ul><p><em>参考链接</em> ：[<a href="https://imququ.com/post/referrer-policy.html" target="_blank" rel="noopener">Referrer Policy 介绍</a>]、<a href="http://www.jb51.net/article/117739.htm" target="_blank" rel="noopener">document.referrer的用法详解</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h2 id=&quot;Hexo图片不显示&quot;&gt;&lt;a href=&quot;#Hexo图片不显示&quot; class=&quot;headerlink&quot; title=&quot;Hexo图片不显示&quot;&gt;&lt;/a&gt;Hexo图片不显示&lt;/h2&gt;&lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h3&gt;&lt;p&gt;博客内需要引用一些图片，使用的是阿里云Oss，图片设置的公共读，图片地址从浏览器打开可以直接访问，但是博客内引用不能显示。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;在chrome浏览器中检查会发现有403的错误&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://limengtupian.oss-cn-beijing.aliyuncs.com/403%E5%9B%BE%E7%89%87.png&quot; alt=&quot;403&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
-    
-      <category term="图片地址" scheme="http://lenmon54231.github.io.git/tags/%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9D%80/"/>
-    
-      <category term="refer" scheme="http://lenmon54231.github.io.git/tags/refer/"/>
-    
-  </entry>
-  
-  <entry>
     <title>函数防抖和节流</title>
     <link href="http://lenmon54231.github.io.git/2019/12/02/%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"/>
     <id>http://lenmon54231.github.io.git/2019/12/02/%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/</id>
@@ -281,6 +254,32 @@
       <category term="节流" scheme="http://lenmon54231.github.io.git/tags/%E8%8A%82%E6%B5%81/"/>
     
       <category term="防抖" scheme="http://lenmon54231.github.io.git/tags/%E9%98%B2%E6%8A%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初始模板</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/%E5%88%9D%E5%A7%8B%E6%A8%A1%E6%9D%BF/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/%E5%88%9D%E5%A7%8B%E6%A8%A1%E6%9D%BF/</id>
+    <published>2019-12-02T09:16:26.000Z</published>
+    <updated>2019-12-11T11:19:59.706Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="title"><a href="#title" class="headerlink" title="title"></a>title</h2><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+
+&lt;h2 id=&quot;title&quot;&gt;&lt;a href=&quot;#title&quot; class=&quot;headerlink&quot; title=&quot;title&quot;&gt;&lt;/a&gt;title&lt;/h2&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="github" scheme="http://lenmon54231.github.io.git/tags/github/"/>
+    
+      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
     
   </entry>
   
@@ -387,6 +386,35 @@
   </entry>
   
   <entry>
+    <title>记录网站功能实现-精灵图</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E7%B2%BE%E7%81%B5%E5%9B%BE/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E7%B2%BE%E7%81%B5%E5%9B%BE/</id>
+    <published>2019-12-02T09:16:26.000Z</published>
+    <updated>2019-12-29T13:14:48.332Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="记录网站功能实现-精灵图"><a href="#记录网站功能实现-精灵图" class="headerlink" title="记录网站功能实现-精灵图"></a>记录网站功能实现-精灵图</h2><h3 id="精灵图"><a href="#精灵图" class="headerlink" title="精灵图"></a>精灵图</h3><ul><li><p>精灵图技术产生的目的：很多大型网页在首次加载的时候都需要加载很多的小图片，而考虑到在同一时间，服务器拥堵的情况下，为了解决这一问题，采用了精灵图这一技术来缓解加载时间过长从而影响用户体验的这个问题。</p></li><li><p>精灵图技术的本质：所谓精灵图就是把很多的小图片合并到一张较大的图片里，所以在首次加载页面的时候，就不用加载过多的小图片，只需要加载出来将小图片合并起来的那一张大图片也就是精灵图即可，这样在一定程度上减少了页面的加载速度，也一定程度上缓解了服务器的压力。例如王者荣耀页面里的几个小logo:</p><p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171128/e5c76a5b52c14b2eadb8036126bbdce2.png" alt="tupian"></p></li></ul><a id="more"></a><h3 id="怎么去实现一张图片加载不同位置"><a href="#怎么去实现一张图片加载不同位置" class="headerlink" title="怎么去实现一张图片加载不同位置"></a>怎么去实现一张图片加载不同位置</h3><p><strong>主要通过background-position属性去设置不同位置</strong></p><p>如图：</p><ul><li><p>引入背景图片</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E7%B2%BE%E7%81%B5%E5%9B%BEmd/%E7%B2%BE%E7%81%B5%E5%9B%BE1.png" alt></p></li><li><p>设置背景图片显示位置<strong>（实际上可以通过js的for循环去设置）</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E7%B2%BE%E7%81%B5%E5%9B%BEmd/%E7%B2%BE%E7%81%B5%E5%9B%BE2.png" alt></p></li><li><p>设置hover效果</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E7%B2%BE%E7%81%B5%E5%9B%BEmd/%E7%B2%BE%E7%81%B5%E5%9B%BE3.png" alt></p></li></ul><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p><strong>优点：</strong></p><p>①减少网页的http请求，从而加快了网页加载速度，提高用户体验。</p><p>②减少图片的体积，因为每个图片都有一个头部信息，把多个图片放到一个图片里，就会共用同一个头信息，从而减少了字节数。</p><p>③解决了网页设计师在图片命名上的困扰，只需对一张集合的图片上命名就可以了，不需要对每一个小元素进行命名。</p><p>④更换风格方便，只需要在一张或少张图片上修改图片的颜色或样式，整个网页的风格就可以改变。</p><p><strong>缺点：</strong></p><p>①在宽屏，高分辨率的屏幕下的自适应页面，你的图片如果不够宽，很容易出现背景断裂。</p><p>②CSS Sprites在开发的时候，要通过photoshop或其他工具测量计算每一个背景单元的精确位置。</p><p>③在维护的时候比较麻烦，如果页面背景有少许改动，一般就要改这张合并的图片。</p><p>④精灵图不能随意改变大小和颜色。改变大小会失真模糊，降低用户体验，Css3新属性可以改变精灵图颜色，但是比较麻烦，并且新属性有兼容问题，现在一般用字体图标代替精灵图。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;h2 id=&quot;记录网站功能实现-精灵图&quot;&gt;&lt;a href=&quot;#记录网站功能实现-精灵图&quot; class=&quot;headerlink&quot; title=&quot;记录网站功能实现-精灵图&quot;&gt;&lt;/a&gt;记录网站功能实现-精灵图&lt;/h2&gt;&lt;h3 id=&quot;精灵图&quot;&gt;&lt;a href=&quot;#精灵图&quot; class=&quot;headerlink&quot; title=&quot;精灵图&quot;&gt;&lt;/a&gt;精灵图&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;精灵图技术产生的目的：很多大型网页在首次加载的时候都需要加载很多的小图片，而考虑到在同一时间，服务器拥堵的情况下，为了解决这一问题，采用了精灵图这一技术来缓解加载时间过长从而影响用户体验的这个问题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;精灵图技术的本质：所谓精灵图就是把很多的小图片合并到一张较大的图片里，所以在首次加载页面的时候，就不用加载过多的小图片，只需要加载出来将小图片合并起来的那一张大图片也就是精灵图即可，这样在一定程度上减少了页面的加载速度，也一定程度上缓解了服务器的压力。例如王者荣耀页面里的几个小logo:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://5b0988e595225.cdn.sohucs.com/images/20171128/e5c76a5b52c14b2eadb8036126bbdce2.png&quot; alt=&quot;tupian&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="精灵图" scheme="http://lenmon54231.github.io.git/tags/%E7%B2%BE%E7%81%B5%E5%9B%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>记录网站功能-动态生成li</title>
     <link href="http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90li/"/>
     <id>http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90li/</id>
@@ -435,35 +463,6 @@
     
     
       <category term="搜索" scheme="http://lenmon54231.github.io.git/tags/%E6%90%9C%E7%B4%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>初始模板</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/02/api%E8%B0%83%E7%94%A8%E5%9B%BE%E7%89%87403/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/02/api%E8%B0%83%E7%94%A8%E5%9B%BE%E7%89%87403/</id>
-    <published>2019-12-02T09:16:26.000Z</published>
-    <updated>2019-12-11T11:31:24.345Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="豆瓣api调用图片403提示"><a href="#豆瓣api调用图片403提示" class="headerlink" title="豆瓣api调用图片403提示"></a>豆瓣api调用图片403提示</h2><h3 id="豆瓣api"><a href="#豆瓣api" class="headerlink" title="豆瓣api"></a>豆瓣api</h3><p>需要搭建一个电影类的分类网站，所以会调用到豆瓣的api，现在官方没有给公共的api使用，于是网上找了下有提供备份的api使用，地址如下：<a href="https://douban.uieee.com/" target="_blank" rel="noopener">豆瓣api</a></p><p>使用这个地址，可以直接访问到豆瓣的内容，但是使用过程中，发现关于电影的名字，类型，上映年份都可以直接访问，只有图片没有办法访问，有提示403错误。</p><h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>豆瓣使用了防盗链：</p><p>很多时候别人直接把我们的网站的资源拿去在他们网站展示，但是消费的是我们的流量，为了解决这种问题，才会有防盗链这个思路</p><p>这里说的只是一个简单的概念，既使用host和reffer请求头做对比，简单的做一个处理，主要是用来熟悉http头</p><a id="more"></a><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>在页面中加上 <meta name="referrer" content="never"></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E9%98%B2%E7%9B%97%E9%93%BE.png" alt="fangdao"></p><p>实现了正常的访问！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h2 id=&quot;豆瓣api调用图片403提示&quot;&gt;&lt;a href=&quot;#豆瓣api调用图片403提示&quot; class=&quot;headerlink&quot; title=&quot;豆瓣api调用图片403提示&quot;&gt;&lt;/a&gt;豆瓣api调用图片403提示&lt;/h2&gt;&lt;h3 id=&quot;豆瓣api&quot;&gt;&lt;a href=&quot;#豆瓣api&quot; class=&quot;headerlink&quot; title=&quot;豆瓣api&quot;&gt;&lt;/a&gt;豆瓣api&lt;/h3&gt;&lt;p&gt;需要搭建一个电影类的分类网站，所以会调用到豆瓣的api，现在官方没有给公共的api使用，于是网上找了下有提供备份的api使用，地址如下：&lt;a href=&quot;https://douban.uieee.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;豆瓣api&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;使用这个地址，可以直接访问到豆瓣的内容，但是使用过程中，发现关于电影的名字，类型，上映年份都可以直接访问，只有图片没有办法访问，有提示403错误。&lt;/p&gt;
-&lt;h3 id=&quot;原因&quot;&gt;&lt;a href=&quot;#原因&quot; class=&quot;headerlink&quot; title=&quot;原因&quot;&gt;&lt;/a&gt;原因&lt;/h3&gt;&lt;p&gt;豆瓣使用了防盗链：&lt;/p&gt;
-&lt;p&gt;很多时候别人直接把我们的网站的资源拿去在他们网站展示，但是消费的是我们的流量，为了解决这种问题，才会有防盗链这个思路&lt;/p&gt;
-&lt;p&gt;这里说的只是一个简单的概念，既使用host和reffer请求头做对比，简单的做一个处理，主要是用来熟悉http头&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="github" scheme="http://lenmon54231.github.io.git/tags/github/"/>
-    
-      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
     
   </entry>
   
@@ -523,35 +522,6 @@
   </entry>
   
   <entry>
-    <title>记录网站功能实现-精灵图</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E7%B2%BE%E7%81%B5%E5%9B%BE/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E7%B2%BE%E7%81%B5%E5%9B%BE/</id>
-    <published>2019-12-02T09:16:26.000Z</published>
-    <updated>2019-12-29T13:14:48.332Z</updated>
-    
-    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="记录网站功能实现-精灵图"><a href="#记录网站功能实现-精灵图" class="headerlink" title="记录网站功能实现-精灵图"></a>记录网站功能实现-精灵图</h2><h3 id="精灵图"><a href="#精灵图" class="headerlink" title="精灵图"></a>精灵图</h3><ul><li><p>精灵图技术产生的目的：很多大型网页在首次加载的时候都需要加载很多的小图片，而考虑到在同一时间，服务器拥堵的情况下，为了解决这一问题，采用了精灵图这一技术来缓解加载时间过长从而影响用户体验的这个问题。</p></li><li><p>精灵图技术的本质：所谓精灵图就是把很多的小图片合并到一张较大的图片里，所以在首次加载页面的时候，就不用加载过多的小图片，只需要加载出来将小图片合并起来的那一张大图片也就是精灵图即可，这样在一定程度上减少了页面的加载速度，也一定程度上缓解了服务器的压力。例如王者荣耀页面里的几个小logo:</p><p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171128/e5c76a5b52c14b2eadb8036126bbdce2.png" alt="tupian"></p></li></ul><a id="more"></a><h3 id="怎么去实现一张图片加载不同位置"><a href="#怎么去实现一张图片加载不同位置" class="headerlink" title="怎么去实现一张图片加载不同位置"></a>怎么去实现一张图片加载不同位置</h3><p><strong>主要通过background-position属性去设置不同位置</strong></p><p>如图：</p><ul><li><p>引入背景图片</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E7%B2%BE%E7%81%B5%E5%9B%BEmd/%E7%B2%BE%E7%81%B5%E5%9B%BE1.png" alt></p></li><li><p>设置背景图片显示位置<strong>（实际上可以通过js的for循环去设置）</strong></p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E7%B2%BE%E7%81%B5%E5%9B%BEmd/%E7%B2%BE%E7%81%B5%E5%9B%BE2.png" alt></p></li><li><p>设置hover效果</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E7%B2%BE%E7%81%B5%E5%9B%BEmd/%E7%B2%BE%E7%81%B5%E5%9B%BE3.png" alt></p></li></ul><h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p><strong>优点：</strong></p><p>①减少网页的http请求，从而加快了网页加载速度，提高用户体验。</p><p>②减少图片的体积，因为每个图片都有一个头部信息，把多个图片放到一个图片里，就会共用同一个头信息，从而减少了字节数。</p><p>③解决了网页设计师在图片命名上的困扰，只需对一张集合的图片上命名就可以了，不需要对每一个小元素进行命名。</p><p>④更换风格方便，只需要在一张或少张图片上修改图片的颜色或样式，整个网页的风格就可以改变。</p><p><strong>缺点：</strong></p><p>①在宽屏，高分辨率的屏幕下的自适应页面，你的图片如果不够宽，很容易出现背景断裂。</p><p>②CSS Sprites在开发的时候，要通过photoshop或其他工具测量计算每一个背景单元的精确位置。</p><p>③在维护的时候比较麻烦，如果页面背景有少许改动，一般就要改这张合并的图片。</p><p>④精灵图不能随意改变大小和颜色。改变大小会失真模糊，降低用户体验，Css3新属性可以改变精灵图颜色，但是比较麻烦，并且新属性有兼容问题，现在一般用字体图标代替精灵图。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-
-&lt;h2 id=&quot;记录网站功能实现-精灵图&quot;&gt;&lt;a href=&quot;#记录网站功能实现-精灵图&quot; class=&quot;headerlink&quot; title=&quot;记录网站功能实现-精灵图&quot;&gt;&lt;/a&gt;记录网站功能实现-精灵图&lt;/h2&gt;&lt;h3 id=&quot;精灵图&quot;&gt;&lt;a href=&quot;#精灵图&quot; class=&quot;headerlink&quot; title=&quot;精灵图&quot;&gt;&lt;/a&gt;精灵图&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;精灵图技术产生的目的：很多大型网页在首次加载的时候都需要加载很多的小图片，而考虑到在同一时间，服务器拥堵的情况下，为了解决这一问题，采用了精灵图这一技术来缓解加载时间过长从而影响用户体验的这个问题。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;精灵图技术的本质：所谓精灵图就是把很多的小图片合并到一张较大的图片里，所以在首次加载页面的时候，就不用加载过多的小图片，只需要加载出来将小图片合并起来的那一张大图片也就是精灵图即可，这样在一定程度上减少了页面的加载速度，也一定程度上缓解了服务器的压力。例如王者荣耀页面里的几个小logo:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://5b0988e595225.cdn.sohucs.com/images/20171128/e5c76a5b52c14b2eadb8036126bbdce2.png&quot; alt=&quot;tupian&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="精灵图" scheme="http://lenmon54231.github.io.git/tags/%E7%B2%BE%E7%81%B5%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
     <title>记录网站功能-购物车</title>
     <link href="http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD-%E8%B4%AD%E7%89%A9%E8%BD%A6/"/>
     <id>http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD-%E8%B4%AD%E7%89%A9%E8%BD%A6/</id>
@@ -596,29 +566,61 @@
   </entry>
   
   <entry>
-    <title>设置GitHub</title>
-    <link href="http://lenmon54231.github.io.git/2019/12/02/%E8%AE%BE%E7%BD%AEGitHub/"/>
-    <id>http://lenmon54231.github.io.git/2019/12/02/%E8%AE%BE%E7%BD%AEGitHub/</id>
+    <title>记录网站功能实现-精灵图</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/%E8%AE%B0%E5%BD%95%E7%BD%91%E7%AB%99%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0-%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/</id>
     <published>2019-12-02T09:16:26.000Z</published>
-    <updated>2019-12-03T06:54:53.789Z</updated>
+    <updated>2020-01-04T12:31:46.683Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><p>GitHub是一个面向<a href="https://baike.baidu.com/item/开源/20720669" target="_blank" rel="noopener">开源</a>及私有<a href="https://baike.baidu.com/item/软件/12053" target="_blank" rel="noopener">软件</a>项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名GitHub。</p><h2 id="初始设置github"><a href="#初始设置github" class="headerlink" title="初始设置github"></a>初始设置github</h2><p>记录开始使用GitHub中三点注意：</p><ol><li><p>注册账号会验证邮箱，而163邮箱不能接受验证邮件</p><p><strong><em>注意</em></strong>：注册需要设置邮箱，需要选用qq邮箱或者gmail邮箱，163邮箱发现不能接收到GitHub的邮件！</p><a id="more"></a></li><li><p>新的库，需要设置sshkeys</p><ol><li><p>检查是否有sshkeys</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">~&#x2F;.ssh</span></pre></td></tr></table></figure></li><li><p>创建ssh</p><p>首先创建一个SSH，在Git Bash中输入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C “你的邮箱”</span></pre></td></tr></table></figure><p>然后他就会显示这两行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Generating public&#x2F;private rsa key pair.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Enter file in which to save the key (&#x2F;c&#x2F;Users&#x2F;16627&#x2F;.ssh&#x2F;id_rsa):</span></pre></td></tr></table></figure><p>这是让你输入一个文件名，用于保存刚才生成的 SSH key 代码。如果你不输入，直接回车，那么就会默认生成id_rsa和id_rsa.pub两个秘钥文件（如下提示）。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Created directory ‘&#x2F;c&#x2F;Users&#x2F;16627&#x2F;.ssh’.</span></pre></td></tr></table></figure><p>紧接着又会提示你</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Enter same passphrase again:</span></pre></td></tr></table></figure><p>接着又会提示你输入两次密码（该密码是你push文件的时候要输入的密码，而不是github管理者的密码），当然你还可以不输入密码，直接按回车。那么fetch和push的时候就不需要输入密码。</p><p><img src="https://img-blog.csdn.net/20180118114145818?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="chegngong"></p><p>已经创建成功</p><p><img src="https://img-blog.csdn.net/20180118115923234?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="chenggong"></p></li><li><p>添加ssh到GitHub</p><p>按照以下的步骤操作：</p><p><img src="https://img-blog.csdn.net/20180118120316317?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="1"></p><p><img src="https://img-blog.csdn.net/20180118120349241?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="2"></p><p><img src="https://img-blog.csdn.net/20180118120556118?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="3"></p><p>title随便给他起个名字就好。然后是key，这时候你要打开你刚才在电脑上的SSH key。刚才提示你建立的那段文字有SSH key的地址，按照地址找到你的文件，用记事本<strong>打开id_rsa.pub文件，全选其中的内容粘贴到网页的Key中即可。</strong></p><p><img src="https://img-blog.csdn.net/20180118121323658?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="4"></p><p><img src="https://img-blog.csdn.net/20180118121457269?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="5"></p><p><strong>然后你就会受到建立成功的邮件了。</strong></p><p><img src="https://img-blog.csdn.net/20180118121751176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY2NjcxNzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="6"></p></li><li><p>测试一下ssh key</p><p>在git Bash 中输入以下代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">注意是git@github.com，不是你的邮箱。</span></pre></td></tr></table></figure><p>然后会提示你：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">The authenticity of host ‘github.com (192.30.255.112)’ can’t be established.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)?</span></pre></td></tr></table></figure><p>正常提示，你只需要YES就可以。如果你创建 SSH key 的时候设置了密码，接下来就会提示你输入密码，如果你没设置密码会提示你:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Warning: Permanently added ‘github.com,192.30.255.112’ (RSA) to the list of known hosts.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Hi “用户名”! You’ve successfully authenticated, but GitHub does not provide shell access.</span></pre></td></tr></table></figure></li></ol></li><li><p>需要设置config.name和config.email</p><ul><li><p>按照以下的步骤操作</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot; 设置用户名</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">git config --global user.email myemail@qq.com 设置用户邮箱</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">git config --list 查看git设置列表信息</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">git config user.name  查看用户名</span></pre></td></tr></table></figure></li></ul></li></ol>]]></content>
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer">## 记录网站功能实现-搜索功能<h3 id="网站搜索功能"><a href="#网站搜索功能" class="headerlink" title="网站搜索功能"></a>网站搜索功能</h3><p>很多的导航网站会再头顶设置不同的搜索引擎的搜索框，提供更方便的搜索功能，如图：</p><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD1.png" alt></p><p>这个实现也不复杂，如下：</p><a id="more"></a><h3 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h3><p>功能的实现也不复杂，是通过一个form，不停的变换form中的action和name去切换不同的搜索引擎的</p><p>代码如下：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"https://www.baidu.com/s"</span> <span class="attr">target</span>=<span class="string">"__blank"</span> <span class="attr">id</span>=<span class="string">"searchForm"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">input</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">"searchInput"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"text"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">"请输入要搜索的内容："</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">"searchValue"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"word"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="tag">    <span class="attr">autofocus</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="tag">  /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"搜索"</span> /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">data() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    items: [</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">      &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        text: <span class="string">"谷歌"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        searchUrl: <span class="string">"http://www.google.com.hk/search?q="</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        name: <span class="string">"q"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">      &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">      &#123; <span class="attr">text</span>: <span class="string">"百度"</span>, <span class="attr">searchUrl</span>: <span class="string">"https://www.baidu.com/s"</span>, <span class="attr">name</span>: <span class="string">"word"</span> &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">      &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        text: <span class="string">"搜狗"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        searchUrl: <span class="string">"http://www.sogou.com/web"</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        name: <span class="string">"query"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">      &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">      &#123; <span class="attr">text</span>: <span class="string">"必应"</span>, <span class="attr">searchUrl</span>: <span class="string">"https://cn.bing.com/search"</span>, <span class="attr">name</span>: <span class="string">"q"</span> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    ],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    checkindex: <span class="number">1</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    searchValue: <span class="string">""</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">isActive(item, index) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">this</span>.checkindex = index;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"searchForm"</span>).action = item.searchUrl;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"searchInput"</span>).name = item.name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;,</span></pre></td></tr></table></figure><p>通过v-for去循环data中的items，去生成不同的搜索引擎按钮，点击不同的按钮，去切换form中的action和input中的name就可以实现搜索功能。</p><p>这个其中主要是通过各大搜索引擎提供的地址去操作，例如百度等，已经提供了公共的搜索接口，非常的方便。</p>]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;GitHub&quot;&gt;&lt;a href=&quot;#GitHub&quot; class=&quot;headerlink&quot; title=&quot;GitHub&quot;&gt;&lt;/a&gt;GitHub&lt;/h2&gt;&lt;p&gt;GitHub是一个面向&lt;a href=&quot;https://baike.baidu.com/item/开源/20720669&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;开源&lt;/a&gt;及私有&lt;a href=&quot;https://baike.baidu.com/item/软件/12053&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;软件&lt;/a&gt;项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名GitHub。&lt;/p&gt;
-&lt;h2 id=&quot;初始设置github&quot;&gt;&lt;a href=&quot;#初始设置github&quot; class=&quot;headerlink&quot; title=&quot;初始设置github&quot;&gt;&lt;/a&gt;初始设置github&lt;/h2&gt;&lt;p&gt;记录开始使用GitHub中三点注意：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;注册账号会验证邮箱，而163邮箱不能接受验证邮件&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;注意&lt;/em&gt;&lt;/strong&gt;：注册需要设置邮箱，需要选用qq邮箱或者gmail邮箱，163邮箱发现不能接收到GitHub的邮件！&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+## 记录网站功能实现-搜索功能
+
+&lt;h3 id=&quot;网站搜索功能&quot;&gt;&lt;a href=&quot;#网站搜索功能&quot; class=&quot;headerlink&quot; title=&quot;网站搜索功能&quot;&gt;&lt;/a&gt;网站搜索功能&lt;/h3&gt;&lt;p&gt;很多的导航网站会再头顶设置不同的搜索引擎的搜索框，提供更方便的搜索功能，如图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://limengtupian.oss-cn-beijing.aliyuncs.com/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD/%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD1.png&quot; alt&gt;&lt;/p&gt;
+&lt;p&gt;这个实现也不复杂，如下：&lt;/p&gt;
     
     </summary>
     
     
     
-      <category term="github" scheme="http://lenmon54231.github.io.git/tags/github/"/>
+      <category term="精灵图" scheme="http://lenmon54231.github.io.git/tags/%E7%B2%BE%E7%81%B5%E5%9B%BE/"/>
     
-      <category term="hexo" scheme="http://lenmon54231.github.io.git/tags/hexo/"/>
+  </entry>
+  
+  <entry>
+    <title>静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别</title>
+    <link href="http://lenmon54231.github.io.git/2019/12/02/%E9%9D%99%E6%80%81%E5%B8%83%E5%B1%80%E3%80%81%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80%E3%80%81%E6%B5%81%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E7%AD%89%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8C%BA%E5%88%AB/"/>
+    <id>http://lenmon54231.github.io.git/2019/12/02/%E9%9D%99%E6%80%81%E5%B8%83%E5%B1%80%E3%80%81%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80%E3%80%81%E6%B5%81%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%E3%80%81%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80%E7%AD%89%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8C%BA%E5%88%AB/</id>
+    <published>2019-12-02T09:16:26.000Z</published>
+    <updated>2019-12-03T15:01:01.272Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><h2 id="静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别"><a href="#静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别" class="headerlink" title="静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别"></a>静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别</h2><h3 id="静态布局"><a href="#静态布局" class="headerlink" title="静态布局"></a>静态布局</h3><ol><li><p>布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。</p></li><li><p>布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。</p><p>常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。</p></li><li><ul><li>优点：这种布局方式对设计师和CSS编写者来说都是最简单的，亦没有兼容性问题。</li><li>缺点：显而易见，即不能根据用户的屏幕尺寸做出不同的表现。<a id="more"></a></li></ul></li></ol><h3 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h3><ol><li><p>流式布局（Liquid）的特点（也叫”Fluid”) 是页面元素的宽度按照屏幕分辨率进行适配调整，但整体布局不变。代表作栅栏系统（网格系统）。</p></li><li><p>网页中主要的划分区域的尺寸使用百分数（搭配min-<em>、max-</em>属性使用），例如，设置网页主体的宽度为80%，min-width为960px。图片也作类似处理（width:100%, max-width一般设定为图片本身的尺寸，防止被拉伸而失真）。</p></li><li><p>布局和设计</p><ul><li><p>布局特点：屏幕分辨率变化时，页面里元素的大小会变化而但布局不变。【这就导致如果屏幕太大或者太小都会导致元素无法正常显示】</p></li><li><p>设计方法：使用%百分比定义宽度，高度大都是用px来固定住，可以根据可视区域 (viewport) 和父元素的实时尺寸进行调整，尽可能的适应各种分辨率。往往配合 max-width/min-width 等属性控制尺寸流动范围以免过大或者过小影响阅读。</p></li></ul></li><li><p>优点和缺点</p><ul><li>按照屏幕分辨率进行适配调整，但整体布局不变。适应早期的web布局，兼容性高</li><li><strong>缺点明显</strong>：<strong>主要的问题</strong>是如果屏幕尺度跨度太大，那么在相对其原始设计而言过小或过大的屏幕上不能正常显示。因为宽度使用%百分比定义，但是高度和文字大小等大都是用px来固定，所以在大屏幕的手机下显示效果会变成有些页面元素宽度被拉的很长，但是高度、文字大小还是和原来一样（即：<strong>这些东西无法变得“流式”</strong>），显示非常不协调。</li></ul></li></ol><h3 id="自适应布局"><a href="#自适应布局" class="headerlink" title="自适应布局"></a>自适应布局</h3><ol><li>自适应布局的特点是分别为不同的屏幕分辨率定义布局，即创建多个静态布局，每个静态布局对应一个屏幕分辨率范围。</li><li>实现方法<ul><li>使用 @media 媒体查询给不同尺寸和介质的设备切换不同的样式。在优秀的响应范围设计下可以给适配范围内的设备最好的体验，在同一个设备下实际还是固定的布局。</li></ul></li><li>特点<ul><li>布局特点：屏幕分辨率变化时，页面里面元素的位置会变化而大小不会变化。</li></ul></li><li>本质上是多个多个<strong><em>静态布局</em></strong>。</li></ol><h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><ol><li><strong>可以把响应式布局看作是流式布局和自适应布局设计理念的融合</strong>。</li><li>响应式设计的目标是确保一个页面在所有终端上（各种尺寸的PC、手机、手表、冰箱的Web浏览器等等）都能显示出令人满意的效果，对CSS编写者而言，在实现上不拘泥于具体手法，但通常是糅合了流式布局+弹性布局，再搭配媒体查询技术使用。</li><li>设计方法：<ul><li>媒体查询+流式布局。通常使用 @media 媒体查询 和网格系统 (Grid System) 配合相对布局单位进行布局，实际上就是综合响应式、流动等上述技术通过 CSS 给单一网页不同设备返回不同样式的技术统称。</li></ul></li><li>特点：<ul><li>每个屏幕分辨率下面会有一个布局样式，即元素位置和大小都会变。</li></ul></li><li>优点和缺点：<ul><li>适应pc和移动端，如果足够耐心，效果完美</li><li>（1）媒体查询是有限的，也就是可以枚举出来的，只能适应主流的宽高。（2）要匹配足够多的屏幕大小，工作量不小，设计也需要多个版本。需要很多个@media。</li></ul></li><li>代表比如bootstrap，element等都是响应式的设计布局</li></ol><h3 id="弹性布局"><a href="#弹性布局" class="headerlink" title="弹性布局"></a>弹性布局</h3><ol><li>这类布局的特点是，<strong>包裹文字的各元素的尺寸采用em/rem做单位，而页面的主要划分区域的尺寸仍使用百分数或px做单位（同「流式布局」或「静态/固定布局」）</strong>。<strong>早期浏览器不支持整个页面按比例缩放</strong>，仅支持网页内文字尺寸的放大，这种情况下。使用em/rem做单位，可以使包裹文字的元素随着文字的缩放而缩放。</li><li><strong>rem,em区别</strong>：<ul><li>rem,em都是顺应不同网页字体大小展现而产生的。其中，em是相对其父元素，在实际应用中相对而言会带来很多不便；而rem是始终相对于html大小，即页面根元素。</li></ul></li><li>根据不同的屏幕尺寸，rem改变的是font-size的大小，但是本质上，客户看到的布局是没有改变的，这一点不同于响应式布局。</li><li><strong>响应式和弹性布局之间的对比：</strong><ul><li>rem布局：改变浏览器宽度，页面所有元素的高宽都等比例缩放，也就是大屏幕下导航是横的，小屏幕下还是横的只不过变小了。</li><li>响应式布局：改变浏览器宽度，“布局”会随之变化，不是一成不变的，例如导航栏在大屏幕下是横排，在小屏幕下是竖排，在超小屏幕下隐藏为菜单，也就是说如果有足够的耐心，在每一种屏幕下都应该有合理的布局，完美的效果。</li></ul></li></ol><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote><ol><li><p>如果只做pc端，那么静态布局（定宽度）是最好的选择；</p></li><li><p>如果做移动端，且设计对高度和元素间距要求不高，那么弹性布局（rem+js）是最好的选择，一份css+一份js调节font-size搞定；</p></li><li><p>如果pc，移动要兼容，而且要求很高那么响应式布局还是最好的选择，前提是设计根据不同的高宽做不同的设计，响应式根据媒体查询做不同的布局。</p></li></ol></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;h2 id=&quot;静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&quot;&gt;&lt;a href=&quot;#静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&quot; class=&quot;headerlink&quot; title=&quot;静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&quot;&gt;&lt;/a&gt;静态布局、自适应布局、流式布局、响应式布局、弹性布局等的概念和区别&lt;/h2&gt;&lt;h3 id=&quot;静态布局&quot;&gt;&lt;a href=&quot;#静态布局&quot; class=&quot;headerlink&quot; title=&quot;静态布局&quot;&gt;&lt;/a&gt;静态布局&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;布局特点：不管浏览器尺寸具体是多少，网页布局始终按照最初写代码时的布局来显示。&lt;/p&gt;
+&lt;p&gt;常规的pc的网站都是静态（定宽度）布局的，也就是设置了min-width，这样的话，如果小于这个宽度就会出现滚动条，如果大于这个宽度则内容居中外加背景，这种设计常见与pc端。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;优点：这种布局方式对设计师和CSS编写者来说都是最简单的，亦没有兼容性问题。&lt;/li&gt;
+&lt;li&gt;缺点：显而易见，即不能根据用户的屏幕尺寸做出不同的表现。&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ol&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="自适应布局" scheme="http://lenmon54231.github.io.git/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/"/>
+    
+      <category term="响应式布局，弹性布局" scheme="http://lenmon54231.github.io.git/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80%EF%BC%8C%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80/"/>
     
   </entry>
   
