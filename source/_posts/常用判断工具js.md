@@ -8,6 +8,10 @@ tags: [ES6, JS]
 
 ### 常用判断工具
 
+> 包含各种判断：是否是链接，是否为空，是否是对象等功能
+
+#### 通用判断功能
+
 ```js
 const toString = Object.prototype.toString;
 
