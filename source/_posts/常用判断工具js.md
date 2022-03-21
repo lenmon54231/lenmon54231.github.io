@@ -111,6 +111,11 @@ return reg.test(path);
 
 ```
 
-```
-
+```js
+判断小数点后两位
+<el-input
+   v-model="ruleForm.score"
+   oninput="if(isNaN(value)) { value = parseFloat(value) } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+3)}"
+   placeholder="请输填写该项分值（可填写到小数点后两位）"
+ />
 ```
