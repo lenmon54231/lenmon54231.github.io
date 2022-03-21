@@ -2,11 +2,10 @@ const shell = require("shelljs");
 let program = require("commander");
 
 const runGit = async function () {
-  // let currentTime = String(new Date());
-  let currentTime = "test";
+  let currentTime = String(
+    new Date().toLocaleString("chinese", { hour12: false })
+  );
   let commitStr = `git commit -m "${currentTime}"`;
-  console.log("commitStr: ", commitStr);
-  let pull = "git pull";
   await shell.exec("git pull");
   await shell.exec("git add .");
   await shell.exec(commitStr);
