@@ -1,25 +1,26 @@
 const shell = require("shelljs");
-let program = require("commander");
+const program = require("commander");
 
 const runGit = async function () {
   let currentTime = String(
     new Date().toLocaleString("chinese", { hour12: false })
   );
   let commitStr = `git commit -m "${currentTime}"`;
-  await shell.exec("git pull");
-  await shell.exec("git add .");
-  await shell.exec(commitStr);
-  await shell.exec("git push");
+  shell.exec("git pull");
+  shell.exec("git add .");
+  shell.exec(commitStr);
+  shell.exec("git push");
 };
 
 const runHexo = async function () {
-  await shell.exec("hexo clean");
+  shell.exec("hexo clean");
   console.log("hexo执行本地清空缓存");
   await shell.exec("hexo g");
   console.log("hexo执行本地生成文件");
   await shell.exec("hexo d");
   console.log("hexo执行push远端更新");
 };
+
 const runHexoCI = async function () {
   try {
     program
