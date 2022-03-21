@@ -14,8 +14,11 @@ const runGit = async function () {
 
 const runHexo = async function () {
   await shell.exec("hexo clean");
+  console.log("hexo执行本地清空缓存");
   await shell.exec("hexo g");
+  console.log("hexo执行本地生成文件");
   await shell.exec("hexo d");
+  console.log("hexo执行push远端更新");
 };
 const runHexoCI = async function () {
   try {
