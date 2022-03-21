@@ -2,19 +2,22 @@
 const shell = require("shelljs");
 //引用commander模块，这里返回的是一个commander对象
 let program = require("commander");
-
+// const changeCMDToPromise = (cmd) => {
+//   return new Promise((resolve, reject) => {
+//     shell.exec(cmd);
+//   });
+// };
 const runGit = async function () {
-  await shell.exec("git pull", { async: true });
-  await shell.exec("git add .", { async: true });
-  await shell.exec("git commit -m 'autoCommit'", { async: true });
-  await shell.exec("git push", { async: true });
+  await shell.exec("git add .");
+  await shell.exec("git commit -m 'autoCommit'");
+  await shell.exec("git push");
 };
 
 const runHexo = async function () {
-  await shell.exec("git pull", { async: true });
-  await shell.exec("git add .", { async: true });
-  await shell.exec("git commit -m 'autoCommit'", { async: true });
-  await shell.exec("git push", { async: true });
+  shell.exec("git pull");
+  shell.exec("git add .");
+  shell.exec("git commit -m 'autoCommit'");
+  shell.exec("git push");
 };
 const runHexoCI = async function () {
   try {
