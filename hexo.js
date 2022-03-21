@@ -2,16 +2,21 @@ const shell = require("shelljs");
 let program = require("commander");
 
 const runGit = async function () {
+  // let currentTime = String(new Date());
+  let currentTime = "test";
+  let commitStr = `git commit -m "${currentTime}"`;
+  console.log("commitStr: ", commitStr);
+  let pull = "git pull";
+  await shell.exec("git pull");
   await shell.exec("git add .");
-  await shell.exec("git commit -m 'autoCommit'");
+  await shell.exec(commitStr);
   await shell.exec("git push");
 };
 
 const runHexo = async function () {
-  await shell.exec("git pull");
-  await shell.exec("git add .");
-  await shell.exec("git commit -m 'autoCommit'");
-  await shell.exec("git push");
+  await shell.exec("hexo clean");
+  await shell.exec("hexo g");
+  await shell.exec("hexo d");
 };
 const runHexoCI = async function () {
   try {
@@ -30,8 +35,8 @@ const runHexoCI = async function () {
       console.log("命中hexo");
       await runHexo();
     } else {
-      await runGit();
       await runHexo();
+      await runGit();
     }
   } catch (error) {
     console.log("CI流程报错!!!!!", error);
