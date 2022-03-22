@@ -4,7 +4,7 @@ date: 2022-03-21 16:49:08
 tags: [hexo, node]
 ---
 
-## node 实现 push 和 hexo 更新
+## node 实现 push 和 hexo 更新 1
 
 ### Hexo 和 Github 页面实现个人博客
 

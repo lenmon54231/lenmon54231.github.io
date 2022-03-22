@@ -12,16 +12,22 @@ const runGit = async function () {
   shell.exec("git push");
 };
 
-const runHexo = async function () {
-  shell.exec("hexo clean");
-  console.log("hexo执行本地清空缓存");
-  await shell.exec("hexo g");
-  console.log("hexo执行本地生成文件");
-  await shell.exec("hexo d");
-  console.log("hexo执行push远端更新");
+const runHexo = function () {
+  if (shell.exec("hexo clean").code !== 0) {
+    shell.echo("Error: hexo failed");
+    shell.exit(1);
+  }
+  if (shell.exec("hexo g").code !== 0) {
+    shell.echo("Error: hexo g failed");
+    shell.exit(1);
+  }
+  if (shell.exec("hexo d").code !== 0) {
+    shell.echo("Error: hexo d failed");
+    shell.exit(1);
+  }
 };
 
-const runHexoCI = async function () {
+const runHexoCI = function () {
   try {
     program
       // @ts-ignore
@@ -32,14 +38,14 @@ const runHexoCI = async function () {
     // @ts-ignore
     if (program?._optionValues?.gitCI) {
       console.log("命中git");
-      await runGit();
+      runGit();
       // @ts-ignore
     } else if (program?._optionValues?.hexoCI) {
       console.log("命中hexo");
-      await runHexo();
+      runHexo();
     } else {
-      await runHexo();
-      await runGit();
+      runHexo();
+      runGit();
     }
   } catch (error) {
     console.log("CI流程报错!!!!!", error);
