@@ -4,7 +4,7 @@ date: 2022-03-21 16:49:08
 tags: [hexo, node]
 ---
 
-## node 实现 push 和 hexo 更新 1
+## node 实现 push 和 hexo 更新
 
 ### Hexo 和 Github 页面实现个人博客
 
@@ -26,9 +26,11 @@ hexo s
 
 ```js
 deploy:
-type: git
-repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git
-branch: master
+  type: git
+  repo: https://github.com/lenmon54231/lenmon54231.github.io.git
+  branch: master
+
+root: /
 ```
 
 最后，配置下 git 提交的插件
