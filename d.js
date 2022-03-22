@@ -47,11 +47,13 @@ const runHexo = function () {
   //   shell.echo("Error: hexo d failed");
   //   shell.exit(1);
   // }
-  if (shell.exec(" hexo d").code !== 0) {
-    shell.echo("Error: hexo d failed");
+  setTimeout(() => {
+    if (shell.exec(" hexo d").code !== 0) {
+      shell.echo("Error: hexo d failed");
+      shell.exit(1);
+    }
     shell.exit(1);
-  }
-  shell.exit(1);
+  }, 1000);
 };
 
 const runHexoCI = function () {
@@ -71,8 +73,8 @@ const runHexoCI = function () {
       console.log("命中hexo");
       runHexo();
     } else {
-      runHexo();
       runGit();
+      runHexo();
     }
   } catch (error) {
     console.log("CI流程报错!!!!!", error);

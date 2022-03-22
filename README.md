@@ -19,7 +19,7 @@ hexo d
 #### node 快捷操作
 
 ```js
-node hexo -g // 只提交源码更新
-node hexo -h // 只更新hexo博客
-node hexo //同时更新GitHub博客源码和hexo博客
+node d -g // 只提交源码更新
+node d -h // 只更新hexo博客
+node d //同时更新GitHub博客源码和hexo博客
 ```
