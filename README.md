@@ -22,4 +22,5 @@ hexo d
 node d -g // 只提交源码更新
 node d -h // 只更新hexo博客
 node d //同时更新GitHub博客源码和hexo博客
+node d -n '测试' // 新增博客文章
 ```

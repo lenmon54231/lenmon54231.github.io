@@ -1,7 +1,7 @@
+// @ts-nocheck
 const shell = require("shelljs");
 const program = require("commander");
 const iconv = require("iconv-lite");
-const inquirer = require("inquirer");
 
 // const shell = require("child_process");
 
@@ -54,36 +54,19 @@ const runHexo = function () {
   }
 };
 
-const runNewHexo = function () {
-  inquirer
-    .prompt([
-      /* Pass your questions in here */
-      "write your page title",
-    ])
-    .then((answers) => {
-      console.log("answers: ", answers);
-      let title = `hexo n "${answers}" `;
-      shell.exec(title);
-    })
-    .catch((error) => {
-      if (error.isTtyError) {
-        // Prompt couldn't be rendered in the current environment
-      } else {
-        // Something else when wrong
-      }
-    });
+const runNewHexo = function (newPageHexoWithTitle) {
+  shell.cd("blog");
+  shell.exec(newPageHexoWithTitle);
 };
 
 const runHexoCI = function () {
   try {
     program
-      // @ts-ignore
       .version("0.0.1") //定义版本号
       .option("-g, --gitCI", "gitCI") //参数定义
       .option("-h, --hexoCI", "hexoCI")
       .option("-n, --hexoNewPage", "hexoNewPage")
       .parse(process.argv); //解析命令行参数,参数定义完成后才能调用
-    // @ts-ignore
     if (program?._optionValues?.gitCI) {
       console.log("命中git");
       runGit();
@@ -93,10 +76,14 @@ const runHexoCI = function () {
       console.log("命中hexo");
       runHexo();
       shell.exit(1);
-      // @ts-ignore
     } else if (program?._optionValues?.hexoNewPage) {
       console.log("命中新建文章页面");
-      runNewHexo();
+      if (program?.rawArgs[3]) {
+        let newPageHexoWithTitle = `hexo n "${program?.rawArgs[3]}"`;
+        runNewHexo(newPageHexoWithTitle);
+      } else {
+        console.log("输入最后一个参数，即：文章名称");
+      }
     } else {
       runGit();
       runHexo();
