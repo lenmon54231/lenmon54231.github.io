@@ -42,16 +42,14 @@ const runHexo = function () {
     shell.echo("Error: hexo g failed");
     shell.exit(1);
   }
-  // if (shell.exec(" hexo s").code !== 0) {
+  // if (shell.exec("hexo s").code !== 0) {
   //   shell.echo("Error: hexo d failed");
   //   shell.exit(1);
   // }
-  setTimeout(() => {
-    if (shell.exec(" hexo d").code !== 0) {
-      shell.echo("Error: hexo d failed");
-      shell.exit(1);
-    }
-  }, 1000);
+  if (shell.exec("hexo d").code !== 0) {
+    shell.echo("Error: hexo d failed");
+    shell.exit(1);
+  }
 };
 
 const runHexoCI = function () {
