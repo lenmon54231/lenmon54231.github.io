@@ -16,20 +16,6 @@ const runGit = function () {
 };
 
 const runHexo = function () {
-  // console.log('shell.which("hexo"): ', shell.which("hexo"));
-  // console.log(shell.which("git"));
-  // shell.chmod(755, hexoFilePath);
-
-  // shell.exec("pnpm clean cache ");
-  // shell.exec("sudo npm install -no-bin-links");
-  // shell.exec("hexo version", { silent: false });
-  // let version = shell.exec("hexo --version", { silent: true }).stdout;
-  // console.log(
-  //   ' shell.exec("hexo --version", { silent: true }): ',
-  //   shell.exec("hexo --version", { silent: true })
-  // );
-  // console.log("version: ", version);
-  // shell.exec("node -v");
   // shell.exec(
   //   "ipconfig",
   //   { silent: true, encoding: "buffer" },
@@ -48,6 +34,7 @@ const runHexo = function () {
     shell.echo("Sorry, this script requires hexo");
     shell.exit(1);
   }
+  shell.cd("blog");
   if (shell.exec("hexo clean").code !== 0) {
     shell.echo("Error: hexo failed");
     shell.exit(1);
@@ -56,6 +43,10 @@ const runHexo = function () {
     shell.echo("Error: hexo g failed");
     shell.exit(1);
   }
+  // if (shell.exec(" hexo s").code !== 0) {
+  //   shell.echo("Error: hexo d failed");
+  //   shell.exit(1);
+  // }
   if (shell.exec(" hexo d").code !== 0) {
     shell.echo("Error: hexo d failed");
     shell.exit(1);
