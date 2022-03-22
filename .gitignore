@@ -3,8 +3,7 @@ node_modules
 /dist
 public
 db.json
-/.deploy_git
-/blog/.deploy_git
+blog/.deploy_git
 # local env files
 # .env.self
 .env.local
