@@ -70,12 +70,10 @@ const runHexoCI = function () {
     if (program?._optionValues?.gitCI) {
       console.log("命中git");
       runGit();
-      shell.exit(1);
       // @ts-ignore
     } else if (program?._optionValues?.hexoCI) {
       console.log("命中hexo");
       runHexo();
-      shell.exit(1);
     } else if (program?._optionValues?.hexoNewPage) {
       console.log("命中新建文章页面");
       if (program?.rawArgs[3]) {
@@ -87,7 +85,6 @@ const runHexoCI = function () {
     } else {
       runGit();
       runHexo();
-      shell.exit(1);
     }
   } catch (error) {
     console.log("CI流程报错!!!!!", error);
