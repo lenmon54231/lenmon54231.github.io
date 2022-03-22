@@ -12,7 +12,6 @@ const runGit = function () {
   shell.exec("git add .");
   shell.exec(commitStr);
   shell.exec("git push");
-  shell.exit(1);
 };
 
 const runHexo = function () {
@@ -52,7 +51,6 @@ const runHexo = function () {
       shell.echo("Error: hexo d failed");
       shell.exit(1);
     }
-    shell.exit(1);
   }, 1000);
 };
 
@@ -76,6 +74,7 @@ const runHexoCI = function () {
       runGit();
       runHexo();
     }
+    shell.exit(1);
   } catch (error) {
     console.log("CI流程报错!!!!!", error);
   }
