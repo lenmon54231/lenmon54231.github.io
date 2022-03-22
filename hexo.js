@@ -16,14 +16,10 @@ const runGit = function () {
 };
 
 const runHexo = function () {
-  let hexoFilePath = shell.which("hexo");
   // console.log('shell.which("hexo"): ', shell.which("hexo"));
-  console.log(hexoFilePath);
-  console.log("-----------------------------");
   // console.log(shell.which("git"));
   // shell.chmod(755, hexoFilePath);
-  shell.exec("hexo clean");
-  shell.exit(1);
+
   // shell.exec("pnpm clean cache ");
   // shell.exec("sudo npm install -no-bin-links");
   // shell.exec("hexo version", { silent: false });
@@ -47,20 +43,24 @@ const runHexo = function () {
   //     );
   //   }
   // );
-  // if (shell.exec("hexo clean").code !== 0) {
-  //   shell.echo("Error: hexo failed");
-  //   shell.exit(1);
-  // }
-  // if (shell.exec("hexo g").code !== 0) {
-  //   shell.echo("Error: hexo g failed");
-  //   shell.exit(1);
-  // }
-  // shell.exec("hexo clean").exec("hexo g");
-  // shell.exec("node -v");
-  // if (shell.exec(" hexo d").code !== 0) {
-  //   shell.echo("Error: hexo d failed");
-  //   shell.exit(1);
-  // }
+  if (!shell.which("hexo")) {
+    //在控制台输出内容
+    shell.echo("Sorry, this script requires hexo");
+    shell.exit(1);
+  }
+  if (shell.exec("hexo clean").code !== 0) {
+    shell.echo("Error: hexo failed");
+    shell.exit(1);
+  }
+  if (shell.exec("hexo g").code !== 0) {
+    shell.echo("Error: hexo g failed");
+    shell.exit(1);
+  }
+  if (shell.exec(" hexo d").code !== 0) {
+    shell.echo("Error: hexo d failed");
+    shell.exit(1);
+  }
+  shell.exit(1);
 };
 
 const runHexoCI = function () {
