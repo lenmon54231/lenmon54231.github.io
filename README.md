@@ -16,7 +16,7 @@ hexo g
 hexo d
 ```
 
-#### node 快捷操作
+#### node 快捷操作（替换重复工作）
 
 ```js
 node d -g // 只提交源码更新
