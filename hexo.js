@@ -1,7 +1,9 @@
 const shell = require("shelljs");
 const program = require("commander");
+const iconv = require("iconv-lite");
+// const shell = require("child_process");
 
-const runGit = async function () {
+const runGit = function () {
   let currentTime = String(
     new Date().toLocaleString("chinese", { hour12: false })
   );
@@ -10,21 +12,55 @@ const runGit = async function () {
   shell.exec("git add .");
   shell.exec(commitStr);
   shell.exec("git push");
+  shell.exit(1);
 };
 
 const runHexo = function () {
-  if (shell.exec("hexo clean").code !== 0) {
-    shell.echo("Error: hexo failed");
-    shell.exit(1);
-  }
-  if (shell.exec("hexo g").code !== 0) {
-    shell.echo("Error: hexo g failed");
-    shell.exit(1);
-  }
-  if (shell.exec("hexo d").code !== 0) {
-    shell.echo("Error: hexo d failed");
-    shell.exit(1);
-  }
+  let hexoFilePath = shell.which("hexo");
+  // console.log('shell.which("hexo"): ', shell.which("hexo"));
+  console.log(hexoFilePath);
+  console.log("-----------------------------");
+  // console.log(shell.which("git"));
+  // shell.chmod(755, hexoFilePath);
+  shell.exec("hexo clean");
+  shell.exit(1);
+  // shell.exec("pnpm clean cache ");
+  // shell.exec("sudo npm install -no-bin-links");
+  // shell.exec("hexo version", { silent: false });
+  // let version = shell.exec("hexo --version", { silent: true }).stdout;
+  // console.log(
+  //   ' shell.exec("hexo --version", { silent: true }): ',
+  //   shell.exec("hexo --version", { silent: true })
+  // );
+  // console.log("version: ", version);
+  // shell.exec("node -v");
+  // shell.exec(
+  //   "ipconfig",
+  //   { silent: true, encoding: "buffer" },
+  //   (err, stdout, stderr) => {
+  //     // @ts-ignore
+  //     console.log(
+  //       "ipconfig ---------------------------",
+  //       // @ts-ignore
+  //       iconv.decode(stdout, "cp936"),
+  //       "ipconfig ---------------------------"
+  //     );
+  //   }
+  // );
+  // if (shell.exec("hexo clean").code !== 0) {
+  //   shell.echo("Error: hexo failed");
+  //   shell.exit(1);
+  // }
+  // if (shell.exec("hexo g").code !== 0) {
+  //   shell.echo("Error: hexo g failed");
+  //   shell.exit(1);
+  // }
+  // shell.exec("hexo clean").exec("hexo g");
+  // shell.exec("node -v");
+  // if (shell.exec(" hexo d").code !== 0) {
+  //   shell.echo("Error: hexo d failed");
+  //   shell.exit(1);
+  // }
 };
 
 const runHexoCI = function () {

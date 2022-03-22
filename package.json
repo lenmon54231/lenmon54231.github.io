@@ -25,6 +25,9 @@
     "hexo-server": "^2.0.0",
     "hexo-theme-fluid": "^1.8.14",
     "hexo-theme-landscape": "^0.0.3",
+    "hexo-util": "^2.6.0",
+    "iconv-lite": "^0.6.3",
+    "nunjucks": "3.0.0",
     "shelljs": "^0.8.5"
   }
 }
