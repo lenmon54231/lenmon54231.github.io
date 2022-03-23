@@ -9,8 +9,11 @@ const runGit = async function () {
   );
   let commitStr = `git commit -m "${currentTime}"`;
   shell.exec("git pull", { silent: true });
+  shell.echo("git pull完成");
   shell.exec("git add .", { silent: true });
+  shell.echo("git add .完成");
   shell.exec(commitStr, { silent: true });
+  shell.echo("git commit完成");
   shell.exec("git push");
   shell.echo("git操作完成");
   return true;
@@ -36,14 +39,10 @@ const runHexo = async function () {
     shell.exit(1);
   }
   shell.cd("blog");
-  if (shell.exec("hexo clean", { silent: true }).code !== 0) {
-    shell.echo("Error: hexo failed");
-    shell.exit(1);
-  }
-  if (shell.exec("hexo g", { silent: true }).code !== 0) {
-    shell.echo("Error: hexo g failed");
-    shell.exit(1);
-  }
+  shell.exec("hexo clean", { silent: true });
+  shell.echo("hexo clean完成");
+  shell.exec("hexo g", { silent: true });
+  shell.echo("hexo g完成");
   if (shell.exec("hexo d").code !== 0) {
     shell.echo("Error: hexo d failed");
     shell.exit(1);
