@@ -1,7 +1,7 @@
 // @ts-nocheck
 const shell = require("shelljs");
 const program = require("commander");
-const iconv = require("iconv-lite");
+// const iconv = require("iconv-lite");
 
 // const shell = require("child_process");
 
