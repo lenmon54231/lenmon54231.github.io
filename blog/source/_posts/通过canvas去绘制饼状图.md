@@ -264,6 +264,158 @@ private drawText(item: Source, { x, y }) {
 
 stage?.graphs.customDrawText 绘制文字，给出定位和文字排列位置
 
+#### 可优化方向
+
+可以看出 刻度线 是由 180 个扇形图组成的，实际上我们刻度线只需要渲染出弧形就行了。只要最后一个圆弧渲染成扇形就 ok
+根据 canvas 的 api 可以看出，arc 本身是带有 弧形 的功能，即：
+
+```js
+//绘制120度的弧线，从弧线起点开始到弧线终点
+ctx.beginPath();
+ctx.moveTo(200, 400);
+ctx.arc(100, 400, 100, (0 * Math.PI) / 180, (120 * Math.PI) / 180);
+// ctx.closePath();
+ctx.stroke();
+```
+
+与之相对应的是扇形：
+
+```js
+//绘制60度的扇形，顺时针绘制
+ctx.beginPath();
+ctx.moveTo(200, 200);
+ctx.arc(200, 200, 100, (0 * Math.PI) / 180, (60 * Math.PI) / 180);
+ctx.closePath();
+ctx.stroke();
+ctx.fillStyle = "yellow";
+ctx.fill();
+```
+
+区别在于：弧形只调用了 ctx.stroke()，而扇形会 closePath()，然后.fill();
+
+现在的项目主要是针对扇形，有多种需求：
+
+1. 扇形-只描边（坐标系）- stroke
+2. 扇形-同时描边和填充（总分扇形）-fill,stroke
+3. 扇形-只填充（及格分扇形、得分扇形）-fill
+
+但是，没有针对弧形做处理，并且已经将单独的 stroke 字段占据了。现在需要新增一个 style 字段：onlyArcStroke
+修改 omg 源码如下：
+before
+
+```js
+if (!isNaN(this.startAngle) && !isNaN(this.endAngle)) {
+  canvas.arc(
+    0,
+    0,
+    this.scaled_radius,
+    (Math.PI / 180) * this.startAngle,
+    (Math.PI / 180) * this.endAngle,
+    false
+  );
+  canvas.save();
+  canvas.rotate((Math.PI / 180) * this.endAngle);
+  canvas.moveTo(this.scaled_radius, 0);
+  canvas.lineTo(0, 0);
+  canvas.restore();
+  canvas.rotate((Math.PI / 180) * this.startAngle);
+  canvas.lineTo(this.scaled_radius, 0);
+} else {
+  canvas.arc(0, 0, this.scaled_radius, 0, Math.PI * 2);
+}
+if (this.style === "fill,stroke") {
+  canvas.fillStyle = this.color;
+  canvas.fill();
+
+  canvas.strokeStyle = this.strokeColor;
+  canvas.lineWidth = this.lineWidth;
+  canvas.stroke();
+} else if (this.style === "fill") {
+  canvas.fillStyle = this.color;
+  canvas.fill();
+} else {
+  canvas.strokeStyle = this.color;
+  canvas.stroke();
+}
+```
+
+after
+
+```js
+if (this.style === "onlyArcStroke") {
+  // 弧形
+  canvas.arc(
+    0,
+    0,
+    this.scaled_radius,
+    (Math.PI / 180) * this.startAngle,
+    (Math.PI / 180) * this.endAngle,
+    false
+  );
+  canvas.strokeStyle = this.color;
+  canvas.stroke();
+} else {
+  // 扇形
+  if (!isNaN(this.startAngle) && !isNaN(this.endAngle)) {
+    canvas.arc(
+      0,
+      0,
+      this.scaled_radius,
+      (Math.PI / 180) * this.startAngle,
+      (Math.PI / 180) * this.endAngle,
+      false
+    );
+    canvas.save();
+    canvas.rotate((Math.PI / 180) * this.endAngle);
+    canvas.moveTo(this.scaled_radius, 0);
+    canvas.lineTo(0, 0);
+    canvas.restore();
+    canvas.rotate((Math.PI / 180) * this.startAngle);
+    canvas.lineTo(this.scaled_radius, 0);
+  } else {
+    canvas.arc(0, 0, this.scaled_radius, 0, Math.PI * 2);
+  }
+  if (this.style === "fill,stroke") {
+    canvas.fillStyle = this.color;
+    canvas.fill();
+    canvas.strokeStyle = this.strokeColor;
+    canvas.lineWidth = this.lineWidth;
+    canvas.stroke();
+  } else if (this.style === "fill") {
+    canvas.fillStyle = this.color;
+    canvas.fill();
+  } else {
+    canvas.strokeStyle = this.color;
+    canvas.stroke();
+  }
+}
+```
+
+当 style 为 onlyArcStroke 时，就只绘制圆弧，对应坐标轴绘制函数修改如下：
+
+```js
+  private drawTick(endAngle: number) {
+    for (let index = 0; index < this.tickMark.length; index++) {
+      const item = this.tickMark[index];
+      const arc = this.stage?.graphs.arc({
+        x: this.width / 2,
+        y: this.height / 2,
+        radius: this.circleRadius * item + (this.setting.isImage ? this.radius / this.multiple : 0),
+        startAngle: this.angle,
+        endAngle,
+        color: item === 10 ? 'rgba(50, 115, 242, 1)' : 'rgba(50, 115, 242, .8)',
+        style: item === 10 ? 'stroke' : 'onlyArcStroke', // onlyArcStroke -- 仅作弧形描边， stroke -- 描边
+        lineWidth: 4,
+      });
+
+      this.stage?.addChild(arc);
+      this.drawList.push(arc);
+    }
+  }
+```
+
+这样操作，可以避免通过渲染 180 个扇形实现坐标轴。而采用渲染 180-18 个圆弧+18 个扇形来生成坐标系
+
 #### 示例数据
 
 ```js
