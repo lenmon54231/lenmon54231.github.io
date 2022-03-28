@@ -416,6 +416,54 @@ if (this.style === "onlyArcStroke") {
 
 这样操作，可以避免通过渲染 180 个扇形实现坐标轴。而采用渲染 180-18 个圆弧+18 个扇形来生成坐标系
 
+#### 失败的尝试
+
+基于此，还可以再次优化。如果用圆圈替换圆弧，则可以变成渲染 9 个圆圈+18 个扇形来生成坐标系，代码如下：
+
+```js
+  private drawTick(endAngle: number, dataSourceIndex: number) {
+    let arc = null;
+    if (dataSourceIndex === 0) {
+      // 第一项扇形绘制时，渲染全部的图形（9个圆圈+第一项的扇形）
+      for (let index = 0; index < this.tickMark.length; index++) {
+        const item = this.tickMark[index];
+        arc = this.stage?.graphs.arc({
+          x: this.width / 2,
+          y: this.height / 2,
+          radius:
+            this.circleRadius * item + (this.setting.isImage ? this.radius / this.multiple : 0),
+          startAngle: item === 10 ? this.angle : 0,
+          endAngle: item === 10 ? endAngle : 360,
+          color: item === 10 ? 'rgba(50, 115, 242, 1)' : 'rgba(50, 115, 242, .8)',
+          style: item === 10 ? 'stroke' : 'onlyArcStroke', // onlyArcStroke -- 仅作弧形描边， stroke -- 描边
+          lineWidth: 4,
+        });
+        this.stage?.addChild(arc);
+        this.drawList.push(arc);
+      }
+    } else {
+      // 第二到十八项扇形绘制时，只渲染扇形
+      arc = this.stage?.graphs.arc({
+        x: this.width / 2,
+        y: this.height / 2,
+        radius:
+          this.circleRadius * this.tickMark[10] +
+          (this.setting.isImage ? this.radius / this.multiple : 0),
+        startAngle: this.angle,
+        endAngle,
+        color: 'rgba(50, 115, 242, 1)',
+        style: 'stroke',
+        lineWidth: 4,
+      });
+      this.stage?.addChild(arc);
+      this.drawList.push(arc);
+    }
+  }
+```
+
+> 这种优化，会导致得分的扇形覆盖坐标系得颜色，从而使部分坐标轴丢失，如下图：
+> ![优化失败尝试](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E4%BC%98%E5%8C%96%E5%A4%B1%E8%B4%A5%E5%B0%9D%E8%AF%95.png)
+
 #### 示例数据
 
 ```js
