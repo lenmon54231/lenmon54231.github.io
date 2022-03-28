@@ -461,8 +461,10 @@ if (this.style === "onlyArcStroke") {
   }
 ```
 
-> 这种优化，会导致得分的扇形覆盖坐标系得颜色，从而使部分坐标轴丢失，如下图：
-> ![优化失败尝试](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E4%BC%98%E5%8C%96%E5%A4%B1%E8%B4%A5%E5%B0%9D%E8%AF%95.png)
+> 这种优化，会导致得分的扇形覆盖坐标系得颜色。跟之前通过 G2 引擎渲染图谱实现的效果的 bug 一致。
+> 部分坐标系的横坐标轴丢失，如下图：
+
+![优化失败尝试](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E4%BC%98%E5%8C%96%E5%A4%B1%E8%B4%A5%E5%B0%9D%E8%AF%95.png)
 
 #### 示例数据
 
