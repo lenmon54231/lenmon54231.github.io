@@ -34,8 +34,8 @@ tags: [canvas, Chart]
       this.drawPass(item, endAngle); //绘制及格分的扇形
       this.drawScore(item, endAngle); //绘制得分的扇形
       this.drawTick(endAngle); //绘制刻度线
-      this.drawEvent(item, endAngle); // 绑定事件
-      this.setting.isLabel && this.drawText(item, { x, y }); //绘制鼠标移入得悬浮窗(Tooltip)
+      this.drawEvent(item, endAngle); // 绑定事件，给出半透明蒙层和ToolTip的Dom显示逻辑
+      this.setting.isLabel && this.drawText(item, { x, y }); //绘制周围的TitleLabel
 
       this.angle = endAngle; // w: 重置起始角度
     }
@@ -171,11 +171,97 @@ this.stage?.show();
 
 #### 绑定事件
 
-todo
+主要有三个事件：鼠标移入，鼠标移出，移动端的触摸点击
+简化代码如下：
 
-#### 自定义图形
+```js
+const sector = this.stage?.graphs
+      .arc({
+        x: this.width / 2,
+        y: this.height / 2,
+        radius: this.radius,
+        startAngle: this.angle,
+        endAngle,
+        color: 'transparent',
+        style: 'fill',
+      })
+      .on('mouseenter', (cur: any) => {
+        this.mutual(true, cur, data);
+      })
+      .on('mouseleave', (cur: any) => {
+        this.mutual(false, cur, data);
+      })
+      .on('touchstart', (cur: any) => {
+        this.mutual(true, cur, data);
+        this.onEmit(data);
+      });
 
-todo
+    this.stage?.addChild(sector);
+    this.drawList.push(sector);
+  }
+```
+
+web 端为例：1、移入时，将显示半透明的蒙层，并在右侧显示对应的 tooltip；2、移出时，将其 remove 掉
+简化代码如下：
+
+```js
+  private mutual(is: boolean, cur: any, data: Source) {
+    if (is) {
+      // 改成半透明
+      this.stage.element.style.cursor = 'pointer';
+      cur.color = 'rgba(255,255,255, 0.4)';
+      cur.style = 'fill';
+      this.stage?.redraw();
+      // 生成一个tooltip的Dom
+      const dom = this.createBubble(data);
+      dom.style.display = 'block';
+      this.currentCur = cur;
+      this.root?.appendChild(dom);
+    } else {
+      // 改成透明
+      this.stage.element.style.cursor = 'default';
+      cur.color = 'transparent';
+      cur.style = 'fill';
+      this.stage?.redraw();
+      // 移出对应Dom
+      const dom = document.getElementById(`bubble-${data.id}`);
+      if (dom) {
+        dom.style.display = 'none';
+        dom.parentNode?.removeChild(dom);
+      }
+    }
+  }
+```
+
+mutual 主要做两件事
+
+1. is 为 true 时：将 cur 当前的扇形从透明改成半透明，并且 createBubble 生成一个 tooltip 的 Dom 元素，添加到 root 父元素上
+2. is 为 false 时： 将 cur 当前的扇形从半透明改成透明，并且从 root 移除 tooltip
+
+> createBubble 是生成一个 Dom 元素，并且返回出去。Dom 元素通过 document.createElement('div')添加 InnerHTML 生成
+
+#### 绘制移动端的 TitleLabel
+
+圆形坐标系，周围生成的一圈 label，表示对应的 能力名称
+
+```js
+private drawText(item: Source, { x, y }) {
+    const _x = x;
+    const _y = y;
+    const text = this.stage?.graphs.customDrawText({
+      x: this.width / 2 > x ? _x - 4 : _x + 4,
+      y: _y - 2,
+      color: item.scoreColor,
+      text: item.title,
+      textAlign: this.width / 2 > x ? 'right' : 'left',
+      textBaseline: 'bottom',
+    });
+    this.stage?.addChild(text);
+    this.drawList.push(text);
+  }
+```
+
+stage?.graphs.customDrawText 绘制文字，给出定位和文字排列位置
 
 #### 示例数据
 
