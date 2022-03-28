@@ -69,7 +69,7 @@ deploy:
 2.Hexo 博客源码仓库
 这个就省略了，就是新建一个普通仓库用来放 Hexo 的源码，后面方便其他电脑的 clone。
 
-通过 hexo d 来推送数据到 GitHub 的时候，可能会需求添加 SSH Key，参考[SSH 配置](https://lenmon54231.github.io/2022/03/02/APP%E5%92%8CH5%20%E7%9A%84%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F/)
+通过 hexo d 来推送数据到 GitHub 的时候，可能会需求添加 SSH Key，参考[SSH 配置](https://lenmon54231.github.io/2021/03/21/GitHub%E7%9A%84SSH%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE/)
 
 #### 通过 node 来执行重复操作
 
