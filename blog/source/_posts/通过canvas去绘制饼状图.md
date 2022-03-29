@@ -416,15 +416,16 @@ if (this.style === "onlyArcStroke") {
 
 这样操作，可以避免通过渲染 180 个扇形实现坐标轴。而采用渲染 180-18 个圆弧+18 个扇形来生成坐标系
 
-#### 失败的尝试
+#### 失败的尝试 1-第一项扇形时绘制坐标系
 
 基于此，还可以再次优化。如果用圆圈替换圆弧，则可以变成渲染 9 个圆圈+18 个扇形来生成坐标系，代码如下：
 
 ```js
-  private drawTick(endAngle: number, dataSourceIndex: number) {
+   private drawTick(endAngle: number, dataSourceIndex: number) {
     let arc = null;
+    console.log('dataSourceIndex: ', dataSourceIndex);
     if (dataSourceIndex === 0) {
-      // 第一项扇形绘制时，渲染全部的图形（9个圆圈+第一项的扇形）
+      // 第18项扇形绘制时，渲染全部的图形（9个圆圈+第一项的扇形）
       for (let index = 0; index < this.tickMark.length; index++) {
         const item = this.tickMark[index];
         arc = this.stage?.graphs.arc({
@@ -442,7 +443,7 @@ if (this.style === "onlyArcStroke") {
         this.drawList.push(arc);
       }
     } else {
-      // 第二到十八项扇形绘制时，只渲染扇形
+      // 第1到17项扇形绘制时，只渲染扇形
       arc = this.stage?.graphs.arc({
         x: this.width / 2,
         y: this.height / 2,
@@ -465,6 +466,20 @@ if (this.style === "onlyArcStroke") {
 > 部分坐标系的横坐标轴丢失，如下图：
 
 ![优化失败尝试](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E4%BC%98%E5%8C%96%E5%A4%B1%E8%B4%A5%E5%B0%9D%E8%AF%95.png)
+
+#### 失败的尝试 2-最后一项扇形时绘制坐标系
+
+```js
+    if (dataSourceIndex === 17) {
+      ........
+    }
+```
+
+> 将圆圈的绘制改成最后一项扇形时绘制，可以避免坐标系被 覆盖，但同时产生新的问题：弹窗 tooltip 只能在最外层的一圈显示，即：事件未绑定到整个扇形
+
+![优化失败尝试2](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E5%A4%B1%E8%B4%A5er.png)
+
+> 猜测：应该是通过 最后一项扇形的形式 来绘制坐标系的时候，覆盖了之前的十七个用来绑定事件的透明扇形图层导致。所以，只有最后一个第十八项扇形可以正常的显示 tooltip。
 
 #### 示例数据
 
@@ -652,3 +667,4 @@ const data = ref([
   },
 ]);
 ```
+
