@@ -403,8 +403,8 @@ if (this.style === "onlyArcStroke") {
         radius: this.circleRadius * item + (this.setting.isImage ? this.radius / this.multiple : 0),
         startAngle: this.angle,
         endAngle,
-        color: item === 10 ? 'rgba(50, 115, 242, 1)' : 'rgba(50, 115, 242, .8)',
-        style: item === 10 ? 'stroke' : 'onlyArcStroke', // onlyArcStroke -- 仅作弧形描边， stroke -- 描边
+        color: item === 0 ? 'rgba(50, 115, 242, 1)' : 'rgba(50, 115, 242, .8)',
+        style:  item === 0 ? 'fill' : item === 10 ? 'stroke' : 'onlyArcStroke', // onlyArcStroke -- 仅作弧形描边， stroke -- 描边
         lineWidth: 4,
       });
 
@@ -425,7 +425,7 @@ if (this.style === "onlyArcStroke") {
     let arc = null;
     console.log('dataSourceIndex: ', dataSourceIndex);
     if (dataSourceIndex === 0) {
-      // 第18项扇形绘制时，渲染全部的图形（9个圆圈+第一项的扇形）
+      // 第1项扇形绘制时，渲染全部的图形（9个圆圈+第一项的扇形）
       for (let index = 0; index < this.tickMark.length; index++) {
         const item = this.tickMark[index];
         arc = this.stage?.graphs.arc({
@@ -443,7 +443,7 @@ if (this.style === "onlyArcStroke") {
         this.drawList.push(arc);
       }
     } else {
-      // 第1到17项扇形绘制时，只渲染扇形
+      // 第2到18项扇形绘制时，只渲染扇形
       arc = this.stage?.graphs.arc({
         x: this.width / 2,
         y: this.height / 2,
@@ -479,7 +479,7 @@ if (this.style === "onlyArcStroke") {
 
 ![优化失败尝试2](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E5%A4%B1%E8%B4%A5er.png)
 
-> 猜测：应该是通过 最后一项扇形的形式 来绘制坐标系的时候，覆盖了之前的十七个用来绑定事件的透明扇形图层导致。所以，只有最后一个第十八项扇形可以正常的显示 tooltip。
+> 猜测：应该是通过 最后一项扇形的形式来绘制坐标系的时候，覆盖了之前的十七个用来绑定事件的透明扇形图层导致。所以，只有最后一个第十八项扇形可以正常的显示 tooltip。
 
 #### 示例数据
 
