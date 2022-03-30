@@ -56,6 +56,26 @@ dbg
 #### 应用场景
 
 当有新的改动加入到本地时，常常会遇到提示，让你先做 stash 缓存到本地。然后 pull 代码到本地后，再通过 git stash pop 将最近的一个 stash 合并到 本地代码
+常用代码：
+
+```js
+git stash
+git stash save "save message"   // 执行存储时，添加备注，方便查找，只有git stash 也要可以的，但查找时不方便识别。
+
+git stash list //查看stash了哪些存储
+
+git stash show //显示做了哪些改动，默认show第一个存储,如果要显示其他存贮，后面加stash@{$num}，比如第二个 git stash show stash@{1}
+
+git stash show -p// 显示第一个存储的改动，如果想显示其他存存储，命令：git stash show  stash@{$num}  -p ，比如第二个：git stash show  stash@{1}  -p
+
+git stash apply//应用某个存储,但不会把存储从存储列表中删除，默认使用第一个存储,即stash@{0}，如果要使用其他个，git stash apply stash@{$num} ， 比如第二个：git stash apply stash@{1}
+
+git stash pop //命令恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下,默认为第一个stash,即stash@{0}，如果要应用并删除其他stash，命令：git stash pop stash@{$num} ，比如应用并删除第二个：git stash pop stash@{1}
+
+git stash drop stash@{$num} //丢弃stash@{$num}存储，从列表中删除这个存储
+
+git stash clear //删除所有缓存的stash
+```
 
 #### 特殊情况
 
