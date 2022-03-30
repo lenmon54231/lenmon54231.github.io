@@ -4,6 +4,7 @@ node_modules
 public
 db.json
 blog/.deploy_git/
+.history
 # local env files
 # .env.self
 .env.local
