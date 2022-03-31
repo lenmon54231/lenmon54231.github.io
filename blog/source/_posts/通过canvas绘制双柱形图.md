@@ -6,6 +6,8 @@ tags: [canvas]
 
 ## 通过 canvas 绘制双柱形图
 
+<!-- more -->
+
 ### 样式
 
 实现步骤直接参考[通过 canvas 实现饼状图](https://lenmon54231.github.io/2022/03/25/%E9%80%9A%E8%BF%87canvas%E5%8E%BB%E7%BB%98%E5%88%B6%E9%A5%BC%E7%8A%B6%E5%9B%BE/)
