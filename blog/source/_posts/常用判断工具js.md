@@ -118,10 +118,24 @@ return reg.test(path);
 ```
 
 ```js
-判断小数点后两位
-<el-input
-   v-model="ruleForm.score"
-   oninput="if(isNaN(value)) { value = parseFloat(value) } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+3)}"
-   placeholder="请输填写该项分值（可填写到小数点后两位）"
- />
+判断小数点后两位;
+// 自定义校验-分数
+const checkScore = (rule, value, callback) => {
+  let score = value.match(/^\d*(\.?\d{0,2})/g)[0];
+  console.log("score: ", score);
+  if (!score) {
+    callback(new Error("请输入数字,小数点后最多保留2位小数)"));
+  } else if (value.substr(0, 1) === ".") {
+    callback(new Error("不能以小数点开头"));
+  } else if (
+    value.length > 1 &&
+    value.substr(value.length - 1, value.length) === "."
+  ) {
+    callback(new Error("不能以小数点结尾"));
+  } else if (value?.split(".")[1]?.length > 2) {
+    callback(new Error("小数点后最多保留2位小数"));
+  } else {
+    callback();
+  }
+};
 ```
