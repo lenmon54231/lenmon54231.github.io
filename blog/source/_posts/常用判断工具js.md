@@ -118,24 +118,26 @@ return reg.test(path);
 ```
 
 ```js
-判断小数点后两位;
-// 自定义校验-分数
-const checkScore = (rule, value, callback) => {
-  let score = value.match(/^\d*(\.?\d{0,2})/g)[0];
-  console.log("score: ", score);
-  if (!score) {
-    callback(new Error("请输入数字,小数点后最多保留2位小数)"));
-  } else if (value.substr(0, 1) === ".") {
-    callback(new Error("不能以小数点开头"));
-  } else if (
-    value.length > 1 &&
-    value.substr(value.length - 1, value.length) === "."
-  ) {
-    callback(new Error("不能以小数点结尾"));
-  } else if (value?.split(".")[1]?.length > 2) {
-    callback(new Error("小数点后最多保留2位小数"));
-  } else {
-    callback();
-  }
-};
+只允许输入数字(整数：小数点不能输入)
+
+<input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" >
+
+允许输入小数(两位小数)
+
+<input type="text" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" >
+
+允许输入小数(一位小数)
+
+<input type="text" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,1})?).*$/g, '$1')" >
+
+开头不能为0，且不能输入小数
+
+<input type="text" onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" >
+
+只能输入数字或小数且第一位不能是0和点且只能有一个点
+
+<input type="text" onkeyup="value=value.replace(/[^1-9]{0,1}(\d*(?:\.\d{0,2})?).*$/g, '$1')" >
+
+
+
 ```
