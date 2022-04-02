@@ -138,6 +138,10 @@ return reg.test(path);
 
 <input type="text" onkeyup="value=value.replace(/[^1-9]{0,1}(\d*(?:\.\d{0,2})?).*$/g, '$1')" >
 
+```
 
-
+```js
+// 只允许输入数字，并且只能保留两位小数，不能以小数点开头，不能以小数点结尾
+let judge = /^([1-9][\d]{0,}|0)(\.[\d]{1,2})?$/; //限制小数点前无穷位，小数点后2位数
+judge.test(value);
 ```
