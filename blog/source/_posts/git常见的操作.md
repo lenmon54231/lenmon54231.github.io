@@ -51,6 +51,12 @@ dbg
 /dbg
 ```
 
+### Git 更新远程分支列表
+
+```js
+git remote update origin --prune
+```
+
 ### Git Stash 的应用
 
 #### 应用场景
