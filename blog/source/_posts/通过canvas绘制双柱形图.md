@@ -258,3 +258,115 @@ export class DoubleBarChart {
 
 ```
 
+### 添加动画
+
+动画如下：
+
+![双柱状图动画](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E5%8F%8C%E6%9F%B1%E7%8A%B6%E5%9B%BE%E5%8A%A8%E7%94%BB.gif)
+
+#### 原理
+
+柱状图定位是通过（x，y，width，height）定位，即：通过 x，y 确定左上角的起始点，然后通过 width 和 height 从上至下，从左至右绘制出矩形。
+
+但是这不符合常见的图形库样式，即：从坐标轴 0 点开始逐渐升高。
+
+所以采用 一个白色的柱形图 覆盖上，然后逐步 减少其高度，来实现 柱形图慢慢升高的动画
+
+#### 代码如下
+
+```js
+  // 画总分
+  drawTotalRectangle(item, index) {
+    const x = this.paddingLeft + index * 40 + this.itemPadding; // 矩形的起始X坐标
+    const height = this.totalHeight * (item.total / this.maxTotal); // 矩形的高度
+    const y = this.paddingTop + this.totalHeight - height; // 矩形的起始Y坐标
+    const rect = this.stage.graphs.rectangle({
+      x: x,
+      y: y,
+      width: 10,
+      height: height,
+      // height: 0,
+      radius: {
+        tl: 2, // 左上
+        tr: 2, // 右上
+        bl: 0, // 左下
+        br: 0, // 右下
+      },
+      color: item.scoreColor,
+    });
+    this.stage.addChild(rect); // 先画出正常的总分柱形图
+    this.addAnimation(x, this.paddingTop, this.totalHeight - height); // 再画覆盖其上的白色柱形图
+  }
+  // 添加白色柱状图，以实现动画
+  addAnimation(x, y, height) {
+    const whiteRect = this.stage.graphs.rectangle({
+      x: x,
+      y: this.paddingTop,
+      width: 10,
+      height: this.totalHeight,
+      radius: {
+        tl: 2, // 左上
+        tr: 2, // 右上
+        bl: 0, // 左下
+        br: 0, // 右下
+      },
+      color: '#fff',
+    });
+    whiteRect.animateTo({
+      y: y,
+      height: height,
+    });
+    this.stage.addChild(whiteRect);
+  }
+}
+```
+
+#### animateTo 函数说明
+
+文档中没有说明 animateTo 函数的具体参数，只给了一个例子，大概用法如下：
+
+```js
+/**
+ * @param: {keys | Object}   -- 动画结束时的值，是个对象
+ * @param: {config | Object} -- 动画的一些配置项
+ */
+shape.animateTo(
+  {
+    moveX: 10,
+    moveY: 10,
+    x: 100,
+    y: 100,
+    width: 200,
+    height: 200,
+  },
+  {
+    duration: 1000, // 动画持续事件，默认 500 毫秒
+    delay: 500, // 动画延迟的事件，默认 0 毫秒
+    easing: "bounceOut", // 动画的补间类型，默认 'linear' （匀速）
+    onStart: function (keys) {
+      /**
+       * @param: keys
+       * keys是一个对象，存放着图形运动到当前的一些坐标和内部数据。
+       * same below
+       */
+      console.log(keys.x, keys.y, keys.width, keys.height);
+    },
+    onUpdate: function (keys) {
+      console.log(keys.x, keys.y, keys.width, keys.height);
+    },
+    onFinish: function (keys) {
+      console.log(keys.x, keys.y, keys.width, keys.height);
+    },
+  }
+);
+```
+
+- moveX：沿横坐标移动
+- moveY：沿纵坐标移动
+- 针对矩形的动画：
+  x: 100,
+  y: 100,
+  width: 200,
+  height: 200,
+  通过改变 height 来实现矩形高度变化
+
