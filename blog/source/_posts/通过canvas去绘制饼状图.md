@@ -481,6 +481,44 @@ if (this.style === "onlyArcStroke") {
 
 > 猜测：应该是通过 最后一项扇形的形式来绘制坐标系的时候，覆盖了之前的十七个用来绑定事件的透明扇形图层导致。所以，只有最后一个第十八项扇形可以正常的显示 tooltip。
 
+#### 动画
+
+饼状图动画主要是扇形，添加 radius 的变化即可
+
+```js
+  /**
+   * @description 绘制得分扇形
+   * @param item 数据项
+   * @param endAngle 扇形结束角度
+   */
+  private drawScore(item: Source, endAngle: number) {
+    const _radius = this.formatRadius(item.score, item.total, this.radius);
+    const sector = this.stage?.graphs.arc({
+      x: this.width / 2,
+      y: this.height / 2,
+      // radius: _radius,
+      radius: 0,
+      // startAngle: this.angle,
+       startAngle: 0,
+      endAngle,
+      color: item.scoreColor,
+      style: 'fill',
+    });
+    sector.animateTo(
+      {
+        radius: _radius,
+        startAngle: this.angle,
+      },
+      {
+        duration: 1000, // 动画持续事件，默认 500 毫秒
+        delay: 200, // 动画延迟的事件，默认 0 毫秒
+      },
+    );
+    this.stage?.addChild(sector);
+    this.drawList.push(sector);
+  }
+```
+
 #### 示例数据
 
 ```js

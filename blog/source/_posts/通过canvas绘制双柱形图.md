@@ -16,7 +16,7 @@ tags: [canvas]
 
 ### 具体代码
 
-> 代码如下：
+> 代码如下:
 
 > 父级使用
 
@@ -260,15 +260,15 @@ export class DoubleBarChart {
 
 ### 添加动画
 
-动画如下：
+动画如下:
 
 ![双柱状图动画](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E5%8F%8C%E6%9F%B1%E7%8A%B6%E5%9B%BE%E5%8A%A8%E7%94%BB.gif)
 
 #### 原理
 
-柱状图定位是通过（x，y，width，height）定位，即：通过 x，y 确定左上角的起始点，然后通过 width 和 height 从上至下，从左至右绘制出矩形。
+柱状图定位是通过（x，y，width，height）定位，即:通过 x，y 确定左上角的起始点，然后通过 width 和 height 从上至下，从左至右绘制出矩形。
 
-但是这不符合常见的图形库样式，即：从坐标轴 0 点开始逐渐升高。
+但是这不符合常见的图形库样式，即:从坐标轴 0 点开始逐渐升高。
 
 所以采用 一个白色的柱形图 覆盖上，然后逐步 减少其高度，来实现 柱形图慢慢升高的动画
 
@@ -323,7 +323,7 @@ export class DoubleBarChart {
 
 #### animateTo 函数说明
 
-文档中没有说明 animateTo 函数的具体参数，只给了一个例子，大概用法如下：
+文档中没有说明 animateTo 函数的具体参数，只给了一个例子，大概用法如下:
 
 ```js
 /**
@@ -334,6 +334,9 @@ shape.animateTo(
   {
     moveX: 10,
     moveY: 10,
+    radius: 100,
+    startAngle: 360 / 18,
+    endAngle: 360 / 18,
     x: 100,
     y: 100,
     width: 200,
@@ -361,9 +364,12 @@ shape.animateTo(
 );
 ```
 
-- moveX：沿横坐标移动
-- moveY：沿纵坐标移动
-- 针对矩形的动画：
+- moveX:沿横坐标移动
+- moveY:沿纵坐标移动
+- radius: 沿半径方向移动（主要用于原型、扇形、圆弧）
+- startAngle: 起始角度
+- endAngle:结束角度
+- 针对矩形的动画:
   x: 100,
   y: 100,
   width: 200,
