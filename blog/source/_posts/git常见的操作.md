@@ -88,3 +88,12 @@ git stash clear //删除所有缓存的stash
 当配置了 Eslint 后，如果某些 代码不能通过 Eslint 的检测，就会报警。并且会出现 本次 commit 修改的代码 被全部恢复的情况，此时，可以去 stash 缓存区去查看下，一般会被自动放置到 stash 中。
 ![vscode中如何查看](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/vscode%E4%B8%AD%E6%9F%A5%E7%9C%8Bstash.png)
 
+### git pull 拉取后冲突
+
+有长期未使用的分支，可能已经被删除掉了，当你切换到其他分支，并且拉取 pull 后，可能会产生冲突
+此时，不需要保留本地的代码，只需要同步 远程的分支代码
+则需要以下操作：
+
+> git clean -d -f // 这一步会强制清空本地的修改，应该是无法找回，需要谨慎处理
+> git pull origin master
+
