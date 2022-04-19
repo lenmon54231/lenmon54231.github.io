@@ -6,6 +6,13 @@ tags: [git]
 
 ## Git 常见的操作
 
+### 更换淘宝源
+
+```js
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+cnpm install
+```
+
 ### Git 忽略文件失效
 
 .gitignore 只能忽略没有被跟踪的文件(就是没有被纳入版本管理的文件),如果已经被纳入版本管理是无法忽略的。
