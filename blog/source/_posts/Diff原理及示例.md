@@ -337,7 +337,11 @@ newDomArray =  [{ key: "a" },{ key: "b" }],
   newIndexToOldIndexMap[i] === 0
 - 添加 move 的判断则比较复杂
 
-  - 需要改动的数组如下：
+  - 为什么 i !== increasingNewIndexSequence[lastIndex] 则需要添加 move？
+    i 是 newIndexToOldIndexMap 数组 的倒序 index
+    increasingNewIndexSequence[lastIndex]是不需要添加 move 的 newIndexToOldIndexMap 数组 的倒序 index
+    如果这两个值不相等，就说明 当前的这个元素需要添加 move
+  - 解释如下：
 
   ```js
   [{ key: "c" }, { key: "d" }, { key: "e" }];
@@ -346,10 +350,9 @@ newDomArray =  [{ key: "a" },{ key: "b" }],
 
   抛开新增的元素 { key: "d1" } 和 { key: "h" }，则里面需要变动的只有 { key: "e" }，将 { key: "e" } 移动到{ key: "d" }之后，就完成了移动，所以需要将 { key: "e" } 打上 move 的标签
 
-  - 如何找到{ key: "e" }元素？即：如何获取到 最大递增序列 后，反查其他元素，获取到{ key: "e" }
+  - 如何找到{ key: "e" }元素？答：获取到 最大递增序列 后，反查其他元素，获取到{ key: "e" }
 
   ```js
-  toBePatched: 5;
   oldDomArray = [
     { key: "a" },
     { key: "b" },
@@ -363,10 +366,11 @@ newDomArray =  [{ key: "a" },{ key: "b" }],
   increasingNewIndexSequence: [0, 2, 3];
   ```
 
-  > increasingNewIndexSequence 就是 最大递增序列， [0，2，3]是 newIndexToOldIndexMap 坐标， 分别对应着上面的 newIndexToOldIndexMap 的第 0 个、第 2 个，第 3 个的值 ，即[0，3，4] ，同时也是最大递增序列的值 数组，这几个是不需要移动（move）的。
-  > 当我需要 添加 move 标签的时候，只需要 判断 increasingNewIndexSequence 内没有的值，即[5]。
+  > increasingNewIndexSequence 就是 最大递增序列 ，对应的是不需要移动的元素。[0，2，3]对应着 newIndexToOldIndexMap 的第 0 个、第 2 个，第 3 个。值是 [0，3，4] 。
+  > **0，2，3 这几个是不需要移动（move）的**。
+  > newIndexToOldIndexMap 剩下的则需要 move，即[1，4]。分别对应着 newIndexToOldIndexMap 中的[5,0],0 是代表新增，则只剩下[5]。
+  > **5 是需要移动的**。
   > 利用反查找得到 5 就是 oldDomArray 中的第五个 { key: "e" }。
-  > 即：从 [ { key: "e" },{ key: "c" },{ key: "d" } ]变成 [ { key: "c" },{ key: "d" },{ key: "e" } ]，只需要移动 { key: "e" } 这个元素
 
 1. 如何获取 最大可递增序列 ？
 
