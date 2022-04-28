@@ -15,6 +15,23 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 cnpm install
 ```
 
+### Git 更新远程分支列表
+
+```js
+git remote update origin --prune
+```
+
+### Git 删除分支
+
+```js
+git branch -a
+git branch -d <BranchName> // 删除本地分支
+git push origin --delete <BranchName> // 删除远端分支
+git branch -a
+
+
+```
+
 ### Git 忽略文件失效
 
 .gitignore 只能忽略没有被跟踪的文件(就是没有被纳入版本管理的文件),如果已经被纳入版本管理是无法忽略的。
@@ -58,12 +75,6 @@ dbg
 !dbg/
 # 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内
 /dbg
-```
-
-### Git 更新远程分支列表
-
-```js
-git remote update origin --prune
 ```
 
 ### Git Stash 的应用

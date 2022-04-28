@@ -378,8 +378,13 @@ newDomArray =  [{ key: "a" },{ key: "b" }],
      举例：
      1、[0, 5, 3, 4, 0,]中为[0,3,4]对应的下标分别为[0,2,3]
      2、[9, 3, 7, 8, 0,]中为[3,7,8]对应的下标分别为[1,2,3]
+     [力扣](https://leetcode-cn.com/problems/longest-increasing-subsequence/)
+     [最大递增序列解法说明](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/dong-tai-gui-hua-he-er-fen-cha-zhao-lian-x7dh/)
+     [二分插入算法](https://leetcode-cn.com/problems/N6YdxV/solution/cha-zhao-cha-ru-wei-zhi-by-leetcode-solu-inlw/)
+     > (right - left) >> 1 等价于 Math.floor(((right - left) / 2))
    - 如何获取？
-     通过 二分替换 实现
+     通过 二分替换 实现 最大递增序列
+
      ```js
      function getSequence(arr) {
        // 返回的是LIS的路径
@@ -428,9 +433,89 @@ newDomArray =  [{ key: "a" },{ key: "b" }],
      }
      ```
 
-2. 是否
+     上面代码核心在 left 的变化
 
-### Diff 代码示例难点
+     ```js
+     lis[left] = i;
+     ```
+
+### 最大可递增序列
+
+#### 二分插入
+
+```js
+export const lengthOfLIS = (numsp) => {
+  // 每堆的堆顶
+  const top = [];
+  // 牌堆数初始化为0
+  let piles = 0;
+  for (let i = 0; i < numsp.length; i++) {
+    // 要处理的扑克牌
+    let poker = numsp[i];
+    // 左堆和最右堆进行二分搜索，因为堆顶是有序排的，最终找到该牌要插入的堆
+    let left = 0,
+      right = piles;
+    //搜索区间是左闭右开
+    while (left < right) {
+      let mid = left + Math.floor((right - left) / 2);
+      if (top[mid] > poker) {
+        right = mid;
+      } else if (top[mid] < poker) {
+        left = mid + 1;
+      } else {
+        right = mid;
+      }
+    }
+    //  没找到合适的牌堆，新建一堆
+    if (left == piles) piles++;
+    // 把这张牌放到堆顶
+    top[left] = poker;
+  }
+  return piles;
+};
+lengthOfLIS([9, 2, 5, 3, 7]);
+```
+
+当第一次循环的时候，left == piles 均为 0，top 为[9]，piles 赋值为 1
+
+当第二次循环的时候，left ==0 < right ==piles =1, 执行 while 循环，mid 为 0，top[0]就是上次存的 9，大于本次 numsp[1]，则将 right 置为 0，并将 top[0] = numsp[1] == 2，top 为[2]
+
+当第三次循环的时候，left ==0 < right ==piles =1，mid 为 0，top[0] 为 2 小于 numsp[3] == 5，执行 left = mid + 1(left = 0+1),接着执行 left == piles （1 == 1)，piles++（piles==2）执行 top[1] = numsp[3]，top 为[2,5]
+
+第四次循环的时候，left ==0 < right ==piles =2，mid 为 1，top[1] 为 5 大于 numsp[4] == 3，right = mid == 1，然后执行 while（0<1)，mid 为 0，top[0] 为 2 小于 numsp[4] == 3，left=0+1，接着执行 top[1] = numsp[4];
+top 为[2,3]
+
+第五次循环的时候，left ==0 < right ==piles =2，mid 为 1,top[1] 为 3 小于 numsp[5] == 7，left= mid + 1 ==2，执行 piles++(piles == 3),top[2]=numsp[5] ,top 为[2,3,7]
+
+#### 动态规划
+
+通过 动态规划 实现 最大可递增序列
+
+```js
+// nums:[9, 2, 5, 4, 3, 7]
+// return：top： [2, 3, 7]
+export const selfCheck2 = (nums) => {
+  let arr = nums;
+  let top = [];
+  let dp = new Array(arr.length).fill(1);
+  for (let index = 0; index < arr.length; index++) {
+    const element = arr[index];
+    let left = 0;
+    for (let innerIndex = 0; innerIndex < index; innerIndex++) {
+      if (arr[innerIndex] < element) {
+        dp[index] = Math.max(dp[index], dp[innerIndex] + 1);
+        left = Math.max(left, dp[innerIndex]);
+      }
+    }
+    top[left] = element;
+  }
+  console.log("top: ", top);
+  console.log(dp, "dp");
+  return top.length;
+};
+```
+
+核心在于 dp 数组的变化，dp 数组的值类似于二分法中的 left 的值
 
 ### 代码示例
 
