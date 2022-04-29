@@ -269,6 +269,8 @@ newDomArray =  [{ key: "a" },{ key: "b" }],
        // newIndex - s2是相对下标
        // i + 1老元素下标+1
        newIndexToOldIndexMap[newIndex - s2] = i + 1;
+       //  tips: 问：为什么要用i+1？而不是直接用i，这样更好理解
+       //  答： 因为直接用 i  ,可能会遇到 i==0 的情况，此时，无法区分这个 0 是代表该元素可复用，还是新增
 
        patch(prevChild.key);
        patched++;
@@ -297,9 +299,31 @@ newDomArray =  [{ key: "a" },{ key: "b" }],
    ```
 
    newIndexToOldIndexMap 中下标 0 上的值： 0 代表着没有在老数组中找到对应的值，即没有更新。
-   下标 1 上的值： 5 表示 新数组中的第一个下标对应着老数组中的第五个值。
-   下标 2 上的值： 3 表示 新数组中的第二个下标对应着老数组中的第三个值。
-   下标 3 上的值： 4 表示 新数组中的第三个下标对应着老数组中的第四个值。
+   更容易理解的写法其实是这样：
+
+   ```js
+   [ 0, 5, 3, 4, 0 ] // 转化对应关系
+   [
+     {
+       oldIndex:0,
+       newIndex:0,
+     },{
+       oldIndex:5, //  5 表示 新数组中的第一个下标对应着老数组中的第五个值。
+       newIndex:1, // 新数组中间部分的 下标
+     },
+     {
+       oldIndex:3, //3 表示 新数组中的第二个下标对应着老数组中的第三个值。
+       newIndex:2,
+     },{
+       oldIndex:4, //4 表示 新数组中的第三个下标对应着老数组中的第四个值。
+       newIndex:3,
+     }
+     {
+       oldIndex:0,
+       newIndex:0,
+     },
+   ]
+   ```
 
 4. **判断新增和添加移动标记**倒着遍历新元素数组，通过判断 newIndexToOldIndexMap[i] 是否等于 0 去确定是新增还是移动
 
@@ -522,4 +546,3 @@ export const selfCheck2 = (nums) => {
 ```
 
 ```
-
