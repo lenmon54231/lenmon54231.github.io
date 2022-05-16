@@ -32,6 +32,14 @@ git branch -a
 
 ```
 
+### Git 获取其他分支的 commit
+
+```js
+// 将其他分支的commit合并到master
+git checkout master
+git cherry-pick 62ecb3
+```
+
 ### Git 忽略文件失效
 
 .gitignore 只能忽略没有被跟踪的文件(就是没有被纳入版本管理的文件),如果已经被纳入版本管理是无法忽略的。
