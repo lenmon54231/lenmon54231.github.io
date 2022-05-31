@@ -125,3 +125,10 @@ git stash clear //删除所有缓存的stash
 > git clean -d -f // 这一步会强制清空本地的修改，应该是无法找回，需要谨慎处理
 > git pull origin master
 
+### git pull 拉取后冲突 2
+
+本地代码如果确定修改或者不需要保存的，可以直接回退版本。
+
+> git 仓库中复制 SHA
+> git reset --hard 40a9a83
+
