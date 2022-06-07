@@ -9,7 +9,7 @@ blog/.deploy_git/
 # .env.self
 .env.local
 .env.*.local
-
+tinyImage/imgOrigin
 # Log files
 logs
 *.log
