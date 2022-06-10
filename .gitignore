@@ -10,6 +10,7 @@ blog/.deploy_git/
 .env.local
 .env.*.local
 tinyImage/imgOrigin
+tinyImage/imgZip
 # Log files
 logs
 *.log

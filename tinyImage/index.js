@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const path = "./imgOrigin"; //原图路径
 const savePath = "./imgZip"; //压缩图保存路径
-const quality = 10; //图片质量（0-100）
+const quality = 100; //图片质量（0-100）
 
 function creatImage(name, fileName, quality) {
   sharp(name)
