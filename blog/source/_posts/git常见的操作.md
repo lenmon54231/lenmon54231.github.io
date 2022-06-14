@@ -132,3 +132,12 @@ git stash clear //删除所有缓存的stash
 > git 仓库中复制 SHA
 > git reset --hard 40a9a83
 
+### git branch --edit-description <BranchName> 描述一个分支的情况
+
+某些情况下，分支可能很多，并且要长时间保存，需要做一个描述记录，则可以用 description 命令
+
+> git branch --edit-description <BranchName>
+> 按下 s，输入内容（注意：前面有#代表着不显示，需要去掉#)
+> 按下 esc，输入:wq，则保存完毕
+> 查看命令： git config branch.<BranchName>.description
+
