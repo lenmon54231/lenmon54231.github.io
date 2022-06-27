@@ -15,6 +15,13 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 cnpm install
 ```
 
+### 更换 npm 源
+
+```js
+npm config set registry=http://registry.npmjs.org
+pnpm install
+```
+
 ### Git 更新远程分支列表
 
 ```js
