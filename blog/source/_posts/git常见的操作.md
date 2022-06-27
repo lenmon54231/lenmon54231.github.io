@@ -31,6 +31,34 @@ git remote update origin --prune
 ### Git 删除分支
 
 ```js
+// 工作过程中若误提交了文件到仓库上，比如node_modules,此时想只删除远程仓库文件，不删除本地文件，可使用下面命令
+
+ git rm --cached 文件（夹）名，此时只删除了仓库中的缓存，实际文件不会删除
+ git commit -m '备注'
+ git push origin 分支
+
+```
+
+注意：
+
+上述 git commit -m '备注'之前不能使用 git add .命令,因为用了命令相当于把第一步已删除的文件从新添加进入了暂存区，从而形成新的
+
+缓存。后面再使用 gitcommit 和 git push，相当于删除缓存又重新添加缓存，文件仍然存在，提交的时候会提示已经是最新的。
+
+```js
+// 若本地和远程都想删除
+
+// 使用一开始介绍的删除文件或者文件夹的两个命令。
+// 或者直接删除文件，随后会看到vscode中有个 git变动
+git add .
+git commit -m '备注'
+git push origin 分支
+
+```
+
+### Git 删除文件
+
+```js
 git branch -a
 git branch -d <BranchName> // 删除本地分支
 git push origin --delete <BranchName> // 删除远端分支
