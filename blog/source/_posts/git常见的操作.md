@@ -28,7 +28,7 @@ pnpm install
 git remote update origin --prune
 ```
 
-### Git 删除分支
+### Git 删除文件
 
 ```js
 // 工作过程中若误提交了文件到仓库上，比如node_modules,此时想只删除远程仓库文件，不删除本地文件，可使用下面命令
@@ -56,7 +56,7 @@ git push origin 分支
 
 ```
 
-### Git 删除文件
+### Git 删除分支
 
 ```js
 git branch -a
