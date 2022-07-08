@@ -36,3 +36,21 @@ return {
 
 less 会在父级 dom 上寻找 --gridNumber ，并应用到子 Dom 的对应变量中
 
+### 超出则...
+
+```css
+.one-line-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis; //文本溢出显示省略号
+  white-space: nowrap; //文本不会换行
+}
+
+.more-line-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+```
+
