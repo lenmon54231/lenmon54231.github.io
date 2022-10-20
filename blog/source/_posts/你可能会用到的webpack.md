@@ -1,13 +1,12 @@
 ---
-
 title: 你可能会用到的webpack
 date: 2020-07-12 17:16:26
-tags: [js,hexo]
+tags: [js, hexo]
 ---
 
 <meta name="referrer" content="no-referrer"/>
 
-## 你可能会用到的webpack
+## 你可能会用到的 webpack
 
 ### install
 
@@ -19,7 +18,7 @@ npm install webpack webpack-dev-server --save-dev
 
 `vue.config.js` 是一个可选的配置文件，如果项目的 (和 `package.json` 同级的) 根目录中存在这个文件，那么它会被 `@vue/cli-service` 自动加载。你也可以使用 `package.json` 中的 `vue` 字段，但是注意这种写法需要你严格遵照 JSON 的格式来写。
 
-其中经常用到的配置是本地的代理和基本path
+其中经常用到的配置是本地的代理和基本 path
 
 ```js
 // vue.config.js
@@ -77,9 +76,9 @@ module.exports = {
 }
 ```
 
-proxy字段中的代理类似于 nginx 的代理。可以将'/api'或者'/mall'开头的请求通过代理定向到其他的地址，并且可以对代理的链接进行重新修改（pathRewrite），
+proxy 字段中的代理类似于 nginx 的代理。可以将'/api'或者'/mall'开头的请求通过代理定向到其他的地址，并且可以对代理的链接进行重新修改（pathRewrite），
 
-配置典型的env文件(.env.development)，如下：
+配置典型的 env 文件(.env.development)，如下：
 
 ```js
 NODE_ENV=development
@@ -107,41 +106,48 @@ VUE_APP_DEBUG=development
 const service = axios.create({
   baseURL: host.host,
   timeout: 60000000,
-})
+});
 service.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem('token')
+    const token = sessionStorage.getItem("token");
 
     config.headers = token
-      ? { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
-      : ''
+      ? { Authorization: "Bearer " + sessionStorage.getItem("token") }
+      : "";
 
     if (config.ContentType) {
-      config.headers['Content-Type'] = config.ContentType
-      delete config.ContentType
+      config.headers["Content-Type"] = config.ContentType;
+      delete config.ContentType;
     }
     if (
       //本地环境情况下，需要把login的host写死。避免频繁的切换host
-      process.env.VUE_APP_DEBUG === 'development' &&
-      config.url.split('?')[0] == '/admin/login'
+      process.env.VUE_APP_DEBUG === "development" &&
+      config.url.split("?")[0] == "/admin/login"
     ) {
-      config.baseURL = process.env.VUE_APP_HOST
+      config.baseURL = process.env.VUE_APP_HOST;
     } else {
       //测试环境或者正式环境，需要将所有的host改成环境文件中的host
       switch (config.basicUrl) {
-        case '/mall':
-          config.baseURL = process.env.VUE_APP_HOST1
-          break
+        case "/mall":
+          config.baseURL = process.env.VUE_APP_HOST1;
+          break;
         default:
-          config.baseURL = process.env.VUE_APP_HOST
-          break
+          config.baseURL = process.env.VUE_APP_HOST;
+          break;
       }
     }
-    return config
+    return config;
   },
   (error) => {
-    return Promise.reject()
+    return Promise.reject();
   }
-)
+);
 ```
 
+### 本地处理跨域
+
+当使用本地 Local Host 时，请求后端 Api 地址，会产生跨域。
+除了以上用 devServer 的 proxy 去本地代理之外，另一个简单粗暴的方式是：
+
+> 取消本地浏览器的跨域安全策略
+> 在 Chrome 图标的属性》快捷方式》目标后，添加：--disable-web-security --user-data-dir=~/chromeTemp
