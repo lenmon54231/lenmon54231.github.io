@@ -8,7 +8,15 @@ tags: [canvas]
 
 <!-- more -->
 
-### 样式
+### 实现样式
+
+![双柱状图样式](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E5%8F%8C%E6%9F%B1%E5%9B%BE.png)
+
+![横单柱状图样式](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E6%A8%AA%E6%9F%B1%E5%9B%BE.png)
+
+![竖单柱状图样式](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E7%AB%96%E5%8D%95%E6%9F%B1%E5%9B%BE.png)
+
+### 参考样式
 
 实现步骤直接参考[通过 canvas 实现饼状图](https://lenmon54231.github.io/2022/03/25/%E9%80%9A%E8%BF%87canvas%E5%8E%BB%E7%BB%98%E5%88%B6%E9%A5%BC%E7%8A%B6%E5%9B%BE/)
 

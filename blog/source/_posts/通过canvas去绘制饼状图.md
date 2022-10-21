@@ -12,9 +12,11 @@ tags: [canvas, Chart]
 
 ### 实现样式
 
+![雷达图](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E9%9B%B7%E8%BE%BE%E5%9B%BE.png)
+
 ![饼状图](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E9%A5%BC%E7%8A%B6%E5%9B%BE.png)
 
-### 实现思路
+### 实现饼状图思路
 
 #### 技能和文档
 
