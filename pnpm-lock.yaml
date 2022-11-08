@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   commander: ^9.1.0
@@ -187,6 +187,8 @@ packages:
       snapdragon-node: 2.1.1
       split-string: 3.1.0
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -231,7 +233,7 @@ packages:
     dev: false
 
   /chokidar/1.7.0:
-    resolution: {integrity: sha1-eY5ol3gVHIB2tLNg5e3SjNortGg=}
+    resolution: {integrity: sha512-mk8fAWcRUOxY7btlLtitj3A45jOwSAxH4tOFOoEGbVsl6cL6pPMWUy7dwZ/canfj3QEdP6FHSnf/l1c6/WkzVg==}
     deprecated: Chokidar 2 will break on node v14+. Upgrade to chokidar 3 with 15x less dependencies.
     requiresBuild: true
     dependencies:
@@ -245,6 +247,8 @@ packages:
       readdirp: 2.2.1
     optionalDependencies:
       fsevents: 1.2.13
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -341,6 +345,11 @@ packages:
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.0.0
     dev: false
@@ -416,6 +425,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -473,6 +484,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -1009,6 +1022,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -1062,6 +1077,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -1087,6 +1104,8 @@ packages:
       yargs: 3.32.0
     optionalDependencies:
       chokidar: 1.7.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /object-copy/0.1.0:
@@ -1246,6 +1265,8 @@ packages:
       graceful-fs: 4.2.9
       micromatch: 3.1.10
       readable-stream: 2.3.7
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -1400,6 +1421,8 @@ packages:
       source-map: 0.5.7
       source-map-resolve: 0.5.3
       use: 3.1.1
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
