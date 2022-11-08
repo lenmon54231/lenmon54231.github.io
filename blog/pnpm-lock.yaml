@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   hexo: ^5.0.0
@@ -294,6 +294,8 @@ packages:
       snapdragon-node: 2.1.1
       split-string: 3.1.0
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -350,7 +352,7 @@ packages:
     dev: false
 
   /chokidar/1.7.0:
-    resolution: {integrity: sha1-eY5ol3gVHIB2tLNg5e3SjNortGg=}
+    resolution: {integrity: sha512-mk8fAWcRUOxY7btlLtitj3A45jOwSAxH4tOFOoEGbVsl6cL6pPMWUy7dwZ/canfj3QEdP6FHSnf/l1c6/WkzVg==}
     deprecated: Chokidar 2 will break on node v14+. Upgrade to chokidar 3 with 15x less dependencies.
     requiresBuild: true
     dependencies:
@@ -364,6 +366,8 @@ packages:
       readdirp: 2.2.1
     optionalDependencies:
       fsevents: 1.2.13
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -465,6 +469,8 @@ packages:
       on-headers: 1.0.2
       safe-buffer: 5.1.2
       vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /concat-map/0.0.1:
@@ -479,6 +485,8 @@ packages:
       finalhandler: 1.1.2
       parseurl: 1.3.3
       utils-merge: 1.0.1
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /copy-descriptor/0.1.1:
@@ -550,12 +558,22 @@ packages:
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.0.0
     dev: false
 
   /debug/3.1.0:
     resolution: {integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.0.0
     dev: false
@@ -758,6 +776,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -806,6 +826,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -866,6 +888,8 @@ packages:
       parseurl: 1.3.3
       statuses: 1.5.0
       unpipe: 1.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /for-in/1.0.2:
@@ -1174,6 +1198,8 @@ packages:
       morgan: 1.10.0
       open: 7.4.2
       serve-static: 1.14.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /hexo-theme-fluid/1.8.14_nunjucks@3.0.0:
@@ -1731,6 +1757,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -1822,6 +1850,8 @@ packages:
       depd: 2.0.0
       on-finished: 2.3.0
       on-headers: 1.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /ms/2.0.0:
@@ -1857,6 +1887,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -1907,6 +1939,8 @@ packages:
       yargs: 3.32.0
     optionalDependencies:
       chokidar: 1.7.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /nunjucks/3.2.3:
@@ -2136,6 +2170,8 @@ packages:
       graceful-fs: 4.2.9
       micromatch: 3.1.10
       readable-stream: 2.3.7
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -2256,6 +2292,8 @@ packages:
       on-finished: 2.3.0
       range-parser: 1.2.1
       statuses: 1.5.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /serve-static/1.14.2:
@@ -2266,6 +2304,8 @@ packages:
       escape-html: 1.0.3
       parseurl: 1.3.3
       send: 0.17.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /set-value/2.0.1:
@@ -2325,6 +2365,8 @@ packages:
       source-map: 0.5.7
       source-map-resolve: 0.5.3
       use: 3.1.1
+    transitivePeerDependencies:
+      - supports-color
     dev: false
     optional: true
 
@@ -2460,6 +2502,8 @@ packages:
       sax: 1.2.4
       semver: 6.3.0
       source-map: 0.7.3
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /supports-color/7.2.0:
