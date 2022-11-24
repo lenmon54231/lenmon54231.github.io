@@ -197,3 +197,70 @@ xhr.send();
 
 当用请求获取到一个 response 时，此时，response 实际上是一个 Blob 对象，可以将其转化为 一个 url，赋值到 img 上，并在 onload 中做各种操作
 
+## 自动播放
+
+1. 自动播放判断
+
+   ```js
+   var promise = document.querySelector("video").play();
+
+   if (promise !== undefined) {
+     promise
+       .catch((error) => {
+         // Auto-play was prevented
+         // Show a UI element to let the user manually start playback
+       })
+       .then(() => {
+         // Auto-play started
+       });
+   }
+   ```
+
+   不要信任浏览器会自动播放，因为这玩意就是薛定谔的猫。所以我们最好加上一个 play 方法兜底，手动触发自动播放，并在失败的时候 做些界面上的反馈。譬如出现重播或开启播放的按钮。
+
+2. 安卓自动播放
+
+   安卓微信内自动播放现在是不被支持的，即便 video 静音了，也不行。为什么会出现这个特殊的情况，是因为安卓微信内核为 X5 内核，猜测是它的行为并没有同步最新的 chromium。
+   需要做一些兜底策略，可能如下：
+
+   1. 如果是静音视频展示的场景，可以考虑针对安卓微信展示相同效果的 gif
+   2. 非静音视频效果，默认展示明显的诱导开始播放的按钮
+   3. 忽略不管，等待用户触发网页行为后，再手动开启 play 方法
+
+3. 禁用全屏
+   但如果想要禁用播放全屏，需要考虑加上 playsinline 属性以做兼容。腾讯 x5 内核下，还需要开启同层渲染 x5-video-player-type='h5-page'，避免全屏。
+   ```js
+   <video
+     autoplay
+     src={videoUrl}
+     webkit-playsinline="true"
+     playsinline="true"
+     x5-video-player-type="h5-page"
+   />
+   ```
+
+## 同层渲染
+
+将原生组件和 webview 渲染组件放置到同一层来渲染的功能，这样就可以实现，webview 的组件覆盖原生组件的能力。
+比如：将 原生视频组件 video 上覆盖一层按钮或者提示
+
+### 某些不生效情况
+
+一般来说，定位 (position / margin / padding) 、尺寸 (width / height) 、transform (scale / rotate / translate) 以及层级 (z-index) 相关的属性均可生效。
+在原生组件外部的属性 (如 shadow、border) 一般也会生效。
+但如需对组件做裁剪则可能会失败，例如：border-radius 属性应用在父节点不会产生圆角效果。
+
+### 特殊情况
+
+1. 只有子节点才会进入全屏
+   有别于非同层渲染的原生组件，像 video 和 live-player 这类组件进入全屏时，只有其子节点会被显示。
+
+```js
+   <video>
+     <view> tips </view> // 全屏时会显示
+   </video>
+
+   <view> tips </view> // 全屏时不显示
+
+```
+
