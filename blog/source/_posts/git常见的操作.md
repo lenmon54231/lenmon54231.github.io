@@ -201,3 +201,99 @@ git push origin <remote branch> --force
 ```js
 git check .
 ```
+
+### git 合并两个本地库
+
+当你本地复制了一套代码作为初始备份时候，并且没有将.git 文件一起复制的话，当你做完你的新功能，需要 push 上去的时候，就需要做一些额外的操作
+
+<!-- more -->
+
+> ```js
+> 关键词：git pull origin master --allow-unrelated-histories
+> ```
+
+#### 本地已经初始化仓库
+
+先将本地的项目初始化为一个 git 仓库，然后再强行合并本地仓库和远程仓库，由于这两个仓库是完全不同的两个仓库，所以直接 pull 都会报错，需要在 pull 的时候假加上–allow-unrelated-histories 才可以 pull 成功。**此方法适用于本地项目已经是一个 git 仓库的情况。**
+
+1. git init
+2. git add .
+3. git commit -m 'fix'
+4. git remote add origin git@github.com:yuanmingchen/tensorflow_study.git
+5. git pull origin master --allow-unrelated-histories
+6. git push -u origin master
+
+当然，这样你 push 上去，实际上会有很多冲突，解决冲突然后提交就欧克了。
+
+参考如下：[将本地已有的一个项目上传到新建的 git 仓库的方法](https://www.cnblogs.com/presleyren/p/11715218.html)
+
+### GitHub 的 SSH 密钥配置
+
+<!-- more -->
+
+#### 生成本地电脑的 SSH
+
+```js
+git config --global user.name "limeng"
+git config --global user.email "limeng54231@163.com"
+ssh-keygen -t rsa -C limeng54231@163.com
+```
+
+#### 找到本地的公钥和私钥
+
+> C:\Users\ADMIN\.ssh
+> id_rsa.pub 文件通过记事本打开，可复制到粘贴板
+
+#### 添加到 GitHub
+
+```js
+Settings -> 左栏点击 SSH and GPG keys -> 点击 New SSH key
+```
+
+验证是否正常工作
+
+```js
+ssh -T git@github.com
+Hi xxx! You've successfully authenticated, but GitHub does not # provide shell access.
+```
+
+#### 注意事项
+
+1. 每次电脑生成本地的 SSH，会将之前的公钥替换掉，导致之前在 github 上添加的 SSH key 失效。
+   如果需要管理多个 SSH 和代码仓库的对应关系，需要做以下配置:
+
+   ```js
+    cat ~/.ssh/id_rsa.pub   //查看已生成的公钥
+    ssh-keygen -t rsa -C 'limeng54231@163.com' -f ~/.ssh/gitee_id_rsa // gitee_id_rsa 为生成的公钥文件名称
+   ```
+
+   将生成的 SSH 去添加到对应的代码仓库
+
+   ```js
+    touch ~/.ssh/config // ssh文件夹下生成一个config文件
+   ```
+
+   打开 config 后，添加以下内容
+
+   ```js
+   # gitee
+     Host gitee.com
+     HostName gitee.com
+     PreferredAuthentications publickey
+     IdentityFile ~/.ssh/gitee_id_rsa
+     # github
+     Host github.com
+     HostName github.com
+     PreferredAuthentications publickey
+     IdentityFile ~/.ssh/id_rsa
+     //其中Host和HostName填写git服务器的域名，IdentityFile填写私钥的路径。
+   ```
+
+   使用以下命令分别测试 GitHub 和 Gitee，查看 SSH Key 是否添加成功。
+
+   ```js
+   ssh -T git@gitee.com
+   ssh -T git@github.com
+   ```
+
+2. todo

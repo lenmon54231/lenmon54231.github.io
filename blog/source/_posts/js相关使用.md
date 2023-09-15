@@ -278,3 +278,5 @@ export const shootAll = (dom) => {
 ```html
 <el-button size="small" type="primary" @click="shootAllPre">全屏截图</el-button>
 ```
+
+### ES6 的解构
