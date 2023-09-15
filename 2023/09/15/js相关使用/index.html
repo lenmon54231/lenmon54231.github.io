@@ -16,23 +16,22 @@
   <meta name="author" content="Meng_Lee">
   <meta name="keywords" content="">
   
-    <meta name="description" content="常用判断工具 JavaScript 有很多的判断工具，如 Lodash.js 这些库来辅助判断，里面有额外的很多对象、数组、函数。以下记录一些手写的 js 方法，包含各种判断：是否是链接，是否为空，是否是对象，是否为空等常用功能，">
+    <meta name="description" content="js 相关使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常用判断工具">
-<meta property="og:url" content="http://lenmon54231.github.io/2022/03/02/%E5%B8%B8%E7%94%A8%E5%88%A4%E6%96%AD%E5%B7%A5%E5%85%B7js/index.html">
+<meta property="og:title" content="js相关使用">
+<meta property="og:url" content="http://lenmon54231.github.io/2023/09/15/js%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="常用判断工具 JavaScript 有很多的判断工具，如 Lodash.js 这些库来辅助判断，里面有额外的很多对象、数组、函数。以下记录一些手写的 js 方法，包含各种判断：是否是链接，是否为空，是否是对象，是否为空等常用功能，">
+<meta property="og:description" content="js 相关使用">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-02T09:16:26.000Z">
-<meta property="article:modified_time" content="2023-09-15T02:43:47.710Z">
+<meta property="article:published_time" content="2023-09-15T03:48:42.000Z">
+<meta property="article:modified_time" content="2023-09-15T06:07:18.955Z">
 <meta property="article:author" content="Meng_Lee">
-<meta property="article:tag" content="ES6">
-<meta property="article:tag" content="JS">
+<meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>常用判断工具 - Hexo</title>
+  <title>js相关使用 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="常用判断工具"></span>
+            <span id="subtitle" data-typed-text="js相关使用"></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-03-02 17:16" pubdate>
-          2022年3月2日 下午
+        <time datetime="2023-09-15 11:48" pubdate>
+          2023年9月15日 中午
         </time>
       </span>
     
@@ -221,7 +220,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.8k 字
+          6.5k 字
         
       </span>
     
@@ -233,7 +232,7 @@
         
         
           <!-- compatible with older versions-->
-          32 分钟
+          54 分钟
         
       </span>
     
@@ -271,23 +270,52 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">常用判断工具</h1>
+            <h1 style="display: none">js相关使用</h1>
             
             
               <div class="markdown-body">
                 
-                <meta name="referrer" content="no-referrer"/>
+                <h2 id="js-相关使用"><a href="#js-相关使用" class="headerlink" title="js 相关使用"></a>js 相关使用</h2><span id="more"></span>
 
-<h2 id="常用判断工具"><a href="#常用判断工具" class="headerlink" title="常用判断工具"></a>常用判断工具</h2><blockquote>
+<h3 id="常用判断工具"><a href="#常用判断工具" class="headerlink" title="常用判断工具"></a>常用判断工具</h3><blockquote>
 <p>JavaScript 有很多的判断工具，如 Lodash.js 这些库来辅助判断，里面有额外的很多对象、数组、函数。以下记录一些手写的 js 方法，包含各种判断：是否是链接，是否为空，是否是对象，是否为空等常用功能，</p>
 </blockquote>
-<span id="more"></span>
-
 <h4 id="通用判断功能"><a href="#通用判断功能" class="headerlink" title="通用判断功能"></a>通用判断功能</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> toString = <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">is</span>(<span class="hljs-params">val: unknown, type: string</span>) &#123;<br><span class="hljs-keyword">return</span> toString.<span class="hljs-title function_">call</span>(val) === <span class="hljs-string">`[object <span class="hljs-subst">$&#123;type&#125;</span>]`</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> isDef&lt;T = unknown&gt;(val?: T): val is T &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> val !== <span class="hljs-string">&#x27;undefined&#x27;</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> isUnDef&lt;T = unknown&gt;(val?: T): val is T &#123;<br><span class="hljs-keyword">return</span> !<span class="hljs-title function_">isDef</span>(val);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isObject</span>(<span class="hljs-params">val: any</span>): val is <span class="hljs-title class_">Record</span>&lt;any, any&gt; &#123;<br><span class="hljs-keyword">return</span> val !== <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;Object&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> isEmpty&lt;T = unknown&gt;(<span class="hljs-attr">val</span>: T): val is T &#123;<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_">isArray</span>(val) || <span class="hljs-title function_">isString</span>(val)) &#123;<br><span class="hljs-keyword">return</span> val.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">if</span> (val <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Map</span> || val <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Set</span>) &#123;<br><span class="hljs-keyword">return</span> val.<span class="hljs-property">size</span> === <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-title function_">isObject</span>(val)) &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(val).<span class="hljs-property">length</span> === <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isDate</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-title class_">Date</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;Date&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isNull</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-literal">null</span> &#123;<br><span class="hljs-keyword">return</span> val === <span class="hljs-literal">null</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isNullAndUnDef</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">isUnDef</span>(val) &amp;&amp; <span class="hljs-title function_">isNull</span>(val);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isNullOrUnDef</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">isUnDef</span>(val) || <span class="hljs-title function_">isNull</span>(val);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isNumber</span>(<span class="hljs-params">val: unknown</span>): val is number &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;Number&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> isPromise&lt;T = any&gt;(<span class="hljs-attr">val</span>: unknown): val is <span class="hljs-title class_">Promise</span>&lt;T&gt; &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;Promise&#x27;</span>) &amp;&amp; <span class="hljs-title function_">isObject</span>(val) &amp;&amp; <span class="hljs-title function_">isFunction</span>(val.<span class="hljs-property">then</span>) &amp;&amp; <span class="hljs-title function_">isFunction</span>(val.<span class="hljs-property">catch</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isString</span>(<span class="hljs-params">val: unknown</span>): val is string &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;String&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isFunction</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-title class_">Function</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> val === <span class="hljs-string">&#x27;function&#x27;</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isBoolean</span>(<span class="hljs-params">val: unknown</span>): val is boolean &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;Boolean&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isRegExp</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-title class_">RegExp</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;RegExp&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isArray</span>(<span class="hljs-params">val: any</span>): val is <span class="hljs-title class_">Array</span>&lt;any&gt; &#123;<br><span class="hljs-keyword">return</span> val &amp;&amp; <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(val);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isWindow</span>(<span class="hljs-params">val: any</span>): val is <span class="hljs-title class_">Window</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">window</span> !== <span class="hljs-string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;Window&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isElement</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-title class_">Element</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">isObject</span>(val) &amp;&amp; !!val.<span class="hljs-property">tagName</span>;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isMap</span>(<span class="hljs-params">val: unknown</span>): val is <span class="hljs-title class_">Map</span>&lt;any, any&gt; &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(val, <span class="hljs-string">&#x27;Map&#x27;</span>);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> isServer = <span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">window</span> === <span class="hljs-string">&#x27;undefined&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> isClient = !isServer;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isUrl</span>(<span class="hljs-params">path: string</span>): boolean &#123;<br><span class="hljs-keyword">const</span> reg =<br><span class="hljs-regexp">/(((^https?:(?:\/\/)?)(?:[-;:&amp;=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&amp;=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]_)?\??(?:[-\+=&amp;;%@.\w_]_)#?(?:[\w]\*))?)$/</span>;<br><span class="hljs-keyword">return</span> reg.<span class="hljs-title function_">test</span>(path);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js">只允许输入数字(整数：小数点不能输入)<br><br>&lt;input type=<span class="hljs-string">&quot;text&quot;</span> onkeyup=<span class="hljs-string">&quot;value=value.replace(/[^\d]/g,&#x27;&#x27;)&quot;</span> &gt;<br><br>允许输入小数(两位小数)<br><br>&lt;input type=<span class="hljs-string">&quot;text&quot;</span> onkeyup=<span class="hljs-string">&quot;value=value.replace(/^\D*(\d*(?:\.\d&#123;0,2&#125;)?).*$/g, &#x27;$1&#x27;)&quot;</span> &gt;<br><br>允许输入小数(一位小数)<br><br>&lt;input type=<span class="hljs-string">&quot;text&quot;</span> onkeyup=<span class="hljs-string">&quot;value=value.replace(/^\D*(\d*(?:\.\d&#123;0,1&#125;)?).*$/g, &#x27;$1&#x27;)&quot;</span> &gt;<br><br>开头不能为<span class="hljs-number">0</span>，且不能输入小数<br><br>&lt;input type=<span class="hljs-string">&quot;text&quot;</span> onkeyup=<span class="hljs-string">&quot;value=value.replace(/[^\d]/g,&#x27;&#x27;).replace(/^0&#123;1,&#125;/g,&#x27;&#x27;)&quot;</span> &gt;<br><br>只能输入数字或小数且第一位不能是<span class="hljs-number">0</span>和点且只能有一个点<br><br>&lt;input type=<span class="hljs-string">&quot;text&quot;</span> onkeyup=<span class="hljs-string">&quot;value=value.replace(/[^1-9]&#123;0,1&#125;(\d*(?:\.\d&#123;0,2&#125;)?).*$/g, &#x27;$1&#x27;)&quot;</span> &gt;<br><br></code></pre></td></tr></table></figure>
 
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 只允许输入数字，并且只能保留两位小数，不能以小数点开头，不能以小数点结尾</span><br><span class="hljs-keyword">let</span> judge = <span class="hljs-regexp">/^([1-9][\d]&#123;0,&#125;|0)(\.[\d]&#123;1,2&#125;)?$/</span>; <span class="hljs-comment">//限制小数点前无穷位，小数点后2位数</span><br>judge.<span class="hljs-title function_">test</span>(value);<br></code></pre></td></tr></table></figure>
+
+<h3 id="纯-js-实现上传视频，截取关键帧及全屏截图"><a href="#纯-js-实现上传视频，截取关键帧及全屏截图" class="headerlink" title="纯 js 实现上传视频，截取关键帧及全屏截图"></a>纯 js 实现上传视频，截取关键帧及全屏截图</h3><p>Web 端的截图(生成图片)并不算是个高频的需求，资料自然也不算多，查来查去，也不过 Canvas 和 SVG 两种实现方案，原理大概相似，都非真正义上的截图而是把 DOM 转为图片，然而实现方式却截然不同。</p>
+<!-- more -->
+
+<blockquote>
+<p>context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);</p>
+</blockquote>
+<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>对上传的视频进行截图，生成对应帧图片。对网站页面进行截图</p>
+<h4 id="实现视频截图"><a href="#实现视频截图" class="headerlink" title="实现视频截图"></a>实现视频截图</h4><ol>
+<li><p>上传</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html\">&lt;el-upload<br>  class=&quot;upload-demo&quot;<br>  :before-upload=&quot;beforeUpload&quot;<br>  :action=&quot;uploadUrl&quot;<br>  :on-success=&quot;uploadSuccess&quot;<br>  :file-list=&quot;fileList&quot;<br>&gt;<br>  &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt;<br>&lt;/el-upload&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">beforeUpload</span>(<span class="hljs-params">file</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">movieUrl</span> = <span class="hljs-variable language_">window</span>.<span class="hljs-property">URL</span>.<span class="hljs-title function_">createObjectURL</span>(file);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>通过 canvas 转出 img</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">shootIt</span>(<span class="hljs-params"></span>) &#123;<br>     <span class="hljs-keyword">let</span> video = <span class="hljs-variable language_">this</span>.<span class="hljs-property">$refs</span>.<span class="hljs-property">uploadVideo</span>;<br>     <span class="hljs-keyword">let</span> imgHeight = <span class="hljs-number">0</span>;<br>     <span class="hljs-keyword">let</span> imgWidth = <span class="hljs-number">0</span>;<br>     <span class="hljs-keyword">let</span> videoWidth = <span class="hljs-number">0</span>;<br>     <span class="hljs-keyword">let</span> videoHeight = <span class="hljs-number">0</span>;<br>     <span class="hljs-keyword">let</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;canvas&quot;</span>);<br>     <span class="hljs-keyword">let</span> canvasCtx = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&quot;2d&quot;</span>);<br>     <span class="hljs-comment">//获取展示的video宽高作为画布的宽高和临时视频截图的宽高</span><br>     <span class="hljs-variable language_">this</span>.<span class="hljs-property">info</span>.<span class="hljs-property">swidth</span> = canvas.<span class="hljs-property">width</span> = imgWidth = video.<span class="hljs-property">offsetWidth</span>;<br>     <span class="hljs-variable language_">this</span>.<span class="hljs-property">info</span>.<span class="hljs-property">sheight</span> = canvas.<span class="hljs-property">height</span> = imgHeight = video.<span class="hljs-property">offsetHeight</span>;<br>     <span class="hljs-comment">//获取实际视频的宽高，相当于视频分辨率吧</span><br>     videoWidth = video.<span class="hljs-property">videoWidth</span>;<br>     videoHeight = video.<span class="hljs-property">videoHeight</span>;<br>     <span class="hljs-comment">//坐原图像的x,y轴坐标，大小，目标图像的x，y轴标，大小。</span><br>     canvasCtx.<span class="hljs-title function_">drawImage</span>(<br>       video,<br>       <span class="hljs-number">0</span>,<br>       <span class="hljs-number">0</span>,<br>       videoWidth,<br>       videoHeight,<br>       <span class="hljs-number">0</span>,<br>       <span class="hljs-number">0</span>,<br>       imgWidth,<br>       imgHeight<br>     );<br>     <span class="hljs-comment">//把图标base64编码后变成一段url字符串</span><br>     <span class="hljs-keyword">let</span> dataUrl = canvas.<span class="hljs-title function_">toDataURL</span>(<span class="hljs-string">&quot;image/png&quot;</span>);<br>     <span class="hljs-variable language_">this</span>.<span class="hljs-property">shootUrl</span> = dataUrl;<br>     <span class="hljs-comment">// 获取图片的base64格式</span><br>     <span class="hljs-comment">// let shootImage = base64ConvertFile(dataUrl, &quot;haorooms截取视频帧&quot;);</span><br>   &#125;,<br></code></pre></td></tr></table></figure>
+
+<h4 id="实现网站截图"><a href="#实现网站截图" class="headerlink" title="实现网站截图"></a>实现网站截图</h4><blockquote>
+<p>import html2canvas from ‘html2canvas’</p>
+</blockquote>
+<p><code>html2canvas.js</code>用法其实很简单，通常情况下只需传入需要转换的 DOM 对象就可以了</p>
+<p>代码：定义公共方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> html2canvas <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;html2canvas&quot;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">shootAll</span> = (<span class="hljs-params">dom</span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">html2canvas</span>(dom, &#123;<br>    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>    <span class="hljs-attr">allowTaint</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">useCORS</span>: <span class="hljs-literal">true</span>,<br>  &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">canvas</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> canvasInfo = &#123;<br>      <span class="hljs-attr">width</span>: canvas.<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&quot;width&quot;</span>),<br>      <span class="hljs-attr">height</span>: canvas.<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&quot;height&quot;</span>),<br>      <span class="hljs-attr">url</span>: canvas.<span class="hljs-title function_">toDataURL</span>(),<br>    &#125;;<br>    <span class="hljs-comment">// canvas为转换后的Canvas对象</span><br>    <span class="hljs-keyword">return</span> canvasInfo; <span class="hljs-comment">// 导出图片</span><br>  &#125;);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>找到对应 dom 是关键，可以通过点击事件获取到 e，e 携带了全部的路径 path，从 path 中可以获取到父级的 dom，传入前做一下对象是否是 dom 的判断</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">assertElement</span>(<span class="hljs-params">obj</span>) &#123;<br>     <span class="hljs-comment">//判断是不是dom节点</span><br>     <span class="hljs-keyword">var</span> d = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);<br>     <span class="hljs-keyword">try</span> &#123;<br>       d.<span class="hljs-title function_">appendChild</span>(obj.<span class="hljs-title function_">cloneNode</span>(<span class="hljs-literal">true</span>));<br>       <span class="hljs-keyword">return</span> obj.<span class="hljs-property">nodeType</span> == <span class="hljs-number">1</span> ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>;<br>     &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>       <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>     &#125;<br>   &#125;,<br>   <span class="hljs-title function_">shootAllPre</span>(<span class="hljs-params">e</span>) &#123;<br>     <span class="hljs-keyword">let</span> shootDom = <span class="hljs-literal">null</span>;<br>     e.<span class="hljs-property">path</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">v</span>) =&gt;</span> &#123;<br>       <span class="hljs-comment">//寻找到 container dom节点</span><br>       <span class="hljs-keyword">let</span> judge = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">assertElement</span>(v);<br>       <span class="hljs-keyword">if</span> (judge &amp;&amp; v.<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">&quot;class&quot;</span>) == <span class="hljs-string">&quot;container&quot;</span>) &#123;<br>         shootDom = v;<br>       &#125;<br>     &#125;);<br>     <span class="hljs-title function_">shootAll</span>(shootDom).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>       <span class="hljs-variable language_">this</span>.<span class="hljs-property">shootUrl</span> = res.<span class="hljs-property">url</span>;<br>       <span class="hljs-variable language_">this</span>.<span class="hljs-property">info</span>.<span class="hljs-property">swidth</span> = res.<span class="hljs-property">width</span>;<br>       <span class="hljs-variable language_">this</span>.<span class="hljs-property">info</span>.<span class="hljs-property">sheight</span> = res.<span class="hljs-property">height</span>;<br>     &#125;);<br>   &#125;,<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">el-button</span> <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;shootAllPre&quot;</span>&gt;</span>全屏截图<span class="hljs-tag">&lt;/<span class="hljs-name">el-button</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -300,9 +328,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/ES6/">#ES6</a>
-      
-        <a href="/tags/JS/">#JS</a>
+        <a href="/tags/js/">#js</a>
       
     </div>
   
@@ -314,8 +340,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>常用判断工具</div>
-      <div>http://lenmon54231.github.io/2022/03/02/常用判断工具js/</div>
+      <div>js相关使用</div>
+      <div>http://lenmon54231.github.io/2023/09/15/js相关使用/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +353,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年3月2日</div>
+          <div>2023年9月15日</div>
         </div>
       
       
@@ -359,9 +385,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/23/%E4%BB%8EVue%E8%BF%87%E6%B8%A1%E5%88%B0React/" title="从Vue过渡到React">
+                      <a href="/2023/09/15/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%BF%E7%94%A8/" title="服务器使用">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从Vue过渡到React</span>
+                        <span class="hidden-mobile">服务器使用</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -369,8 +395,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/02/11/vscode%E9%85%8D%E7%BD%AE%E9%A1%B9%E6%96%87%E4%BB%B6/" title="vscode配置项文件">
-                        <span class="hidden-mobile">vscode配置项文件</span>
+                      <a href="/2023/09/15/three-js%E4%BD%BF%E7%94%A8/" title="three.js使用">
+                        <span class="hidden-mobile">three.js使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
