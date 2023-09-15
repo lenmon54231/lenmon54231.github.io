@@ -1,26 +1,12 @@
 ---
-title: git常见的操作
+title: git操作
 date: 2021-03-22 15:45:49
 tags: [git]
 ---
 
-## Git 常见的操作
+## Git 操作
 
 <!-- more -->
-
-### 更换淘宝源
-
-```js
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-cnpm install
-```
-
-### 更换 npm 源
-
-```js
-npm config set registry=http://registry.npmjs.org
-pnpm install
-```
 
 ### Git 更新远程分支列表
 
@@ -176,3 +162,42 @@ git stash clear //删除所有缓存的stash
 > 按下 esc，输入:wq，则保存完毕
 > 查看命令： git config branch.<BranchName>.description
 
+### git 修改已经 push 上去的变更
+
+#### 获取前一次的提交 id（commitID）
+
+```
+git log <filename>
+```
+
+注意： **是上一次的 commitID**，不是最新的 commitID
+
+#### reset 已经提交的文件
+
+```
+git reset <commit id> <filename>
+```
+
+#### 撤销对此文件的修改
+
+```
+git checkout -- <filename>
+```
+
+#### 重新 push
+
+```
+git add <file>
+git commit --amend
+git push origin <remote branch> --force
+```
+
+因为版本回退，导致落后于远程仓库，所以 push 需要添加--force 进行强制覆盖！该命名需要慎重使用
+
+### git 撤销本地的所有变动
+
+当本地有操作过 merge，回退 commit 等操作时，恢复本地初始状态可以使用
+
+```js
+git check .
+```
