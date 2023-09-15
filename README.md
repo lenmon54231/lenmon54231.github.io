@@ -4,8 +4,11 @@
 
 ```js
 git clone git@github.com:lenmon54231/hexoBlog.git
-pnpm install
+npm install
+cd ./blog
+npm install
 hexo s
+// 此时会生成一个http://localhost:4000地址
 ```
 
 #### Hexo 操作
