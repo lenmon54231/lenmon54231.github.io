@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="node 实现 push 和 hexo 更新Hexo 和 Github 页面实现个人博客云服务器到期，导致个人博客无处安放，用 GitHub 和 Hexo 做个人博客，流程如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node实现push和hexo更新">
+<meta property="og:url" content="http://lenmon54231.github.io/2022/08/21/node%E5%AE%9E%E7%8E%B0push%E5%92%8Chexo%E6%9B%B4%E6%96%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="node 实现 push 和 hexo 更新Hexo 和 Github 页面实现个人博客云服务器到期，导致个人博客无处安放，用 GitHub 和 Hexo 做个人博客，流程如下：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-21T08:49:08.000Z">
+<meta property="article:modified_time" content="2023-09-15T02:43:47.703Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="node">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>node实现push和hexo更新 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lenmon54231.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="node实现push和hexo更新"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-21 16:49" pubdate>
+          2022年8月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">node实现push和hexo更新</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="node-实现-push-和-hexo-更新"><a href="#node-实现-push-和-hexo-更新" class="headerlink" title="node 实现 push 和 hexo 更新"></a>node 实现 push 和 hexo 更新</h2><h3 id="Hexo-和-Github-页面实现个人博客"><a href="#Hexo-和-Github-页面实现个人博客" class="headerlink" title="Hexo 和 Github 页面实现个人博客"></a>Hexo 和 Github 页面实现个人博客</h3><p>云服务器到期，导致个人博客无处安放，用 GitHub 和 Hexo 做个人博客，流程如下：</p>
+<span id="more"></span>
+
+<h4 id="Hexo-配置"><a href="#Hexo-配置" class="headerlink" title="Hexo 配置"></a>Hexo 配置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">npm install -g hexo-cli<br>hexo init blog<br>hexo <span class="hljs-keyword">new</span> test_my_site<br>hexo g<br>hexo s<br></code></pre></td></tr></table></figure>
+
+<p>生成项目的_config.yml 文件中，修改配置如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">deploy</span>:<br>  <span class="hljs-attr">type</span>: git<br>  <span class="hljs-attr">repo</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//github.com/lenmon54231/lenmon54231.github.io.git</span><br>  <span class="hljs-attr">branch</span>: master<br><br><span class="hljs-attr">root</span>: /<br></code></pre></td></tr></table></figure>
+
+<p>最后，配置下 git 提交的插件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
+
+<p>以后的新增和修改了文章，就可以通过以下的命令来更新 Hexo 博客：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">hexo clean<br>hexo g<br>hexo d<br></code></pre></td></tr></table></figure>
+
+<p>经过以上命令，就可以打开 localhost:4000，来本地访问 hexo 博客</p>
+<h4 id="GitHub-配置"><a href="#GitHub-配置" class="headerlink" title="GitHub 配置"></a>GitHub 配置</h4><p>GitHub 需要两个仓库，1、Hexo 博客源码仓库；2、GitHub 的.github.io 仓库</p>
+<ol>
+<li>GitHub 的.github.io 仓库<br>新建一个名为你的用户名.github.io 的仓库，比如说，如果你的 github 用户名是 test，那么你就新建 test.github.io 的仓库（必须是你的用户名，其它名称无效），将来你的网站访问地址就是 <a target="_blank" rel="noopener" href="http://test.github.io/">http://test.github.io</a> 了，是不是很方便？</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">注册的邮箱一定要验证，否则不会成功；<br>仓库名字必须是：username.<span class="hljs-property">github</span>.<span class="hljs-property">io</span>，其中username是你的用户名；<br>仓库创建成功不会立即生效，需要过一段时间，大概<span class="hljs-number">10</span>-<span class="hljs-number">30</span>分钟，或者更久，我的等了半个小时才生效；<br><span class="hljs-attr">deploy</span>:<br>  <span class="hljs-attr">type</span>: git<br>  <span class="hljs-attr">repo</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//github.com/lenmon54231/lenmon54231.github.io.git</span><br>  <span class="hljs-attr">branch</span>: master<br></code></pre></td></tr></table></figure>
+
+<p>2.Hexo 博客源码仓库<br>这个就省略了，就是新建一个普通仓库用来放 Hexo 的源码，后面方便其他电脑的 clone。</p>
+<p>通过 hexo d 来推送数据到 GitHub 的时候，可能会需求添加 SSH Key，参考<a href="https://lenmon54231.github.io/2021/03/21/GitHub%E7%9A%84SSH%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE/">SSH 配置</a></p>
+<h4 id="通过-node-来执行重复操作"><a href="#通过-node-来执行重复操作" class="headerlink" title="通过 node 来执行重复操作"></a>通过 node 来执行重复操作</h4><p>每次修改或者新增文章都会执行以下的操作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">hexo clean<br>hexo g<br>hexo d<br>git pull<br>git add .<br>git commit -m <span class="hljs-string">&#x27;xxx&#x27;</span><br>git push<br></code></pre></td></tr></table></figure>
+
+<p>网上都是用的 GitHub 的 hook 来自动化部署，即：通过 git push 的命令来更新 hexo 博客。但是走到密钥配置这一步，发现有点问题，因为有用公司项目，不清楚如何配置。为了避免和公司项目冲突，采用 node 去代替重复操作。</p>
+<p>通过 shelljs 的库，可以以 Promise 的形式执行 shell，代码很简单，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// @ts-nocheck</span><br><span class="hljs-keyword">const</span> shell = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;shelljs&quot;</span>);<br><span class="hljs-keyword">const</span> program = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;commander&quot;</span>);<br><span class="hljs-comment">// const iconv = require(&quot;iconv-lite&quot;);</span><br><br><span class="hljs-keyword">const</span> runGit = <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">let</span> currentTime = <span class="hljs-title class_">String</span>(<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">toLocaleString</span>(<span class="hljs-string">&quot;chinese&quot;</span>, &#123; <span class="hljs-attr">hour12</span>: <span class="hljs-literal">false</span> &#125;)<br>  );<br>  <span class="hljs-keyword">let</span> commitStr = <span class="hljs-string">`git commit -m &quot;<span class="hljs-subst">$&#123;currentTime&#125;</span>&quot;`</span>;<br>  shell.<span class="hljs-title function_">exec</span>(<span class="hljs-string">&quot;git pull&quot;</span>, &#123; <span class="hljs-attr">silent</span>: <span class="hljs-literal">true</span> &#125;);<br>  shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;git pull完成&quot;</span>);<br>  shell.<span class="hljs-title function_">exec</span>(<span class="hljs-string">&quot;git add .&quot;</span>, &#123; <span class="hljs-attr">silent</span>: <span class="hljs-literal">true</span> &#125;);<br>  shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;git add .完成&quot;</span>);<br>  shell.<span class="hljs-title function_">exec</span>(commitStr, &#123; <span class="hljs-attr">silent</span>: <span class="hljs-literal">true</span> &#125;);<br>  shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;git commit完成&quot;</span>);<br>  shell.<span class="hljs-title function_">exec</span>(<span class="hljs-string">&quot;git push&quot;</span>);<br>  shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;git操作完成&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;;<br><br><span class="hljs-keyword">const</span> runHexo = <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// shell.exec(</span><br>  <span class="hljs-comment">//   &quot;ipconfig&quot;,</span><br>  <span class="hljs-comment">//   &#123; silent: true, encoding: &quot;buffer&quot; &#125;,</span><br>  <span class="hljs-comment">//   (err, stdout, stderr) =&gt; &#123;</span><br>  <span class="hljs-comment">//     // @ts-ignore</span><br>  <span class="hljs-comment">//     shell.echo(</span><br>  <span class="hljs-comment">//       &quot;ipconfig ---------------------------&quot;,</span><br>  <span class="hljs-comment">//       // @ts-ignore</span><br>  <span class="hljs-comment">//       iconv.decode(stdout, &quot;cp936&quot;),</span><br>  <span class="hljs-comment">//       &quot;ipconfig ---------------------------&quot;</span><br>  <span class="hljs-comment">//     );</span><br>  <span class="hljs-comment">//   &#125;</span><br>  <span class="hljs-comment">// );</span><br>  <span class="hljs-keyword">if</span> (!shell.<span class="hljs-title function_">which</span>(<span class="hljs-string">&quot;hexo&quot;</span>)) &#123;<br>    <span class="hljs-comment">//在控制台输出内容</span><br>    shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;Sorry, this script requires hexo&quot;</span>);<br>    shell.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br>  shell.<span class="hljs-title function_">cd</span>(<span class="hljs-string">&quot;blog&quot;</span>);<br>  shell.<span class="hljs-title function_">exec</span>(<span class="hljs-string">&quot;hexo clean&quot;</span>, &#123; <span class="hljs-attr">silent</span>: <span class="hljs-literal">true</span> &#125;);<br>  shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;hexo clean完成&quot;</span>);<br>  shell.<span class="hljs-title function_">exec</span>(<span class="hljs-string">&quot;hexo g&quot;</span>, &#123; <span class="hljs-attr">silent</span>: <span class="hljs-literal">true</span> &#125;);<br>  shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;hexo g完成&quot;</span>);<br>  <span class="hljs-keyword">if</span> (shell.<span class="hljs-title function_">exec</span>(<span class="hljs-string">&quot;hexo d&quot;</span>).<span class="hljs-property">code</span> !== <span class="hljs-number">0</span>) &#123;<br>    shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;Error: hexo d failed&quot;</span>);<br>    shell.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br>  shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;hexo操作完成&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;;<br><br><span class="hljs-keyword">const</span> runNewHexo = <span class="hljs-keyword">function</span> (<span class="hljs-params">newPageHexoWithTitle</span>) &#123;<br>  shell.<span class="hljs-title function_">cd</span>(<span class="hljs-string">&quot;blog&quot;</span>);<br>  shell.<span class="hljs-title function_">exec</span>(newPageHexoWithTitle);<br>&#125;;<br><br><span class="hljs-keyword">const</span> runHexoCI = <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    program<br>      .<span class="hljs-title function_">version</span>(<span class="hljs-string">&quot;0.0.1&quot;</span>) <span class="hljs-comment">//定义版本号</span><br>      .<span class="hljs-title function_">option</span>(<span class="hljs-string">&quot;-g, --gitCI&quot;</span>, <span class="hljs-string">&quot;gitCI&quot;</span>) <span class="hljs-comment">//参数定义</span><br>      .<span class="hljs-title function_">option</span>(<span class="hljs-string">&quot;-h, --hexoCI&quot;</span>, <span class="hljs-string">&quot;hexoCI&quot;</span>)<br>      .<span class="hljs-title function_">option</span>(<span class="hljs-string">&quot;-n, --hexoNewPage&quot;</span>, <span class="hljs-string">&quot;hexoNewPage&quot;</span>)<br>      .<span class="hljs-title function_">parse</span>(process.<span class="hljs-property">argv</span>); <span class="hljs-comment">//解析命令行参数,参数定义完成后才能调用</span><br>    <span class="hljs-keyword">if</span> (program?.<span class="hljs-property">_optionValues</span>?.<span class="hljs-property">gitCI</span>) &#123;<br>      shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;命中git&quot;</span>);<br>      <span class="hljs-title function_">runGit</span>();<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (program?.<span class="hljs-property">_optionValues</span>?.<span class="hljs-property">hexoCI</span>) &#123;<br>      shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;命中hexo&quot;</span>);<br>      <span class="hljs-title function_">runHexo</span>();<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (program?.<span class="hljs-property">_optionValues</span>?.<span class="hljs-property">hexoNewPage</span>) &#123;<br>      shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;命中新建文章页面&quot;</span>);<br>      <span class="hljs-keyword">if</span> (program?.<span class="hljs-property">rawArgs</span>[<span class="hljs-number">3</span>]) &#123;<br>        <span class="hljs-keyword">let</span> newPageHexoWithTitle = <span class="hljs-string">`hexo n &quot;<span class="hljs-subst">$&#123;program?.rawArgs[<span class="hljs-number">3</span>]&#125;</span>&quot;`</span>;<br>        <span class="hljs-title function_">runNewHexo</span>(newPageHexoWithTitle);<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;输入最后一个参数，即：文章名称&quot;</span>);<br>      &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">await</span> <span class="hljs-title function_">runGit</span>();<br>      <span class="hljs-keyword">await</span> <span class="hljs-title function_">runHexo</span>();<br>    &#125;<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    shell.<span class="hljs-title function_">echo</span>(<span class="hljs-string">&quot;CI流程报错!!!!!&quot;</span>, error);<br>  &#125;<br>&#125;;<br><br><span class="hljs-title function_">runHexoCI</span>();<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hexo/">#hexo</a>
+      
+        <a href="/tags/node/">#node</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>node实现push和hexo更新</div>
+      <div>http://lenmon54231.github.io/2022/08/21/node实现push和hexo更新/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/22/%E5%88%A9%E7%94%A8G2%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9F%B1%E7%8A%B6%E5%9B%BE/" title="利用G2可视化实现一个自定义柱状图">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">利用G2可视化实现一个自定义柱状图</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/02/APP%E5%92%8CH5%20%E7%9A%84%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F/" title="原生 APP 和 H5 的交互桥">
+                        <span class="hidden-mobile">原生 APP 和 H5 的交互桥</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
