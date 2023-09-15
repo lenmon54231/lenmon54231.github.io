@@ -14,6 +14,8 @@ hexo s
 #### Hexo 操作
 
 ```js
+// /blog目录下
+cd ./blog
 hexo clean
 hexo g
 hexo d
