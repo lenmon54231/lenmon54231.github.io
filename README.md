@@ -6,6 +6,7 @@
 git clone git@github.com:lenmon54231/hexoBlog.git
 npm install
 cd ./blog
+npm install hexo-cli -g // 当报错hexo: command not found，此时也应当执行当前命令
 npm install
 hexo s
 // 此时会生成一个http://localhost:4000地址
