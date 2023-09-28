@@ -1938,3 +1938,154 @@ window.document.documentElement.setAttribute("data-theme", "orange");
 @include background_color 和@include box_shadow 这些变量都是通过 handle 文件来定义的。
 
 注意：border 这类需要多个维度来判断的 class，只需要改变其中的颜色部分。会自动覆盖对应之前定义的 border 中的颜色#486cdc
+
+### mini-Vue 极简说明
+
+省去一切额外开销，几句话讲出 mini-Vue 大概逻辑
+
+<!-- more -->
+
+#### 代码示例
+
+```js
+import { reactive, effect } from "../vue3.js";
+
+/* 
+  场景 1
+*/
+const obj = reactive({ x: 1 });
+
+effect(() => {
+  patch();
+});
+
+setTimeout(() => {
+  obj.x = 2;
+}, 1000);
+
+function patch() {
+  document.body.innerText = obj.x;
+}
+```
+
+当 1S 后执行 obj.x = 2 时，会触发 patch。就说明 obj 是一个响应式对象，改变他的值会触发 effect 内的函数
+
+#### 收集和触发依赖（reactive）
+
+reactive 是一个函数，接受复杂对象为参数
+
+```js
+reactive(target) {
+  return new Proxy(target, {
+  get(target,key,receiver){
+    const res = Reflect get(target,key,receiver)
+    track()
+    return res
+  },
+  set(target,key,receiver){
+    const res = Reflect get(target,key,receiver)
+    trigger()
+    return res
+  },
+})
+}
+```
+
+每当 obj.x 执行时，会触发 get，当 obj.x =2 赋值时，会触发 trigger
+
+##### track 函数是收集依赖
+
+```js
+function track(target, key) {
+  let depsMap = targetMap.get(target);
+  if (!depsMap) {
+    depsMap = new Map();
+    targetMap.set(target, depsMap);
+  }
+
+  let dep = depsMap.get(key);
+  if (!dep) {
+    dep = new Set();
+    depsMap.set(key, dep);
+  }
+
+  if (dep.has(activeEffect)) return;
+
+  dep.add(activeEffect);
+  activeEffect.deps.push(dep);
+}
+```
+
+track 函数就是收集依赖，既然拿到了依赖，就必须要找个对象去存储起来。
+targetMap 就是用来存储依赖的对象，是一个 weekMap，形如：
+
+```javascript
+{ // 这是一个WeakMap
+  [target]: { // key是reactiveObject, value是一个Map
+    [key]: [] // key是reactiveObject的键值, value是一个Set
+  }
+}
+const obj = reactive({ x: 1 });
+```
+
+以上面的 obj 为例，target 是{ x: 1 }，key 是 x。
+
+> **那么里面 x 对应的[]是什么呢？留到后面的 Effect 函数**
+
+##### trigger 函数是触发依赖
+
+### cancletoken 的使用（取消上一次的请求）
+
+当上一次请求没有完成时，再次发起请求，需要首先结束上一次请求。然后再发起新的请求
+
+axios 有提供 cancletoken 的方案，记录如下
+
+<!-- more -->
+
+#### 需求描述
+
+现在又个 tabs 切换，第一个 tab 请求数据较大，需要 10 秒获取数据，第二个 tab 需求请求 5 秒，第三个需要请求 1 秒。
+
+当点击第一个时，等待 1 秒后，再切换第二个 tab，再等待 1 秒，切换第三个 tab。
+
+> 数据的显示会首先显示第三次请求的数据，然后显示第二次请求的数据，最后显示到页面上渲染出来的时第一次请求到的数据。这个是不正确的，需要显示第三次请求的数据。
+
+![需求图片](https://limengtupian.oss-cn-beijing.aliyuncs.com/canceltoken%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/cancletoken.png)
+
+#### 解决代码
+
+```js
+const service = axios.create({
+  // process.env.NODE_ENV === 'development' 来判断是否开发环境
+  baseURL: process.env.NODE_ENV === 'development' ? '/' : host.host,
+  timeout: 60000000
+});
+let cancel = null;
+let url = null;
+service.interceptors.request.use(config => {
+  // 在 cardCertificateReceive 页面中，存在tab切换发起多次请求需求，需要在本次请求时取消上次请求，故添加取消请求拦截
+  if (typeof (cancel) == 'function') {
+    if (url == config.url)
+      cancel('强制取消了请求')
+  }
+  url = config.url;
+  // 将cancel变成function
+  config['cancelToken'] = new axios.CancelToken(function (c) {
+    console.log(c, 'c')
+    cancel = c
+  })
+  return config;
+}, error => {
+  return Promise.reject();
+});
+service.interceptors.response.use(response => {
+  if (response.status === 200) {
+    if (response.data.code === 200) {
+      //请求成功后，将cancel置为null。以通过下次请求。
+      cancel = null;
+      url = null;
+      return response.data;
+    }
+}, error => {
+});
+```

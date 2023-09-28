@@ -1,6 +1,6 @@
 ---
 title: 通过canvas绘制双柱形图
-date: 2022-08-31 16:15:45
+date: 2023-04-31 16:15:45
 tags: [canvas]
 ---
 
@@ -383,4 +383,3 @@ shape.animateTo(
   width: 200,
   height: 200,
   通过改变 height 来实现矩形高度变化
-

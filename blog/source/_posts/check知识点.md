@@ -1,6 +1,6 @@
 ---
 title: check知识点
-date: 2022-11-24 10:49:32
+date: 2021-11-24 10:49:32
 tags: [three.js 小程序]
 ---
 
@@ -263,4 +263,3 @@ xhr.send();
    <view> tips </view> // 全屏时不显示
 
 ```
-
