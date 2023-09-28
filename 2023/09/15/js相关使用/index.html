@@ -24,7 +24,7 @@
 <meta property="og:description" content="js 相关使用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-15T03:48:42.000Z">
-<meta property="article:modified_time" content="2023-09-15T06:21:39.237Z">
+<meta property="article:modified_time" content="2023-09-28T07:14:28.083Z">
 <meta property="article:author" content="Meng_Lee">
 <meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          6.5k 字
+          10k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
           <!-- compatible with older versions-->
-          55 分钟
+          84 分钟
         
       </span>
     
@@ -317,7 +317,51 @@
 
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">el-button</span> <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;shootAllPre&quot;</span>&gt;</span>全屏截图<span class="hljs-tag">&lt;/<span class="hljs-name">el-button</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="ES6-的解构"><a href="#ES6-的解构" class="headerlink" title="ES6 的解构"></a>ES6 的解构</h3>
+<h3 id="ES6-的解构"><a href="#ES6-的解构" class="headerlink" title="ES6 的解构"></a>ES6 的解构</h3><h3 id="ES6-中-Proxy-的代理和反射"><a href="#ES6-中-Proxy-的代理和反射" class="headerlink" title="ES6 中 Proxy 的代理和反射"></a>ES6 中 Proxy 的代理和反射</h3><h4 id="Proxy-对象"><a href="#Proxy-对象" class="headerlink" title="Proxy 对象"></a>Proxy 对象</h4><p>EcmaScript 2015 中引入了 Proxy 代理 与 Reflect 反射 两个新的内置模块。</p>
+<p>我们可以利用 Proxy 和 Reflect 来实现对于对象的代理劫持操作，类似于 Es 5 中 Object.defineProperty()的效果</p>
+ <!-- more -->
+
+<h5 id="使用-Proxy"><a href="#使用-Proxy" class="headerlink" title="使用 Proxy"></a>使用 Proxy</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;wang.haoyu&quot;</span>,<br>&#125;;<br><br><span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(obj, &#123;<br>  <span class="hljs-comment">// get陷阱中target表示原对象 key表示访问的属性名</span><br>  <span class="hljs-title function_">get</span>(<span class="hljs-params">target, key, receiver</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;劫持你的数据访问&quot;</span> + key);<br>    <span class="hljs-keyword">return</span> target[key];<br>  &#125;,<br>  <span class="hljs-title function_">set</span>(<span class="hljs-params">target, key, value</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`set <span class="hljs-subst">$&#123;key&#125;</span>, old value <span class="hljs-subst">$&#123;target[key]&#125;</span> to <span class="hljs-subst">$&#123;value&#125;</span>`</span>);<br>    target[key] = value;<br>  &#125;,<br>&#125;);<br><br>proxy.<span class="hljs-property">name</span>; <span class="hljs-comment">// 劫持你的数据访问name -&gt; wang.haoyu</span><br></code></pre></td></tr></table></figure>
+
+<p>当调用 proxy.name 时，会触发 proxy 内置的 get，从而返回 target 的值</p>
+<p>Proxy 的第 2 个参数 handler 除了可以设置 get 和 set 方法外，还有更多丰富的方法：</p>
+<ul>
+<li>get(target, propKey, receiver)：拦截对象属性的读取，比如 proxy.foo 和 proxy[‘foo’]。</li>
+<li>set(target, propKey, value, receiver)：拦截对象属性的设置，比如 proxy.foo = v 或 proxy[‘foo’] = v，返回一 * 个布尔值。</li>
+<li>has(target, propKey)：拦截 propKey in proxy 的操作，返回一个布尔值。</li>
+<li>deleteProperty(target, propKey)：拦截 delete proxy[propKey]的操作，返回一个布尔值。</li>
+<li>ownKeys(target)：拦截 Object.getOwnPropertyNames(proxy)、Object.getOwnPropertySymbols(proxy)、Object. _ keys(proxy)、for…in 循环，返回一个数组。该方法返回目标对象所有自身的属性的属性名，而 Object.keys()的返回结果 _ 仅包括目标对象自身的可遍历属性。</li>
+<li>getOwnPropertyDescriptor(target, propKey)：拦截 Object.getOwnPropertyDescriptor(proxy, propKey)，返回属 * 性的描述对象。</li>
+<li>defineProperty(target, propKey, propDesc)：拦截 Object.defineProperty(proxy, propKey, propDesc）、 * Object.defineProperties(proxy, propDescs)，返回一个布尔值。</li>
+<li>preventExtensions(target)：拦截 Object.preventExtensions(proxy)，返回一个布尔值。</li>
+<li>getPrototypeOf(target)：拦截 Object.getPrototypeOf(proxy)，返回一个对象。</li>
+<li>isExtensible(target)：拦截 Object.isExtensible(proxy)，返回一个布尔值。</li>
+<li>setPrototypeOf(target, proto)：拦截 Object.setPrototypeOf(proxy, proto)，返回一个布尔值。如果目标对象是函 * 数，那么还有两种额外操作可以拦截。</li>
+<li>apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作，比如 proxy(…args)、proxy.call(object, .. * .args)、proxy.apply(…)。</li>
+<li>construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作，比如 new proxy(…args)。</li>
+</ul>
+<h4 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h4><p>Proxy 与 Reflect 可以说形影不离了，Reflect 里所有的方法和使用方式与 Proxy 完全一样。</p>
+<p>例如上面 Proxy 里的 get(), set()和 deleteProperty()方法我们都是直接操作原代理对象的，这里我们改成使用 Reflect 来操作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> personProxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(person, &#123;<br>  <span class="hljs-title function_">get</span>(<span class="hljs-params">target, key, receiver</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`get value by <span class="hljs-subst">$&#123;key&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(target, key, receiver);<br>  &#125;,<br>  <span class="hljs-title function_">set</span>(<span class="hljs-params">target, key, value, receiver</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`set <span class="hljs-subst">$&#123;key&#125;</span>, old value <span class="hljs-subst">$&#123;target[key]&#125;</span> to <span class="hljs-subst">$&#123;value&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(target, key, value, receiver);<br>  &#125;,<br>  <span class="hljs-title function_">deleteProperty</span>(<span class="hljs-params">target, key, receiver</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`delete key <span class="hljs-subst">$&#123;key&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">deleteProperty</span>(target, key, receiver);<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>问： target[key] 和 Reflect.get(target, key, receiver) 的效果是一样的。那为什么要多一个 Reflect 反射呢？<br>答：注意到 Proxy 里头的 get 等还有一个“多余的传入参数”：receiver，它和 Reflect.get 的第三个参数是配套的。<br>如果那个你的 Proxy 里头的 target 还是一个 proxy，并且对 receiver 有自己的用途，那么只能用 Reflect.get(target,prop,receiver)，将 receiver 正确地传递进去。也就是保证 this 的指向正确性</p>
+</blockquote>
+<h4 id="Vue3-的优化"><a href="#Vue3-的优化" class="headerlink" title="Vue3 的优化"></a>Vue3 的优化</h4><p>Vue3 可以通过 Proxy 直接劫持数组，从而实现对应数组的监听了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br><span class="hljs-keyword">const</span> arrProxy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(arr, &#123;<br>  <span class="hljs-title function_">get</span>(<span class="hljs-params">target, key, receiver</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;arrProxy.get&quot;</span>, target, key);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">get</span>(target, key, receiver);<br>  &#125;,<br>  <span class="hljs-title function_">set</span>(<span class="hljs-params">target, key, value, receiver</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;arrProxy.set&quot;</span>, target, key, value);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">set</span>(target, key, value, receiver);<br>  &#125;,<br>  <span class="hljs-title function_">deleteProperty</span>(<span class="hljs-params">target, key</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;arrProxy.deleteProperty&quot;</span>, target, key);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Reflect</span>.<span class="hljs-title function_">deleteProperty</span>(target, key);<br>  &#125;,<br>&#125;);<br><br>arrProxy[<span class="hljs-number">2</span>] = <span class="hljs-number">22</span>; <span class="hljs-comment">// arrProxy.set (4) [1, 2, 3, 4] 2 22</span><br>arrProxy[<span class="hljs-number">3</span>]; <span class="hljs-comment">// arrProxy.get (4) [1, 2, 22, 4] 3</span><br><span class="hljs-keyword">delete</span> arrProxy[<span class="hljs-number">2</span>]; <span class="hljs-comment">// arrProxy.deleteProperty (4) [1, 2, 22, 4] 2</span><br>arrProxy.<span class="hljs-title function_">push</span>(<span class="hljs-number">5</span>); <span class="hljs-comment">// push操作比较复杂，这里进行了多个get()和set()操作</span><br>arrProxy.<span class="hljs-property">length</span>; <span class="hljs-comment">// arrProxy.get (5) [1, 2, empty, 4, 5] length</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到无论获取、删除还是修改数据，都可以感知到。还有数组原型链上的一些方法，如：</p>
+<ul>
+<li>push()</li>
+<li>pop()</li>
+<li>shift()</li>
+<li>unshift()</li>
+<li>splice()</li>
+<li>sort()</li>
+<li>reverse()</li>
+</ul>
+<p>也都能通过 Proxy 中的代理方法劫持到。</p>
+
                 
               </div>
             
