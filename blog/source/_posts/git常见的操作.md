@@ -14,6 +14,23 @@ tags: [git]
 git remote update origin --prune
 ```
 
+### 本地代码关联远程仓库
+
+```js
+git init
+
+git add .
+
+git commit -m "备注信息"
+
+git remote add origin 你的远程仓库地址
+
+git pull --rebase origin master
+
+git push -u origin master
+// 当push报错时：behind的错误信息代表着需要重新执行 git pull --rebase origin master
+```
+
 ### Git 删除文件
 
 ```js
