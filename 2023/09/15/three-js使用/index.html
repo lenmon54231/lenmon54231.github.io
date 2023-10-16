@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E6%9D%90%E8%B4%A8%E6%95%88%E6%9E%9C.png">
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/PerspectiveCameraIntrduce.jpg">
 <meta property="article:published_time" content="2023-09-15T03:38:42.000Z">
-<meta property="article:modified_time" content="2023-09-15T03:41:45.826Z">
+<meta property="article:modified_time" content="2023-10-16T09:20:50.766Z">
 <meta property="article:author" content="Meng_Lee">
 <meta property="article:tag" content="three.js">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          8k 字
+          8.3k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
           <!-- compatible with older versions-->
-          67 分钟
+          69 分钟
         
       </span>
     
@@ -441,7 +441,11 @@
 <li><p>test</p>
 </li>
 </ol>
-
+<h3 id="CSS2DRenderer-标签点击事件无效"><a href="#CSS2DRenderer-标签点击事件无效" class="headerlink" title="CSS2DRenderer 标签点击事件无效"></a>CSS2DRenderer 标签点击事件无效</h3><p>在 three.js 0.13X 版本后,上面 dom 的 onclick 不会触发，原因是控制器 Controls</p>
+<h4 id="OrbitControls-改成-canvas-的-renderer"><a href="#OrbitControls-改成-canvas-的-renderer" class="headerlink" title="OrbitControls 改成 canvas 的 renderer"></a>OrbitControls 改成 canvas 的 renderer</h4><p>let obtControls = new OrbitControls(camera, renderer.domElement);</p>
+<h4 id="将-labelRenderer-改成-none"><a href="#将-labelRenderer-改成-none" class="headerlink" title="将 labelRenderer 改成 none"></a>将 labelRenderer 改成 none</h4><p>let labelRenderer = new CSS2DRenderer()</p>
+<p>labelRenderer.domElement.style.pointerEvents = “none”;</p>
+<h4 id="将-CSS2DObject-的-pointerEvents-改成-auto"><a href="#将-CSS2DObject-的-pointerEvents-改成-auto" class="headerlink" title="将 CSS2DObject 的 pointerEvents 改成 auto"></a>将 CSS2DObject 的 pointerEvents 改成 auto</h4>
                 
               </div>
             
