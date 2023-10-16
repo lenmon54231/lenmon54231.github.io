@@ -534,3 +534,19 @@ tween2.start();
    ```
 
 5. test
+
+### CSS2DRenderer 标签点击事件无效
+
+在 three.js 0.13X 版本后,上面 dom 的 onclick 不会触发，原因是控制器 Controls
+
+#### OrbitControls 改成 canvas 的 renderer
+
+let obtControls = new OrbitControls(camera, renderer.domElement);
+
+#### 将 labelRenderer 改成 none
+
+let labelRenderer = new CSS2DRenderer()
+
+labelRenderer.domElement.style.pointerEvents = "none";
+
+#### 将 CSS2DObject 的 pointerEvents 改成 auto
