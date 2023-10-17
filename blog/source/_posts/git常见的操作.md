@@ -314,3 +314,24 @@ Hi xxx! You've successfully authenticated, but GitHub does not # provide shell a
    ```
 
 2. todo
+
+### git commit 报错
+
+如果 gitcommit 提交时，可以输入内容，但是 wq 保存后，报错。
+
+报错类似于：
+
+```js
+// SyntaxError: Unexpected token '.'
+//并且报错的文件是位于node_modules中，则考虑是node版本不正确导致
+```
+
+同时可以看下 npm install 时是否有报错，应该会有推荐 node 版本的提示
+
+通过 nvm 下载并且安装新的 node 版本
+
+1. 下载 node[地址](https://nodejs.org/zh-cn/download/releases)
+2. 把文件夹名称改为 v14.21.3，并且放入 nvm 中(C:\nvm)
+3. 执行 nvm use 14.21.3
+
+可以正常 git commit 了
