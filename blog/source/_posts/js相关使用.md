@@ -397,3 +397,28 @@ arrProxy.length; // arrProxy.get (5) [1, 2, empty, 4, 5] length
 - reverse()
 
 也都能通过 Proxy 中的代理方法劫持到。
+
+### 全面屏宽高比对
+
+#### 判断逻辑
+
+```js
+/**
+ *
+ * @return HIGH_SCREEN 常见全面屏比例9：19，也是最多的设备，市面最高全面屏比例9：20
+ * @return SHORT_SCREEN 市面最矮全面屏比例9：18
+ * @return NOT_FULL__SCREEN 市面上最刹那关键非全面屏比例9：16
+ */
+export function getDeviceScreenRate() {
+  const width = window.screen.width;
+  const height = window.screen.height;
+  const aspect = height / width;
+  if (aspect < 1.8) {
+    return "NOT_FULL__SCREEN";
+  } else if (aspect >= 1.8 && aspect < 2.09) {
+    return "SHORT_SCREEN";
+  } else {
+    return "HIGH_SCREEN";
+  }
+}
+```
