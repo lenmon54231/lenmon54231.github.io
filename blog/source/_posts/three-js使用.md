@@ -8,6 +8,27 @@ tags: [three.js]
 
 <!-- more -->
 
+### 常用代码块
+
+```js
+const mainHDR = await loadEnvMapByHDR(
+  require("@/assets/hdr/diamond.hdr"),
+  this.render3dCtx.renderer
+);
+setAllMaterials(
+  model,
+  {
+    envMap: mainHDR,
+    envMapIntensity: 1.2,
+    side: FrontSide,
+    forceSinglePass: true,
+  },
+  (material) => {
+    return !material.isMeshBasicMaterial;
+  }
+);
+```
+
 ### 坐标系 axisHelper
 
 three 用的是右手坐标系
