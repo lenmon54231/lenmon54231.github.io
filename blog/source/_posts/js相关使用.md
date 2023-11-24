@@ -422,3 +422,10 @@ export function getDeviceScreenRate() {
   }
 }
 ```
+
+### 获取地址栏参数
+
+```js
+this.sp = new URL(window.location.href).searchParams;
+this.sp.get("onlyCamera");
+```
