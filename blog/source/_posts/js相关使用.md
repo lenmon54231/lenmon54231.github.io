@@ -429,3 +429,111 @@ export function getDeviceScreenRate() {
 this.sp = new URL(window.location.href).searchParams;
 this.sp.get("onlyCamera");
 ```
+
+### 循环调用实现序列帧
+
+```js
+/**
+ * @param  {Function} fn 内部执行函数
+ */
+export const rAF = (fn) => {
+  if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame =
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
+        return window.setTimeout(callback, 1000 / 60);
+      };
+  }
+  return window.requestAnimationFrame(fn);
+};
+
+const maxFpsNumberFor2D = 30;
+let lastTime = 0;
+let myReq = null;
+export function renderImage(imageNow, imageNum, Fn, endCallback, limit) {
+  function scroll(imageNow, Fn) {
+    if (imageNow >= imageNum) {
+      console.log("序列帧执行完毕，调用回调函数--------", imageNum);
+      endCallback && endCallback();
+      return;
+    }
+    Fn(imageNow);
+    let finalLimit = limit ? limit : maxFpsNumberFor2D;
+    if (finalLimit) {
+      let currentTime = new Date().getTime();
+      if (currentTime - lastTime > finalLimit) {
+        imageNow++;
+        lastTime = currentTime;
+      }
+    } else {
+      imageNow++;
+    }
+
+    myReq = rAF(() => scroll(imageNow, Fn));
+  }
+  scroll(imageNow, Fn);
+}
+
+export function clearRaf() {
+  if (myReq) {
+    window.cancelAnimationFrame(myReq);
+    myReq = null;
+  }
+}
+```
+
+提前加载所有图片
+
+```js
+    async generateImages(path, max, pre) {
+      // eslint-disable-next-line no-unused-vars
+      return new Promise((res, rej) => {
+        let sources = [];
+        //构建图片序列数据
+        for (let i = 0; i <= max; i++) {
+          sources[i] = require(`@/assets/images/${path}/${pre}${
+            i < 10 ? "00" + i : i < 100 && i >= 10 ? "0" + i : i
+          }.webp`); //根据项目修改
+        }
+        let loadedImages = 0;
+        let numImages = 0;
+        let images = [];
+        numImages = sources.length;
+        for (let i = 0, len = sources.length; i < len; i++) {
+          images[i] = new Image();
+          images[i].onload = function () {
+            //当所有图片加载完成时，执行回调函数callback
+            if (++loadedImages >= numImages) {
+              res(images);
+            }
+          };
+          images[i].src = sources[i];
+        }
+      });
+    },
+let images = await this.generateImages("zoom", 45, "");
+```
+
+使用循环调用
+
+```js
+let imageNum = images.length;
+let imageNow = 0;
+
+renderImage(
+  imageNow,
+  imageNum,
+  (imageNow) => {
+    this.ctx.fillStyle = "rgba(0,0,0,0)";
+    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.fillRect(0, 0, this.width, this.height);
+    this.ctx.drawImage(images[imageNow], 0, dy, imageWidth, imageHeight);
+  },
+  () => {
+    this.$emit("ended");
+  },
+  limit
+);
+```
