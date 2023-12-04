@@ -537,3 +537,64 @@ renderImage(
   limit
 );
 ```
+
+### canvas 计算适配宽高
+
+```js
+export function imageSizeFill(imageSize, w, h) {
+  // 宽高小于目标图形时，差距大的边变相等优先
+  // 宽高大于目标图形时，差距小的边变相等优先
+  // 宽高一个大于目标图形，一个小于目标图形时，小的边优先执行以上规则
+  var scaleW = null;
+  var scaleH = null;
+  if (imageSize.width < w) {
+    // 如果原有图片宽度小于画图宽度
+    if (imageSize.height < h) {
+      // 如果原有图片高度小于画图高度
+      // 计算宽度比
+      scaleW = w / imageSize.width;
+      // 计算高度比
+      scaleH = h / imageSize.height;
+      if (scaleW > scaleH) {
+        // 如果宽度比更大，代表宽度相差更多，需要变大更多，所以宽度等于画图宽度，高度同比例变大后截取，比例相同则无论哪种方式都会同比例放大
+        imageSize.height = (imageSize.height / imageSize.width) * w;
+        imageSize.width = w;
+      } else {
+        // 如果高度比更大，代表高度相差更多，需要变大更多，所以高度等于画图高度，宽度同比例变大后截取，比例相同则无论哪种方式都会同比例放大
+        imageSize.width = (imageSize.width / imageSize.height) * h;
+        imageSize.height = h;
+      }
+    } else {
+      // 如果原有图片高度大于等于画图高度，则一定是宽度等于画图宽度，高度同比例变大后截取
+      imageSize.height = (imageSize.height / imageSize.width) * w;
+      imageSize.width = w;
+    }
+  } else {
+    // 如果原有图片宽度大于等于画图宽度
+    if (imageSize.height > h) {
+      // 计算宽度比
+      scaleW = w / imageSize.width;
+      // 计算高度比
+      scaleH = h / imageSize.height;
+      if (scaleW > scaleH) {
+        // 如果宽度比更大，代表宽度相差更少，需要变小更少，所以宽度等于画图宽度，高度同比例变大后截取，比例相同则无论哪种方式都会同比例放大
+        imageSize.height = (imageSize.height / imageSize.width) * w;
+        imageSize.width = w;
+      } else {
+        // 如果高度比更大，代表高度相差更少，需要变小更少，所以高度等于画图高度，宽度同比例变大后截取，比例相同则无论哪种方式都会同比例放大
+        imageSize.width = (imageSize.width / imageSize.height) * h;
+        imageSize.height = h;
+      }
+    } else {
+      // 如果原有图片高度小于等于画图高度，则一定是高度等于画图高度，宽度同比例变大后截取
+      imageSize.width = (imageSize.width / imageSize.height) * h;
+      imageSize.height = h;
+    }
+  }
+  console.log("改变imageSize", imageSize.width, imageSize.height);
+  let dx = (w - imageSize.width) / 2;
+  let dy = (h - imageSize.height) / 2;
+
+  return { imageWidth: imageSize.width, imageHeight: imageSize.height, dx, dy };
+}
+```
