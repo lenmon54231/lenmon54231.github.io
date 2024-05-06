@@ -1,6 +1,6 @@
 ---
 title: 原生 APP 和 H5 的交互桥
-date: 2022-07-02 17:16:26
+date: 2023-00-02 17:16:26
 tags: [APP, H5]
 ---
 
@@ -239,3 +239,4 @@ export default browserType(); // 判断当前运行环境
 ```js
 getBridge().then((bridge: any) => bridge.callHandler("onSwitchOpen"));
 ```
+

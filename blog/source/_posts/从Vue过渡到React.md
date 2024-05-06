@@ -1,6 +1,6 @@
 ---
 title: 从Vue过渡到React
-date: 2022-03-23 14:20:36
+date: 2023-9-23 14:20:36
 tags: [Vue, React]
 ---
 
@@ -314,3 +314,4 @@ export default Button;
 这样，当你点击 setContent 时候，因为 otherName 监听的 name 字段未改变，所以不会调用 changeName 方法
 
 #### on Do
+
