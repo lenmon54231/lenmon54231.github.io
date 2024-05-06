@@ -258,7 +258,7 @@ ssh-keygen -t rsa -C limeng54231@163.com
 
 #### 找到本地的公钥和私钥
 
-> C:\Users\ADMIN\.ssh
+> C:\Users\lee\.ssh
 > id_rsa.pub 文件通过记事本打开，可复制到粘贴板
 
 #### 添加到 GitHub
