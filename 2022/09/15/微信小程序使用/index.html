@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Meng_Lee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="微信小程序使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序使用">
+<meta property="og:url" content="http://lenmon54231.github.io/2022/09/15/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="微信小程序使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-15T03:27:37.000Z">
+<meta property="article:modified_time" content="2024-06-27T09:38:05.853Z">
+<meta property="article:author" content="Meng_Lee">
+<meta property="article:tag" content="微信小程序">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>微信小程序使用 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lenmon54231.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="微信小程序使用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-15 11:27" pubdate>
+          2022年9月15日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          17k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          142 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">微信小程序使用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="微信小程序使用"><a href="#微信小程序使用" class="headerlink" title="微信小程序使用"></a>微信小程序使用</h2><span id="more"></span>
+
+<h3 id="微信小程序内嵌-H5"><a href="#微信小程序内嵌-H5" class="headerlink" title="微信小程序内嵌 H5"></a>微信小程序内嵌 H5</h3><h4 id="客户方操作"><a href="#客户方操作" class="headerlink" title="客户方操作"></a>客户方操作</h4><ol>
+<li>登录：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">https://mp.weixin.qq.com/</a></li>
+<li>左侧菜单栏：开发管理&gt;&gt; 开发设置</li>
+<li>找到业务域名，点击开始配置</li>
+<li>下载校验文件</li>
+<li>等待第三方上传校验文件</li>
+<li>继续校验文件验证流程</li>
+</ol>
+<h4 id="第三方操作"><a href="#第三方操作" class="headerlink" title="第三方操作"></a>第三方操作</h4><ol>
+<li>将客户提供的校验文件上传到服务器根目录</li>
+<li>通知客户已经上传校验文件，并让客户验证</li>
+</ol>
+<h3 id="微信-ab-转-base64"><a href="#微信-ab-转-base64" class="headerlink" title="微信 ab 转 base64"></a>微信 ab 转 base64</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; filetypemime &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;magic-bytes.js&quot;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">generateDataUrl</span>(<span class="hljs-params">ab, mime</span>) &#123;<br>  <span class="hljs-keyword">if</span> (!mime) &#123;<br>    <span class="hljs-keyword">const</span> mimeList = <span class="hljs-title function_">filetypemime</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(ab, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>));<br>    <span class="hljs-keyword">if</span> (mimeList?.<span class="hljs-property">length</span>) &#123;<br>      mime = mimeList[<span class="hljs-number">0</span>];<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">&quot;无法检测出文件MIME类型&quot;</span>);<br>    &#125;<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!mime.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&quot;/&quot;</span>)) &#123;<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">&quot;请输入正确的MIME格式&quot;</span>);<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-string">`data:<span class="hljs-subst">$&#123;mime&#125;</span>;base64,<span class="hljs-subst">$&#123;wx.arrayBufferToBase64(ab)&#125;</span>`</span>;<br>&#125;<br><br><span class="hljs-title function_">generateDataUrl</span>(ab);<br></code></pre></td></tr></table></figure>
+
+<h3 id="小程序本身封装的组件"><a href="#小程序本身封装的组件" class="headerlink" title="小程序本身封装的组件"></a>小程序本身封装的组件</h3><ol>
+<li><p>picker（从底部弹起的滚动选择器）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;picker<br>  bindchange=<span class="hljs-string">&quot;bindPickerChange&quot;</span><br>  value=<span class="hljs-string">&quot;&#123;&#123;selectList[index].name&#125;&#125;&quot;</span><br>  range=<span class="hljs-string">&quot;&#123;&#123;selectList&#125;&#125;&quot;</span><br>  range-key=<span class="hljs-string">&quot;&#123;&#123;&#x27;name&#x27;&#125;&#125;&quot;</span><br>&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;picker&quot;</span>&gt;</span>&#123;&#123; currentType &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br>&lt;/picker&gt;<br></code></pre></td></tr></table></figure>
+
+<p>外层用 picker 包裹，内部通过 range 设定滚动数据，range-key 做渲染关键词，最后获得的是 value 的值。</p>
+<p>bindPickerChange 方法做赋值的操作（略。。。）</p>
+</li>
+<li><p>scroll-view（可滚动视图区域)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;scroll-view scroll-x=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;nav&quot;</span> scroll-left=<span class="hljs-string">&quot;&#123;&#123;navScrollLeft&#125;&#125;&quot;</span> scroll-<span class="hljs-keyword">with</span>-animation=<span class="hljs-string">&quot;&#123;&#123;true&#125;&#125;&quot;</span>&gt;<br>			<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">block</span> <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;&#123;&#123;classifyList&#125;&#125;&quot;</span> <span class="hljs-attr">wx:for-index</span>=<span class="hljs-string">&quot;idx&quot;</span> <span class="hljs-attr">wx:for-item</span>=<span class="hljs-string">&quot;item&quot;</span> <span class="hljs-attr">wx:key</span>=<span class="hljs-string">&quot;idx&quot;</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav-item &#123;&#123;currentTab == idx ?&#x27;active&#x27;:&#x27;&#x27;&#125;&#125; flex_center_center&quot;</span> <span class="hljs-attr">data-current</span>=<span class="hljs-string">&quot;&#123;&#123;idx&#125;&#125;&quot;</span> <span class="hljs-attr">data-id</span>=<span class="hljs-string">&#x27;&#123;&#123;item.classify_id&#125;&#125;&#x27;</span> <span class="hljs-attr">data-int</span>=<span class="hljs-string">&#x27;&#123;&#123;idx&#125;&#125;&#x27;</span> <span class="hljs-attr">data-name</span>=<span class="hljs-string">&quot;&#123;&#123;item.name&#125;&#125;&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;switchNav&quot;</span>&gt;</span></span><br><span class="language-xml">					<span class="hljs-tag">&lt;<span class="hljs-name">text</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;t_name&quot;</span>&gt;</span>&#123;&#123;item.name&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">text</span>&gt;</span></span><br><span class="language-xml">				<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">			<span class="hljs-tag">&lt;/<span class="hljs-name">block</span>&gt;</span></span><br>&lt;/scroll-view&gt;<br></code></pre></td></tr></table></figure>
+
+<p>scroll-left:设置横向滚动条位置</p>
+<p>scroll-with-animation:在设置滚动条位置时使用动画过渡</p>
+</li>
+<li><p>swiper (滑块视图容器)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;swiper<br>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;swipers&quot;</span><br>  autoplay=<span class="hljs-string">&quot;&#123;&#123;false&#125;&#125;&quot;</span><br>  duration=<span class="hljs-string">&quot;0&quot;</span><br>  current=<span class="hljs-string">&quot;&#123;&#123;currentTab&#125;&#125;&quot;</span><br>  bindchange=<span class="hljs-string">&quot;swiperChange&quot;</span><br>&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">block</span></span></span><br><span class="hljs-tag"><span class="language-xml">    <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;&#123;&#123;classifyList&#125;&#125;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    <span class="hljs-attr">wx:for-index</span>=<span class="hljs-string">&quot;idxs&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    <span class="hljs-attr">data-index</span>=<span class="hljs-string">&quot;&#123;&#123;idxs&#125;&#125;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    <span class="hljs-attr">wx:for-item</span>=<span class="hljs-string">&quot;item&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    <span class="hljs-attr">wx:key</span>=<span class="hljs-string">&quot;idx&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">  &gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">swiper-item</span> <span class="hljs-attr">catchtouchmove</span>=<span class="hljs-string">&quot;stopTouchMove&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">swiper-item</span>&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">block</span>&gt;</span></span><br>&lt;/swiper&gt;<br></code></pre></td></tr></table></figure>
+
+<p>autoplay:是否自动切换(轮播图的形式)</p>
+<p>duration:滑动动画时长</p>
+<p>current：当前所在滑块的 index</p>
+<p>catchtouchmove：禁止用户手动滑动页面</p>
+</li>
+<li><p>cover-view（覆盖在原生组件之上的文本视图）cover-image（覆盖在原生组件之上的图片视图）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;cover-view hidden=<span class="hljs-string">&quot;&#123;&#123;!hidePause&#125;&#125;&quot;</span> catchtap=<span class="hljs-string">&quot;pauseVideo&quot;</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;pause-video&quot;</span>&gt;&lt;/cover-view&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">cover-image</span> <span class="hljs-attr">hidden</span>=<span class="hljs-string">&quot;&#123;&#123;hidePause&#125;&#125;&quot;</span> <span class="hljs-attr">catchtap</span>=<span class="hljs-string">&quot;replayVideo&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/assets/pause@2x.png&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;play-video&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">cover-image</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">cover-view</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;padding-top:&#123;&#123;navTop&#125;&#125;px;height:&#123;&#123;navHeight&#125;&#125;px&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;nav&quot;</span>&gt;</span></span><br><span class="language-xml">	<span class="hljs-tag">&lt;<span class="hljs-name">cover-image</span> <span class="hljs-attr">catchtap</span>=<span class="hljs-string">&quot;gotoPrev&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/assets/ic_cancel_white@2x.png&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;back-icon&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">cover-image</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">cover-view</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="手动封装的组件"><a href="#手动封装的组件" class="headerlink" title="手动封装的组件"></a>手动封装的组件</h3><ol>
+<li><p>AlertBox(页面中间出现的弹框，中间为文字提示，拥有取消和确定按钮)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//父页面中使用</span><br>&lt;<span class="hljs-title class_">AlertBox</span><br>  <span class="hljs-attr">bind</span>:getUserConfirmResult=<span class="hljs-string">&quot;getUserConfirmResult&quot;</span><br>  alert_title=<span class="hljs-string">&quot;&#123;&#123;alert_title&#125;&#125;&quot;</span><br>  is_show=<span class="hljs-string">&quot;&#123;&#123;is_show&#125;&#125;&quot;</span><br>&gt;&lt;/<span class="hljs-title class_">AlertBox</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//子页面的结构</span><br> &lt;!--弹框--&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">wx:if</span>=<span class="hljs-string">&quot;&#123;&#123;is_show&#125;&#125;&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;alert_box&quot;</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;clearfloat&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;closeButton&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;alert_close&quot;</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">image</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../../assets/close@2x.png&quot;</span> <span class="hljs-attr">mode</span>=<span class="hljs-string">&quot;widthFix&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">image</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;alert_title&quot;</span>&gt;</span>&#123;&#123;alert_title&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;alert_button&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;confirm_button&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;confirmButton&quot;</span>&gt;</span>确定<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>涉及到父子组件传值的说明：</p>
+<p>父组件中：bind:getUserConfirmResult = “getUserConfirmResult”相当于自定义事件。可以从子组件获取到用户对于取消和确定的值，从而选择不同的显示效果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//父组件调用自定义方法</span><br><span class="hljs-title function_">getUserConfirmResult</span>(<span class="hljs-params">e</span>) &#123;<br>    <span class="hljs-comment">//console.info(&quot;e&quot;, e)</span><br>    <span class="hljs-keyword">let</span> that = <span class="hljs-variable language_">this</span>;<br>    that.<span class="hljs-title function_">setData</span>(&#123;<br>      <span class="hljs-attr">is_show</span>: <span class="hljs-literal">false</span><br>    &#125;);<br>  &#125;,<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//子组件中调用的方法。通过this.triggerEvent()通知到父组件的自定义事件。类似于 vue 中 this.$emit。</span><br><span class="hljs-attr">confirmButton</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;1111111&quot;</span>)<br>      <span class="hljs-keyword">let</span> that = <span class="hljs-variable language_">this</span>;<br><br>      <span class="hljs-keyword">let</span> myEventDetail = &#123;<br>        <span class="hljs-attr">is_show</span>:<span class="hljs-literal">false</span>,<br>      &#125;;<br>      <span class="hljs-keyword">let</span> myEventOption = &#123;<span class="hljs-attr">bubbles</span>:<span class="hljs-literal">false</span>&#125;;<br>      that.<span class="hljs-title function_">triggerEvent</span>(<span class="hljs-string">&#x27;getUserConfirmResult&#x27;</span>, myEventDetail, myEventOption)<br>    &#125;,<br></code></pre></td></tr></table></figure>
+
+<p>自定义组件触发事件时，需要使用 <code>triggerEvent</code> 方法，指定事件名、detail 对象和事件选项：</p>
+<p>选项：bubbles ： 事件是否冒泡；composed：事件是否可以穿越组件边界；capturePhase： 事件是否拥有捕获阶段</p>
+</li>
+</ol>
+<h3 id="使用彩色的图标-1"><a href="#使用彩色的图标-1" class="headerlink" title="使用彩色的图标 1"></a>使用彩色的图标 1</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">配合阿里iconfont，下载icon项目，进入iconfont文件夹<br>npm install -g iconfont-tools<br>iconfont-tools<br>在原来下载的目录中多出来一个文件夹<br>打开文件夹选择其中的wxss文件引入到微信小程序中即可<br></code></pre></td></tr></table></figure>
+
+<p>使用如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;icon <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;t-icon t-icon-ziyuan9&quot;</span>&gt;&lt;/icon&gt;;<br>icon - ziyuan9就是iconfont中复制的<span class="hljs-keyword">class</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用彩色的图标-2"><a href="#使用彩色的图标-2" class="headerlink" title="使用彩色的图标 2"></a>使用彩色的图标 2</h3><p>阿里 iconfont 提供了 Symbol 类型的引入方式，拥有很多优点，记录下再小程序中的使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">npm install mini-program-iconfont-cli --save-dev<br><br>npx iconfont-init<br># 可传入配置输出路径<br># npx iconfont-init --output iconfont.<span class="hljs-property">json</span><br></code></pre></td></tr></table></figure>
+
+<p>初始化后会生成一个 json 配置文件,修改配置如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-string">&quot;symbol_url&quot;</span>: <span class="hljs-string">&quot;//at.alicdn.com/t/font_2428200_oocwz3ghukn.js&quot;</span>,<br>  <span class="hljs-string">&quot;save_dir&quot;</span>: <span class="hljs-string">&quot;miniprogram/components/iconfont&quot;</span>,<br>  <span class="hljs-string">&quot;use_rpx&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&quot;trim_icon_prefix&quot;</span>: <span class="hljs-string">&quot;icon&quot;</span>,<br>  <span class="hljs-string">&quot;default_icon_size&quot;</span>: <span class="hljs-number">50</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>symbol_url：将官网的地址引入</p>
+<p>save_dir：根据自己的目录生成</p>
+<p>生成标准组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"># 可传入配置文件路径<br># npx iconfont-<span class="hljs-variable constant_">XXXX</span> --config iconfont.<span class="hljs-property">json</span><br><br># 微信小程序<br>npx iconfont-wechat<br><br># 支付宝小程序<br>npx iconfont-alipay<br><br># 百度小程序<br>npx iconfont-baidu<br><br># 头条小程序<br>npx iconfont-toutiao<br><br># <span class="hljs-variable constant_">QQ</span>小程序<br>npx iconfont-qq<br></code></pre></td></tr></table></figure>
+
+<p>引入</p>
+<p>在根目录 的 app.json 文件中引入全局图标组件，避免每个 page 都引入，也可单个 page 引入</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 绝对路径<br>&#123;<br>    <span class="hljs-string">&quot;usingComponents&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;iconfont&quot;</span>: <span class="hljs-string">&quot;components/iconfont/iconfont&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 原色彩</span><br>&lt;iconfont name=<span class="hljs-string">&quot;alipay&quot;</span> /&gt;<br><br><span class="hljs-comment">// 单色：红色</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">iconfont</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;alipay&quot;</span> <span class="hljs-attr">color</span>=<span class="hljs-string">&quot;red&quot;</span> /&gt;</span></span><br><br><span class="hljs-comment">// 多色：红色+橘色</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">iconfont</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;alipay&quot;</span> <span class="hljs-attr">color</span>=<span class="hljs-string">&quot;&#123;&#123;[&#x27;red&#x27;, &#x27;orange&#x27;]&#125;&#125;&quot;</span> <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;300&quot;</span> /&gt;</span></span><br><br><span class="hljs-comment">// 不同格式的颜色写法</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">iconfont</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;alipay&quot;</span> <span class="hljs-attr">color</span>=<span class="hljs-string">&quot;&#123;&#123;[&#x27;#333&#x27;, &#x27;rgb(50, 124, 39)&#x27;]&#125;&#125;&quot;</span> /&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="微信浏览器打开-h5，然后跳转小程序"><a href="#微信浏览器打开-h5，然后跳转小程序" class="headerlink" title="微信浏览器打开 h5，然后跳转小程序"></a>微信浏览器打开 h5，然后跳转小程序</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;mp-btn-mask&quot;&gt;<br>    &lt;wx-open-launch-weapp<br>      id=&quot;launch-btn&quot;<br>      ref=&quot;btnBox&quot;<br>      class=&quot;launch-mp-btn&quot;<br>      :appid=&quot;mpConfig.appid&quot;<br>      :path=&quot;mpConfig.path&quot;<br>      @ready=&quot;ready&quot;<br>      @launch=&quot;launch&quot;<br>      @error=&quot;error&quot;<br>      style=&quot;display: block&quot;<br>    &gt;<br>      &lt;script type=&quot;text/wxtag-template&quot;&gt;<br>        &lt;style&gt;<br>          .btn &#123;<br>            display: block;<br>            width: 220px;<br>            height: 45px;<br>            line-height: 45px;<br>            text-align: center;<br>            background: #51afaf;<br>            border-radius: 8px;<br>            font-size: 15px;<br>            font-weight: 400;<br>            color: #fff;<br>            letter-spacing: 3px;<br>            padding: 0;<br>          &#125;<br>        &lt;/style&gt;<br>        &lt;div class=&quot;btn&quot;&gt;前往展示&lt;/div&gt;<br>      &lt;/script&gt;<br>    &lt;/wx-open-launch-weapp&gt;<br>    &lt;!-- &lt;div class=&quot;mask-btn&quot; &gt;&#123;&#123; text &#125;&#125;&lt;/div&gt; --&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import Vue from &quot;vue&quot;;<br>// 忽略自定义元素标签抛出的报错<br>Vue.config.ignoredElements = [&quot;wx-open-launch-weapp&quot;];<br>export default &#123;<br>  name: &quot;BuyBtn&quot;,<br>  props: &#123;<br>    mpConfig: &#123;<br>      type: Object,<br>      default: function () &#123;<br>        return &#123;<br>          appid: &quot;wxc9a643121000b22b&quot;,<br>          path: &quot;pages/product-list/product-list.html?categoryId=46&quot;,<br>        &#125;;<br>      &#125;,<br>    &#125;,<br>  &#125;,<br>  data() &#123;<br>    return &#123;<br>      text: &quot;...&quot;,<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    ready(e) &#123;<br>      console.log(&quot;ready&quot;, e);<br>      this.text = &quot;前往展示&quot;;<br>      document.getElementById(&quot;launch-btn&quot;).click();<br>      console.log(&quot;click after&quot;, document.getElementById(&quot;launch-btn&quot;));<br>      // console.log(<br>      //   &#x27;document.getElementById(&quot;innerBtn&quot;)&#x27;,<br>      //   document.getElementById(&quot;launch-btn&quot;).children<br>      // );<br>    &#125;,<br>    launch(e) &#123;<br>      console.log(&quot;launch&quot;, e);<br>    &#125;,<br>    error(e) &#123;<br>      console.log(&quot;error&quot;, e);<br>    &#125;,<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;scss&quot; scoped&gt;<br>// .mp-btn-mask &#123;<br>//   // width:60vw;<br>//   height: 12vw;<br>//   position: relative;<br>//   overflow: hidden;<br>//   .mask-btn &#123;<br>//     position: absolute;<br>//     left: 0;<br>//     top: 0;<br>//     width: 60vw;<br>//     height: 12vw;<br>//     background: #51afaf;<br>//     border-radius: 2.13vw;<br>//     font-size: 4vw;<br>//     font-weight: 400;<br>//     color: #ffffff;<br>//     letter-spacing: 3px;<br>//     padding: 0;<br>//     display: flex;<br>//     justify-content: center;<br>//     align-items: center;<br>//     pointer-events: none;<br>//   &#125;<br>// &#125;<br>.launch-mp-btn &#123;<br>  width: 220px;<br>  height: 45px;<br>  // background: #51afaf;<br>  // border-radius: 2.13vw;<br>  // font-size: 3.73vw;<br>  // font-weight: 400;<br>  // color: #ffffff;<br>  // letter-spacing: 3px;<br>  // padding: 0;<br>  // display: flex;<br>  // justify-content: center;<br>  // align-items: center;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<p>微信 config 配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">wx.<span class="hljs-title function_">config</span>(&#123;<br>  ...res.<span class="hljs-property">data</span>,<br>  <span class="hljs-attr">debug</span>: <span class="hljs-literal">false</span>,<br>  <span class="hljs-attr">jsApiList</span>: [<br>    <span class="hljs-string">&quot;onMenuShareTimeline&quot;</span>,<br>    <span class="hljs-string">&quot;onMenuShareAppMessage&quot;</span>,<br>    <span class="hljs-string">&quot;onMenuShareQQ&quot;</span>,<br>    <span class="hljs-string">&quot;onMenuShareWeibo&quot;</span>,<br>    <span class="hljs-string">&quot;onMenuShareQZone&quot;</span>,<br>    <span class="hljs-string">&quot;chooseImage&quot;</span>,<br>  ],<br>  <span class="hljs-attr">openTagList</span>: [<span class="hljs-string">&quot;wx-open-launch-weapp&quot;</span>],<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script type=<span class="hljs-string">&quot;text/wxtag-template&quot;</span>&gt;&lt;/script&gt;<br><span class="hljs-comment">//  script中不能使用vw单位，否则会看不到按钮</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="微信通过渠道参数来访问-webview"><a href="#微信通过渠道参数来访问-webview" class="headerlink" title="微信通过渠道参数来访问 webview"></a>微信通过渠道参数来访问 webview</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">onLoad</span>(<span class="hljs-params">options</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(options, <span class="hljs-string">&quot;----&quot;</span>);<br>  <span class="hljs-keyword">const</span> &#123; url &#125; = options;<br>  <span class="hljs-comment">// let url =</span><br>  <span class="hljs-comment">//   &quot;https%3A%2F%2Fmeta.kivisense.com%2Fcanada-goose-slt%2Findex.html%3F_um_campaign%3D64eddfe78efadc41dccf05a0%26_um_channel%3D64eddfe78efadc41dccf05a1&quot;;</span><br>  <span class="hljs-keyword">if</span> (url) &#123;<br>    <span class="hljs-keyword">let</span> finalUrl = <span class="hljs-built_in">decodeURIComponent</span>(url);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;finalUrl: &quot;</span>, finalUrl);<br>    <span class="hljs-keyword">let</span> right = finalUrl.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&quot;https://&quot;</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;right: &quot;</span>, right);<br>    <span class="hljs-keyword">if</span> (right) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setData</span>(&#123;<br>        <span class="hljs-attr">src</span>: finalUrl,<br>      &#125;);<br>    &#125;<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<h3 id="正确使用权限"><a href="#正确使用权限" class="headerlink" title="正确使用权限"></a>正确使用权限</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">chosePhoto</span>(<span class="hljs-params"></span>) &#123;<br>  wx.<span class="hljs-title function_">getStorage</span>(&#123;<br>    <span class="hljs-attr">key</span>: <span class="hljs-string">&quot;is_check_privacy&quot;</span>,<br>    <span class="hljs-attr">success</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>      wx.<span class="hljs-title function_">showActionSheet</span>(&#123;<br>        <span class="hljs-attr">itemList</span>: [<span class="hljs-string">&quot;拍照&quot;</span>, <span class="hljs-string">&quot;从相册中选择&quot;</span>],<br>        <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">tapIndex</span>);<br>          <span class="hljs-keyword">if</span> (res.<span class="hljs-property">tapIndex</span> === <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;拍照&quot;</span>);<br>            wx.<span class="hljs-title function_">getSetting</span>(&#123;<br>              <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>                <span class="hljs-keyword">if</span> (res.<span class="hljs-property">authSetting</span>[<span class="hljs-string">&quot;scope.camera&quot;</span>]) &#123;<br>                  <span class="hljs-comment">// 用户已经授权</span><br>                  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;用户已经授权: &quot;</span>);<br>                  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setData</span>(&#123;<br>                    <span class="hljs-attr">isCameraOpen</span>: <span class="hljs-literal">true</span>,<br>                    <span class="hljs-attr">trigger</span>: <span class="hljs-string">&quot;parent&quot;</span>,<br>                  &#125;);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                  <span class="hljs-comment">// 用户还没有授权，向用户发起授权请求</span><br>                  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;用户还没有授权，向用户发起授权请求: &quot;</span>);<br>                  wx.<span class="hljs-title function_">authorizeForMiniProgram</span>(&#123;<br>                    <span class="hljs-attr">scope</span>: <span class="hljs-string">&quot;scope.camera&quot;</span>,<br>                    <span class="hljs-attr">success</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>                      <span class="hljs-comment">// 用户同意授权</span><br>                      <span class="hljs-comment">// 打开相机组件</span><br>                      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setData</span>(&#123;<br>                        <span class="hljs-attr">isCameraOpen</span>: <span class="hljs-literal">true</span>,<br>                        <span class="hljs-attr">trigger</span>: <span class="hljs-string">&quot;parent&quot;</span>,<br>                      &#125;);<br>                    &#125;,<br>                    <span class="hljs-attr">fail</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>                      <span class="hljs-comment">// 用户不同意授权</span><br>                      <span class="hljs-title function_">showAuthModal</span>(<span class="hljs-string">&quot;scope.camera&quot;</span>, &#123;<br>                        <span class="hljs-attr">content</span>: <span class="hljs-string">&quot;需要使用“摄像头”权限&quot;</span>,<br>                      &#125;);<br>                    &#125;,<br>                  &#125;);<br>                &#125;<br>              &#125;,<br>              <span class="hljs-attr">fail</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;获取用户授权信息失败&quot;</span>, res);<br>                wx.<span class="hljs-title function_">showToast</span>(&#123;<br>                  <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;获取用户授权信息失败&quot;</span>,<br>                  <span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;none&quot;</span>,<br>                  <span class="hljs-attr">duration</span>: <span class="hljs-number">3000</span>,<br>                &#125;);<br>              &#125;,<br>            &#125;);<br>            <span class="hljs-title function_">stats</span>(<span class="hljs-string">&quot;AIPaintingUploadPhotos_click_takePhoto&quot;</span>);<br>          &#125;<br>          <span class="hljs-keyword">if</span> (res.<span class="hljs-property">tapIndex</span> === <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setData</span>(&#123;<br>              <span class="hljs-attr">showModal</span>: <span class="hljs-literal">true</span>,<br>            &#125;);<br>            <span class="hljs-title function_">stats</span>(<span class="hljs-string">&quot;AIPaintingUploadPhotos_click_localAlbum&quot;</span>);<br>          &#125;<br>        &#125;,<br>        <span class="hljs-title function_">fail</span>(<span class="hljs-params">res</span>) &#123;<br>          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">errMsg</span>);<br>        &#125;,<br>      &#125;);<br>      <span class="hljs-title function_">stats</span>(<span class="hljs-string">&quot;AIPaintingUploadPhotos_click_photo&quot;</span>);<br>    &#125;,<br>    <span class="hljs-attr">fail</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setData</span>(&#123;<br>        <span class="hljs-attr">showPrivacyModal</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">isCheckPrivacy</span>: <span class="hljs-literal">false</span>,<br>      &#125;);<br>    &#125;,<br>  &#125;);<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p>弹起授权弹窗</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">showAuthModal</span>(<span class="hljs-params">scope, config = &#123; content: <span class="hljs-string">&quot;&quot;</span> &#125;</span>) &#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> defaultConfig = &#123;<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;提示&quot;</span>,<br>      <span class="hljs-attr">confirmText</span>: <span class="hljs-string">&quot;立即授权&quot;</span>,<br>      <span class="hljs-attr">confirmColor</span>: <span class="hljs-string">&quot;#02BB00&quot;</span>,<br>    &#125;;<br><br>    <span class="hljs-keyword">const</span> &#123; confirm, cancel &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">promisify</span>(wx.<span class="hljs-property">showModal</span>)(&#123;<br>      ...defaultConfig,<br>      ...config,<br>    &#125;);<br>    <span class="hljs-keyword">if</span> (confirm) &#123;<br>      <span class="hljs-keyword">const</span> &#123;<br>        <span class="hljs-attr">authSetting</span>: &#123; [scope]: isAuth &#125;,<br>      &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">promisify</span>(wx.<span class="hljs-property">openSetting</span>)();<br>      <span class="hljs-keyword">if</span> (!isAuth) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-title function_">showAuthModal</span>(scope, config);<br>      &#125;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cancel) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;未知问题&quot;</span>);<br>    &#125;<br>  &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(e);<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">promisify</span>(<span class="hljs-params">fn, context</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">...config</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>      config[<span class="hljs-number">0</span>] = &#123;<br>        ...config[<span class="hljs-number">0</span>],<br>        <span class="hljs-attr">success</span>: resolve,<br>        <span class="hljs-attr">fail</span>: reject,<br>      &#125;;<br>      <span class="hljs-keyword">const</span> result = fn.<span class="hljs-title function_">apply</span>(context || wx, config);<br>      <span class="hljs-keyword">if</span> (config &amp;&amp; <span class="hljs-keyword">typeof</span> config.<span class="hljs-property">result</span> === <span class="hljs-string">&quot;function&quot;</span>) &#123;<br>        config.<span class="hljs-title function_">result</span>(result);<br>      &#125;<br>    &#125;);<br>  &#125;;<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">downloadFile</span>(<span class="hljs-params">url, onProgress = () =&gt; &#123;&#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">progressCallBack</span> = (<span class="hljs-params">res</span>) =&gt; &#123;<br>    <span class="hljs-title function_">onProgress</span>(&#123; <span class="hljs-attr">loaded</span>: res.<span class="hljs-property">progress</span>, <span class="hljs-attr">total</span>: <span class="hljs-number">100</span> &#125;);<br>  &#125;;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> downloadTask = wx.<span class="hljs-title function_">downloadFile</span>(&#123;<br>      url,<br>      <span class="hljs-title function_">success</span>(<span class="hljs-params">&#123; statusCode, tempFilePath &#125;</span>) &#123;<br>        <span class="hljs-keyword">if</span> (statusCode === <span class="hljs-number">200</span>) &#123;<br>          <span class="hljs-title function_">resolve</span>(tempFilePath);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`下载文件(<span class="hljs-subst">$&#123;url&#125;</span>)失败, statusCode: <span class="hljs-subst">$&#123;statusCode&#125;</span>`</span>));<br>        &#125;<br>      &#125;,<br>      <span class="hljs-attr">fail</span>: reject,<br>      <span class="hljs-attr">complete</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>        downloadTask.<span class="hljs-title function_">offProgressUpdate</span>(progressCallBack);<br>      &#125;,<br>    &#125;);<br>    downloadTask.<span class="hljs-title function_">onProgressUpdate</span>(progressCallBack);<br>  &#125;);<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">requestFile</span>(<span class="hljs-params"></span><br><span class="hljs-params">  url,</span><br><span class="hljs-params">  onProgress = () =&gt; &#123;&#125;,</span><br><span class="hljs-params">  responseType = <span class="hljs-string">&quot;arraybuffer&quot;</span></span><br><span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-title function_">onProgress</span>(&#123; <span class="hljs-attr">loaded</span>: <span class="hljs-number">0.2</span>, <span class="hljs-attr">total</span>: <span class="hljs-number">1</span> &#125;);<br>    wx.<span class="hljs-title function_">request</span>(&#123;<br>      url,<br>      responseType,<br>      <span class="hljs-title function_">success</span>(<span class="hljs-params">&#123; statusCode, data &#125;</span>) &#123;<br>        <span class="hljs-keyword">if</span> (statusCode === <span class="hljs-number">200</span>) &#123;<br>          <span class="hljs-title function_">onProgress</span>(&#123; <span class="hljs-attr">loaded</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">total</span>: <span class="hljs-number">1</span> &#125;);<br>          <span class="hljs-title function_">resolve</span>(data);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`下载文件(<span class="hljs-subst">$&#123;url&#125;</span>)失败, statusCode: <span class="hljs-subst">$&#123;statusCode&#125;</span>`</span>));<br>        &#125;<br>      &#125;,<br>      <span class="hljs-attr">fail</span>: reject,<br>    &#125;);<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="插件使用与调试"><a href="#插件使用与调试" class="headerlink" title="插件使用与调试"></a>插件使用与调试</h3><h4 id="本地示例小程序中使用插件"><a href="#本地示例小程序中使用插件" class="headerlink" title="本地示例小程序中使用插件"></a>本地示例小程序中使用插件</h4><p>app.json 中的使用区别</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;pages/index/index&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;plugins&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;chaumet&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;dev&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;provider&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;wx2829a059adc932bd&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;sitemapLocation&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sitemap.json&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="其他小程序使用开发版插件"><a href="#其他小程序使用开发版插件" class="headerlink" title="其他小程序使用开发版插件"></a>其他小程序使用开发版插件</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;pages/index/index&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;plugins&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;chaumet&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;dev-5007f4fc31b382b21d40c1101d1bf5c2&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;provider&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;wx2829a059adc932bd&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;sitemapLocation&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sitemap.json&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="其他小程序使用正式版插件"><a href="#其他小程序使用正式版插件" class="headerlink" title="其他小程序使用正式版插件"></a>其他小程序使用正式版插件</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;pages/index/index&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;plugins&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;chaumet&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.0.0&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;provider&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;wx2829a059adc932bd&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;sitemapLocation&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sitemap.json&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="获取一个-node-节点"><a href="#获取一个-node-节点" class="headerlink" title="获取一个 node 节点"></a>获取一个 node 节点</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">createSelectorQuery</span>()<br>    .<span class="hljs-title function_">select</span>(<span class="hljs-string">&quot;.canvas&quot;</span>)<br>    .<span class="hljs-title function_">fields</span>(&#123;<br>      <span class="hljs-attr">node</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">size</span>: <span class="hljs-literal">true</span>,<br>    &#125;)<br>    .<span class="hljs-title function_">exec</span>(<span class="hljs-function">(<span class="hljs-params">els</span>) =&gt;</span> <span class="hljs-title function_">resolve</span>(els[<span class="hljs-number">0</span>]));<br>&#125;);<br><span class="hljs-keyword">const</span> canvas = res.<span class="hljs-property">node</span>;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="使用canvas下载网络图片"><a href="#使用canvas下载网络图片" class="headerlink" title="使用canvas下载网络图片"></a>使用canvas下载网络图片</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;2d&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;offsetCanvas&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width:&#123;&#123;width&#125;&#125;px;height:&#123;&#123;height&#125;&#125;px&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs js"> <span class="hljs-attr">properties</span>: &#123;<br>   <span class="hljs-attr">url</span>: &#123;<br>     <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,<br>     <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;&quot;</span>,<br>   &#125;,<br>   <span class="hljs-attr">width</span>: &#123;<br>     <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,<br>     <span class="hljs-attr">value</span>: wx.<span class="hljs-title function_">getSystemInfoSync</span>().<span class="hljs-property">windowWidth</span>,<br>   &#125;,<br>   <span class="hljs-attr">height</span>: &#123;<br>     <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,<br>     <span class="hljs-attr">value</span>: wx.<span class="hljs-title function_">getSystemInfoSync</span>().<span class="hljs-property">windowHeight</span>,<br>   &#125;,<br> &#125;,<br><br><span class="hljs-title function_">saveImageByCanvas</span>(<span class="hljs-params">url</span>) &#123;<br>     wx.<span class="hljs-title function_">getImageInfo</span>(&#123;<br>       <span class="hljs-attr">src</span>: url,<br>       <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">image</span>) =&gt;</span> &#123;<br>         <span class="hljs-keyword">const</span> query = wx.<span class="hljs-title function_">createSelectorQuery</span>().<span class="hljs-title function_">in</span>(<span class="hljs-variable language_">this</span>);<br>         query<br>           .<span class="hljs-title function_">select</span>(<span class="hljs-string">&quot;#offsetCanvas&quot;</span>)<br>           .<span class="hljs-title function_">fields</span>(&#123; <span class="hljs-attr">node</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">size</span>: <span class="hljs-literal">true</span> &#125;)<br>           .<span class="hljs-title function_">exec</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>             <span class="hljs-keyword">if</span> (!res[<span class="hljs-number">0</span>]) <span class="hljs-keyword">return</span>;<br>             <span class="hljs-keyword">const</span> canvas = res[<span class="hljs-number">0</span>].<span class="hljs-property">node</span>;<br>             <span class="hljs-keyword">const</span> ctx = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&quot;2d&quot;</span>);<br>             <span class="hljs-keyword">const</span> &#123; windowWidth, windowHeight, pixelRatio &#125; =<br>               wx.<span class="hljs-title function_">getSystemInfoSync</span>();<br>             canvas.<span class="hljs-property">width</span> = res[<span class="hljs-number">0</span>].<span class="hljs-property">width</span> * pixelRatio;<br>             canvas.<span class="hljs-property">height</span> = res[<span class="hljs-number">0</span>].<span class="hljs-property">height</span> * pixelRatio;<br>             ctx.<span class="hljs-title function_">scale</span>(pixelRatio, pixelRatio);<br>             <span class="hljs-keyword">let</span> imgObj = canvas.<span class="hljs-title function_">createImage</span>();<br>             imgObj.<span class="hljs-property">onload</span> = <span class="hljs-function">() =&gt;</span> &#123;<br>               <span class="hljs-keyword">if</span> (imgObj.<span class="hljs-property">complete</span>) &#123;<br>                 <span class="hljs-keyword">let</span> sWidth = <span class="hljs-number">0</span>;<br>                 <span class="hljs-keyword">let</span> sHeight = <span class="hljs-number">0</span>;<br>                 <span class="hljs-keyword">let</span> sx = <span class="hljs-number">0</span>;<br>                 <span class="hljs-keyword">let</span> sy = <span class="hljs-number">0</span>;<br>                 <span class="hljs-keyword">let</span> imageRatio = imgObj.<span class="hljs-property">width</span> / imgObj.<span class="hljs-property">height</span>;<br>                 <span class="hljs-keyword">let</span> screenRatio = windowWidth / windowHeight;<br>                 <span class="hljs-keyword">if</span> (imageRatio &gt;= screenRatio) &#123;<br>                   sWidth = (windowWidth * imgObj.<span class="hljs-property">height</span>) / windowHeight;<br>                   sHeight = imgObj.<span class="hljs-property">height</span>;<br>                   sx = (imgObj.<span class="hljs-property">width</span> - sWidth) / <span class="hljs-number">2</span>;<br>                   sy = <span class="hljs-number">0</span>;<br>                 &#125; <span class="hljs-keyword">else</span> &#123;<br>                   sWidth = imgObj.<span class="hljs-property">width</span>;<br>                   sHeight = (windowHeight * imgObj.<span class="hljs-property">width</span>) / windowWidth;<br>                   sx = <span class="hljs-number">0</span>;<br>                   sy = (imgObj.<span class="hljs-property">height</span> - sHeight) / <span class="hljs-number">2</span>;<br>                 &#125;<br>                 ctx.<span class="hljs-title function_">drawImage</span>(<br>                   imgObj,<br>                   sx,<br>                   sy,<br>                   sWidth,<br>                   sHeight,<br>                   <span class="hljs-number">0</span>,<br>                   <span class="hljs-number">0</span>,<br>                   windowWidth,<br>                   windowHeight<br>                 );<br>                 wx.<span class="hljs-title function_">canvasToTempFilePath</span>(&#123;<br>                   <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>,<br>                   <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>,<br>                   <span class="hljs-attr">canvas</span>: canvas,<br>                   <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>                     wx.<span class="hljs-title function_">saveImageToPhotosAlbum</span>(&#123;<br>                       <span class="hljs-attr">filePath</span>: res.<span class="hljs-property">tempFilePath</span>,<br>                       <span class="hljs-attr">success</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>                         <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">triggerEvent</span>(<span class="hljs-string">&quot;finish&quot;</span>);<br>                       &#125;,<br>                     &#125;);<br>                   &#125;,<br>                 &#125;);<br>               &#125;<br>             &#125;;<br>             imgObj.<span class="hljs-property">src</span> = image.<span class="hljs-property">path</span>;<br>           &#125;);<br>       &#125;,<br>     &#125;);<br>   &#125;,<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">#微信小程序</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>微信小程序使用</div>
+      <div>http://lenmon54231.github.io/2022/09/15/微信小程序使用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Meng_Lee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/15/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" title="移动端使用记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">移动端使用记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/15/%E5%89%8D%E7%AB%AF%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/" title="前端数据转换">
+                        <span class="hidden-mobile">前端数据转换</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

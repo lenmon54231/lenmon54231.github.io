@@ -1,0 +1,650 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Meng_Lee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="利用 G2 可视化实现一个自定义柱状图G2 可视化图库市面上的图表库很多，相比于 EChart 这种“组件思想”的图标库，G2 可视化引擎可以提供更自由的图表功能样式，以下设计一个自定义柱状图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用G2可视化实现一个自定义柱状图">
+<meta property="og:url" content="http://lenmon54231.github.io/2022/08/22/%E5%88%A9%E7%94%A8G2%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9F%B1%E7%8A%B6%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="利用 G2 可视化实现一个自定义柱状图G2 可视化图库市面上的图表库很多，相比于 EChart 这种“组件思想”的图标库，G2 可视化引擎可以提供更自由的图表功能样式，以下设计一个自定义柱状图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/G2%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9F%B1%E7%8A%B6%E5%9B%BE.png">
+<meta property="article:published_time" content="2022-08-22T09:31:46.000Z">
+<meta property="article:modified_time" content="2024-06-27T09:28:13.219Z">
+<meta property="article:author" content="Meng_Lee">
+<meta property="article:tag" content="G2">
+<meta property="article:tag" content="可视化">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/G2%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9F%B1%E7%8A%B6%E5%9B%BE.png">
+  
+  
+  
+  <title>利用G2可视化实现一个自定义柱状图 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lenmon54231.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="利用G2可视化实现一个自定义柱状图"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-22 17:31" pubdate>
+          2022年8月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          7.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          63 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">利用G2可视化实现一个自定义柱状图</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="利用-G2-可视化实现一个自定义柱状图"><a href="#利用-G2-可视化实现一个自定义柱状图" class="headerlink" title="利用 G2 可视化实现一个自定义柱状图"></a>利用 G2 可视化实现一个自定义柱状图</h2><h3 id="G2-可视化图库"><a href="#G2-可视化图库" class="headerlink" title="G2 可视化图库"></a>G2 可视化图库</h3><p>市面上的图表库很多，相比于 EChart 这种“组件思想”的图标库，G2 可视化引擎可以提供更自由的图表功能样式，以下设计一个自定义柱状图</p>
+<span id="more"></span>
+
+<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/G2%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9F%B1%E7%8A%B6%E5%9B%BE.png" srcset="/img/loading.gif" lazyload alt="柱状图"></p>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><ol>
+<li><p>普通的双柱状图已经有现成的案例：<a target="_blank" rel="noopener" href="https://antv-g2.gitee.io/zh/examples/interaction/element#element-highlight-by-x">双柱状图</a></p>
+</li>
+<li><p>上面缺少的就是每一个柱状需要增加一条横线</p>
+</li>
+<li><p>寻找相似案例，发现如下案例：<a target="_blank" rel="noopener" href="https://antv-g2.gitee.io/zh/examples/column/basic#waterfall">带横线的双柱状图</a>，核心的代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 自定义 Shape</span><br><span class="hljs-title function_">registerShape</span>(<span class="hljs-string">&quot;interval&quot;</span>, <span class="hljs-string">&quot;waterfall&quot;</span>, &#123;<br>  <span class="hljs-title function_">draw</span>(<span class="hljs-params">cfg, container</span>) &#123;<br>    <span class="hljs-keyword">const</span> attrs = <span class="hljs-title function_">getFillAttrs</span>(cfg);<br>    <span class="hljs-keyword">let</span> rectPath = <span class="hljs-title function_">getRectPath</span>(cfg.<span class="hljs-property">points</span>);<br>    rectPath = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">parsePath</span>(rectPath);<br><br>    <span class="hljs-keyword">const</span> group = container.<span class="hljs-title function_">addGroup</span>();<br>    group.<span class="hljs-title function_">addShape</span>(<span class="hljs-string">&quot;path&quot;</span>, &#123;<br>      <span class="hljs-attr">attrs</span>: &#123;<br>        ...attrs,<br>        <span class="hljs-attr">path</span>: rectPath,<br>      &#125;,<br>    &#125;);<br><br>    <span class="hljs-keyword">if</span> (cfg.<span class="hljs-property">nextPoints</span>) &#123;<br>      <span class="hljs-keyword">let</span> linkPath = [<br>        [<span class="hljs-string">&quot;M&quot;</span>, cfg.<span class="hljs-property">points</span>[<span class="hljs-number">2</span>].<span class="hljs-property">x</span>, cfg.<span class="hljs-property">points</span>[<span class="hljs-number">2</span>].<span class="hljs-property">y</span>],<br>        [<span class="hljs-string">&quot;L&quot;</span>, cfg.<span class="hljs-property">nextPoints</span>[<span class="hljs-number">0</span>].<span class="hljs-property">x</span>, cfg.<span class="hljs-property">nextPoints</span>[<span class="hljs-number">0</span>].<span class="hljs-property">y</span>],<br>      ];<br><br>      <span class="hljs-keyword">if</span> (cfg.<span class="hljs-property">nextPoints</span>[<span class="hljs-number">0</span>].<span class="hljs-property">y</span> === <span class="hljs-number">0</span>) &#123;<br>        linkPath[<span class="hljs-number">1</span>] = [<span class="hljs-string">&quot;L&quot;</span>, cfg.<span class="hljs-property">nextPoints</span>[<span class="hljs-number">1</span>].<span class="hljs-property">x</span>, cfg.<span class="hljs-property">nextPoints</span>[<span class="hljs-number">1</span>].<span class="hljs-property">y</span>];<br>      &#125;<br>      linkPath = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">parsePath</span>(linkPath);<br>      group.<span class="hljs-title function_">addShape</span>(<span class="hljs-string">&quot;path&quot;</span>, &#123;<br>        <span class="hljs-attr">attrs</span>: &#123;<br>          <span class="hljs-attr">path</span>: linkPath,<br>          <span class="hljs-attr">stroke</span>: <span class="hljs-string">&quot;#8c8c8c&quot;</span>,<br>          <span class="hljs-attr">lineDash</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>],<br>        &#125;,<br>      &#125;);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> group;<br>  &#125;,<br>&#125;);<br><br>chart.<span class="hljs-title function_">interval</span>().<span class="hljs-title function_">position</span>(<span class="hljs-string">&quot;type*money&quot;</span>).<span class="hljs-title function_">shape</span>(<span class="hljs-string">&quot;waterfall&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>可以通过改造 group 里的 path 路径来实现一个 line 的路径，X 和 Y 的定位就可以从 cfg 的 point 中获取</p>
+</li>
+<li><p>利用上面的逻辑，可以改造我们双柱状图试试。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">registerShape</span>(<span class="hljs-string">&quot;interval&quot;</span>, <span class="hljs-string">&quot;fall-flag&quot;</span>, &#123;<br>  <span class="hljs-title function_">draw</span>(<span class="hljs-params">cfg, container</span>) &#123;<br>    <span class="hljs-comment">// console.log(&#x27;cfg: &#x27;, cfg);</span><br>    <span class="hljs-keyword">const</span> group = container.<span class="hljs-title function_">addGroup</span>();<br>    <span class="hljs-keyword">let</span> type = cfg?.<span class="hljs-property">data</span>?.<span class="hljs-property">type</span>;<br>    <span class="hljs-keyword">let</span> currentColor = getDarkColorByName[type];<br>    <span class="hljs-keyword">let</span> maxHeight =<br>      (<span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">y</span>) - <span class="hljs-number">35</span>) / (<span class="hljs-number">1</span> - <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">points</span>[<span class="hljs-number">1</span>].<span class="hljs-property">y</span>)) + <span class="hljs-number">35</span>;<br>    <span class="hljs-keyword">let</span> coordinateHeight = maxHeight - <span class="hljs-number">35</span>;<br>    <span class="hljs-keyword">let</span> height =<br>      <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">y</span>) +<br>      coordinateHeight *<br>        <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">points</span>[<span class="hljs-number">1</span>].<span class="hljs-property">y</span>) *<br>        (<span class="hljs-number">1</span> - <span class="hljs-title class_">Number</span>(cfg.<span class="hljs-property">data</span>.<span class="hljs-property">coefficient</span>));<br>    <span class="hljs-keyword">if</span> (cfg?.<span class="hljs-property">points</span>[<span class="hljs-number">1</span>].<span class="hljs-property">y</span> == <span class="hljs-number">1</span>) &#123;<br>      height = <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">y</span>);<br>    &#125;<br>    group.<span class="hljs-title function_">addShape</span>(<span class="hljs-string">&quot;path&quot;</span>, &#123;<br>      <span class="hljs-attr">attrs</span>: &#123;<br>        <span class="hljs-comment">// ...cfg,</span><br>        <span class="hljs-attr">path</span>: [<br>          <span class="hljs-comment">// [&#x27;M&#x27;, (cfg?.x as number) - 40, cfg?.y as number],</span><br>          <span class="hljs-comment">// [&#x27;L&#x27;, (cfg?.x as number) + 40, cfg?.y as number],</span><br>          [<span class="hljs-string">&quot;M&quot;</span>, cfg?.<span class="hljs-property">x</span> - <span class="hljs-number">30</span>, height],<br>          [<span class="hljs-string">&quot;L&quot;</span>, cfg?.<span class="hljs-property">x</span> + <span class="hljs-number">30</span>, height],<br>        ],<br>        <span class="hljs-attr">stroke</span>: checkIndex &lt; <span class="hljs-number">9</span> ? currentColor : <span class="hljs-string">&quot;transparent&quot;</span>,<br>        <span class="hljs-comment">// stroke: currentColor,</span><br>        <span class="hljs-attr">lineDash</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>],<br>        <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">2</span>,<br>      &#125;,<br>    &#125;);<br>    <span class="hljs-comment">// console.log(&#x27;group: &#x27;, group);</span><br>    checkIndex++;<br>    <span class="hljs-keyword">return</span> group;<br>  &#125;,<br>&#125;);<br><br>chart<br>  .<span class="hljs-title function_">interval</span>() <span class="hljs-comment">// 画出柱状图</span><br>  .<span class="hljs-title function_">position</span>(<span class="hljs-string">&quot;type*value&quot;</span>) <span class="hljs-comment">// 柱状图定位</span><br>  .<span class="hljs-title function_">color</span>(<span class="hljs-string">&quot;color&quot;</span>, <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> arr = value.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;&amp;&quot;</span>);<br>    <span class="hljs-keyword">if</span> (arr[<span class="hljs-number">1</span>] == <span class="hljs-string">&quot;满分&quot;</span>) &#123;<br>      <span class="hljs-keyword">return</span> getDarkColorByName[arr[<span class="hljs-number">0</span>]];<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">return</span> getLightColorByName[arr[<span class="hljs-number">0</span>]];<br>    &#125;<br>  &#125;) <span class="hljs-comment">//通过color区分颜色</span><br>  .<span class="hljs-title function_">label</span>(<span class="hljs-string">&quot;value&quot;</span>) <span class="hljs-comment">// 柱子顶上的文字</span><br>  .<span class="hljs-title function_">size</span>(<span class="hljs-string">&quot;20&quot;</span>)<br>  .<span class="hljs-title function_">adjust</span>([<br>    &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;dodge&quot;</span>,<br>      <span class="hljs-attr">marginRatio</span>: <span class="hljs-number">0</span>,<br>    &#125;,<br>  ]);<br><br>chart.<span class="hljs-title function_">interval</span>().<span class="hljs-title function_">position</span>(<span class="hljs-string">&quot;type*value&quot;</span>).<span class="hljs-title function_">shape</span>(<span class="hljs-string">&quot;fall-flag&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>可以看到上面的代码，是渲染了两次 chart 的 interval 方法。<br>本质上实现方式是：第一次 chart.interval()渲染出了双柱状图，第二次渲染 shape(“fall-flag”)只是渲染了一个只有柱状体最上面一根横线的一个双柱状图！</p>
+</li>
+</ol>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> paddingOption = [<span class="hljs-number">35</span>, <span class="hljs-number">35</span>, <span class="hljs-number">55</span>, <span class="hljs-number">35</span>];<br><span class="hljs-keyword">let</span> chart = <span class="hljs-literal">null</span>;<br><br><span class="hljs-keyword">const</span> getDarkColorByName = &#123;<br>  <span class="hljs-title class_">Jan</span>: <span class="hljs-string">&quot;#6970FF&quot;</span>,<br>  <span class="hljs-title class_">Feb</span>: <span class="hljs-string">&quot;#6970FF&quot;</span>,<br>  <span class="hljs-title class_">Mar</span>: <span class="hljs-string">&quot;#6970FF&quot;</span>,<br>  <span class="hljs-title class_">Apr</span>: <span class="hljs-string">&quot;#6970FF&quot;</span>,<br>  <span class="hljs-title class_">May</span>: <span class="hljs-string">&quot;#FF6600&quot;</span>,<br>  <span class="hljs-title class_">Jun</span>: <span class="hljs-string">&quot;#FF6600&quot;</span>,<br>  <span class="hljs-title class_">Jul</span>: <span class="hljs-string">&quot;#FF6600&quot;</span>,<br>  <span class="hljs-title class_">Aug</span>: <span class="hljs-string">&quot;#00B4C3&quot;</span>,<br>&#125;;<br><span class="hljs-keyword">const</span> getLightColorByName = &#123;<br>  <span class="hljs-title class_">Jan</span>: <span class="hljs-string">&quot;rgb(105,112,255,.1)&quot;</span>,<br>  <span class="hljs-title class_">Feb</span>: <span class="hljs-string">&quot;rgb(105,112,255,.1)&quot;</span>,<br>  <span class="hljs-title class_">Mar</span>: <span class="hljs-string">&quot;rgb(105,112,255,.1)&quot;</span>,<br>  <span class="hljs-title class_">Apr</span>: <span class="hljs-string">&quot;rgb(105,112,255,.1)&quot;</span>,<br>  <span class="hljs-title class_">May</span>: <span class="hljs-string">&quot;rgb(255,102,0,.1)&quot;</span>,<br>  <span class="hljs-title class_">Jun</span>: <span class="hljs-string">&quot;rgb(255,102,0,.1)&quot;</span>,<br>  <span class="hljs-title class_">Jul</span>: <span class="hljs-string">&quot;rgb(255,102,0,.1)&quot;</span>,<br>  <span class="hljs-title class_">Aug</span>: <span class="hljs-string">&quot;rgb(0,180,195,.1)&quot;</span>,<br>&#125;;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">initChart</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">let</span> checkIndex = <span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// 实例化对象</span><br>  chart = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Chart</span>(&#123;<br>    <span class="hljs-attr">container</span>: <span class="hljs-string">&quot;DoubleHistogramContainer&quot;</span>,<br>    <span class="hljs-comment">// autoFit: true,</span><br>    <span class="hljs-attr">width</span>: <span class="hljs-number">600</span>,<br>    <span class="hljs-attr">height</span>: <span class="hljs-number">280</span>,<br>    <span class="hljs-attr">padding</span>: paddingOption,<br>  &#125;);<br><br>  <span class="hljs-comment">// 加载数据</span><br>  <span class="hljs-comment">// chart.data(data);</span><br>  chart.<span class="hljs-title function_">data</span>([<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Jan&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Jan&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">38.9</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Feb&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Feb&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">28.8</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.2</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Mar&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Mar&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">39.3</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.4</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Apr&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Apr&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">1</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;May&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;May&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Jun&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Jun&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">60</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Jul&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Jul&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">34</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Aug&amp;满分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Aug&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">35.6</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.4</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Jan&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Jan&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">12.4</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Feb&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Feb&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">23.2</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Mar&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Mar&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">34.5</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Apr&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Apr&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">12</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;May&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;May&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">15.6</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Jun&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Jun&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">25.5</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Jul&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Jul&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">17.4</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>    &#123; <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;Aug&amp;得分&quot;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;Aug&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">22.4</span>, <span class="hljs-attr">coefficient</span>: <span class="hljs-number">0.8</span> &#125;,<br>  ]);<br><br>  <span class="hljs-title function_">registerShape</span>(<span class="hljs-string">&quot;interval&quot;</span>, <span class="hljs-string">&quot;fall-flag&quot;</span>, &#123;<br>    <span class="hljs-title function_">draw</span>(<span class="hljs-params">cfg, container</span>) &#123;<br>      <span class="hljs-comment">// console.log(&#x27;cfg: &#x27;, cfg);</span><br>      <span class="hljs-keyword">const</span> group = container.<span class="hljs-title function_">addGroup</span>();<br>      <span class="hljs-keyword">let</span> type = cfg?.<span class="hljs-property">data</span>?.<span class="hljs-property">type</span>;<br>      <span class="hljs-keyword">let</span> currentColor = getDarkColorByName[type];<br>      <span class="hljs-keyword">let</span> maxHeight =<br>        (<span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">y</span>) - <span class="hljs-number">35</span>) / (<span class="hljs-number">1</span> - <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">points</span>[<span class="hljs-number">1</span>].<span class="hljs-property">y</span>)) + <span class="hljs-number">35</span>;<br>      <span class="hljs-keyword">let</span> coordinateHeight = maxHeight - <span class="hljs-number">35</span>;<br>      <span class="hljs-keyword">let</span> height =<br>        <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">y</span>) +<br>        coordinateHeight *<br>          <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">points</span>[<span class="hljs-number">1</span>].<span class="hljs-property">y</span>) *<br>          (<span class="hljs-number">1</span> - <span class="hljs-title class_">Number</span>(cfg.<span class="hljs-property">data</span>.<span class="hljs-property">coefficient</span>));<br>      <span class="hljs-keyword">if</span> (cfg?.<span class="hljs-property">points</span>[<span class="hljs-number">1</span>].<span class="hljs-property">y</span> == <span class="hljs-number">1</span>) &#123;<br>        height = <span class="hljs-title class_">Number</span>(cfg?.<span class="hljs-property">y</span>);<br>      &#125;<br>      group.<span class="hljs-title function_">addShape</span>(<span class="hljs-string">&quot;path&quot;</span>, &#123;<br>        <span class="hljs-attr">attrs</span>: &#123;<br>          <span class="hljs-comment">// ...cfg,</span><br>          <span class="hljs-attr">path</span>: [<br>            <span class="hljs-comment">// [&#x27;M&#x27;, (cfg?.x as number) - 40, cfg?.y as number],</span><br>            <span class="hljs-comment">// [&#x27;L&#x27;, (cfg?.x as number) + 40, cfg?.y as number],</span><br>            [<span class="hljs-string">&quot;M&quot;</span>, cfg?.<span class="hljs-property">x</span> - <span class="hljs-number">30</span>, height],<br>            [<span class="hljs-string">&quot;L&quot;</span>, cfg?.<span class="hljs-property">x</span> + <span class="hljs-number">30</span>, height],<br>          ],<br>          <span class="hljs-attr">stroke</span>: checkIndex &lt; <span class="hljs-number">9</span> ? currentColor : <span class="hljs-string">&quot;transparent&quot;</span>,<br>          <span class="hljs-comment">// stroke: currentColor,</span><br>          <span class="hljs-attr">lineDash</span>: [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>],<br>          <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">2</span>,<br>        &#125;,<br>      &#125;);<br>      <span class="hljs-comment">// console.log(&#x27;group: &#x27;, group);</span><br>      checkIndex++;<br>      <span class="hljs-keyword">return</span> group;<br>    &#125;,<br>  &#125;);<br><br>  <span class="hljs-comment">// 度量（就是点击图片上面会浮现一些内容：内容就通过下面的配置项配置）</span><br>  chart.<span class="hljs-title function_">scale</span>(<span class="hljs-string">&quot;value&quot;</span>, &#123;<br>    <span class="hljs-attr">min</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">alias</span>: <span class="hljs-string">&quot;数值&quot;</span>,<br>    <span class="hljs-comment">//该数据字段的显示别名，一般用于将字段的英文名称转换成中文名。</span><br>  &#125;);<br>  chart.<span class="hljs-title function_">legend</span>(<span class="hljs-literal">false</span>);<br>  <span class="hljs-comment">// chart.legend(&#x27;type&#x27;, &#123;</span><br>  <span class="hljs-comment">//   position: &#x27;right&#x27;,</span><br>  <span class="hljs-comment">// &#125;);</span><br>  <span class="hljs-comment">// 配置 type 对应坐标轴线</span><br>  chart.<span class="hljs-title function_">axis</span>(<span class="hljs-string">&quot;type&quot;</span>, &#123;<br>    <span class="hljs-attr">tickLine</span>: &#123;<br>      <span class="hljs-comment">// 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间。</span><br>      <span class="hljs-attr">alignTick</span>: <span class="hljs-literal">true</span>,<br>    &#125;,<br>    <span class="hljs-attr">label</span>: &#123; <span class="hljs-attr">autoEllipsis</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">offset</span>: <span class="hljs-number">12</span>, <span class="hljs-attr">autoHide</span>: <span class="hljs-literal">false</span> &#125;, <span class="hljs-comment">//横坐标上的文字</span><br>    <span class="hljs-comment">// title: &#123; spacing: 2 &#125;, // 横着的坐标轴下面的文字（即type）</span><br>  &#125;);<br>  <span class="hljs-comment">// 配置 value 对应坐标轴线</span><br>  chart.<span class="hljs-title function_">axis</span>(<span class="hljs-string">&quot;value&quot;</span>, &#123;<br>    <span class="hljs-attr">label</span>: &#123;<br>      <span class="hljs-attr">offset</span>: <span class="hljs-number">12</span>,<br>    &#125;,<br>    <span class="hljs-comment">// title: &#123;&#125;, // 竖着的坐标轴下面的文字（即&quot;数值&quot;）</span><br>    <span class="hljs-attr">tickLine</span>: &#123;<br>      <span class="hljs-comment">// 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间。</span><br>      <span class="hljs-attr">alignTick</span>: <span class="hljs-literal">true</span>,<br>    &#125;,<br>  &#125;);<br>  chart.<span class="hljs-title function_">tooltip</span>(&#123;<br>    <span class="hljs-attr">showContent</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// 关闭 tooltip content部分dom</span><br>  &#125;);<br>  chart<br>    .<span class="hljs-title function_">interval</span>() <span class="hljs-comment">// 画出柱状图</span><br>    .<span class="hljs-title function_">position</span>(<span class="hljs-string">&quot;type*value&quot;</span>) <span class="hljs-comment">// 柱状图定位</span><br>    .<span class="hljs-title function_">color</span>(<span class="hljs-string">&quot;color&quot;</span>, <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">let</span> arr = value.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;&amp;&quot;</span>);<br>      <span class="hljs-keyword">if</span> (arr[<span class="hljs-number">1</span>] == <span class="hljs-string">&quot;满分&quot;</span>) &#123;<br>        <span class="hljs-keyword">return</span> getDarkColorByName[arr[<span class="hljs-number">0</span>]];<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> getLightColorByName[arr[<span class="hljs-number">0</span>]];<br>      &#125;<br>    &#125;) <span class="hljs-comment">//通过color区分颜色</span><br>    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&quot;value&quot;</span>) <span class="hljs-comment">// 柱子顶上的文字</span><br>    .<span class="hljs-title function_">size</span>(<span class="hljs-string">&quot;20&quot;</span>)<br>    .<span class="hljs-title function_">adjust</span>([<br>      &#123;<br>        <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;dodge&quot;</span>,<br>        <span class="hljs-attr">marginRatio</span>: <span class="hljs-number">0</span>,<br>      &#125;,<br>    ]);<br><br>  chart.<span class="hljs-title function_">interval</span>().<span class="hljs-title function_">position</span>(<span class="hljs-string">&quot;type*value&quot;</span>).<span class="hljs-title function_">shape</span>(<span class="hljs-string">&quot;fall-flag&quot;</span>);<br><br>  <span class="hljs-comment">// 开始渲染</span><br>  chart.<span class="hljs-title function_">render</span>();<br>&#125;;<br><br><span class="hljs-title function_">initChart</span>();<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/G2/">#G2</a>
+      
+        <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">#可视化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>利用G2可视化实现一个自定义柱状图</div>
+      <div>http://lenmon54231.github.io/2022/08/22/利用G2可视化实现一个自定义柱状图/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Meng_Lee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/14/js%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A8/" title="js相关使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">js相关使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/04/%E5%89%8D%E7%AB%AF%E6%94%BB%E5%87%BB%E5%8F%8A%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5/" title="前端攻击的类型">
+                        <span class="hidden-mobile">前端攻击的类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
