@@ -320,19 +320,6 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content:
 none; } table { border-collapse: collapse; border-spacing: 0; }
 ```
 
-## vs code 插件记录(更新中)
-
-vscode 会使用比较多的插件，记录：
-
-1. Auto Close Tag（补充标签）
-2. Auto Rename Tag（修改标签）
-3. Chinese (Simplified) Language Pack for VS Code
-4. Debugger for Chrome
-5. Open in Browser
-6. Prettier（格式化）
-7. Vetur（智能提示补全代码）
-8. vscode-icons（美化 icon）
-9. Bracket Pair Colorizer（括号颜色，快速识别括号位置）
 
 ### 记录：
 

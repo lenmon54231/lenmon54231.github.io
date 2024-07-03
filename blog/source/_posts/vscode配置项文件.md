@@ -4,6 +4,27 @@ date: 2022-02-11 09:45:08
 tags: [vscode]
 ---
 
+
+### vs code 插件记录(更新中)
+
+vscode 会使用比较多的插件，记录：
+
+1. Code Spell Checker
+2. Auto Rename Tag（修改标签）
+3. Chinese (Simplified) Language Pack for VS Code
+4. EditorConfig for VS Code
+5. 微信小程序开发工具
+6. ESLint
+7. javascript console utils
+8. Prettier
+9. px to rem & rpx & vw (cssrem)
+10. GitLens
+11. one dark pro
+12. Stylelint
+13. TODO Highlight
+14. Vue - Official
+15. WXML - Language Service
+
 ### vscode 配置项文件
 
 <!-- more -->
