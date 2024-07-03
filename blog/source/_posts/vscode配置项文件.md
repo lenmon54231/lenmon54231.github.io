@@ -4,7 +4,7 @@ date: 2022-02-11 09:45:08
 tags: [vscode]
 ---
 
-## vscode 配置项文件
+### vscode 配置项文件
 
 <!-- more -->
 
@@ -171,3 +171,61 @@ tags: [vscode]
 
 ```
 
+### vscode本地配置文件
+
+.vscode文件夹下包含两个文件
+
+1. extensions.json
+
+```json
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "qiu8310.minapp-vscode",
+    "wayou.vscode-todo-highlight",
+    "editorconfig.editorconfig",
+    "streetsidesoftware.code-spell-checker",
+    "crazyurus.miniprogram-vscode-extension",
+    "cipchk.cssrem",
+    "esbenp.prettier-vscode"
+  ]
+}
+```
+
+2. settings.json
+
+```json
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "minapp-vscode.wxmlFormatter": "prettier",
+  "[wxml]": {
+    "editor.defaultFormatter": "qiu8310.minapp-vscode"
+  },
+  "[wxss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.documentSelectors": ["wxss"],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "eslint.format.enable": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.snippet": ["css", "less", "postcss", "scss"],
+  "stylelint.validate": ["css", "less", "postcss", "scss", "sass", "vue"],
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": ["Pathfinding"],
+  "cssrem.wxss": true,
+  "cssrem.wxssScreenWidth": 750,
+  "cssrem.wxssDeviceWidth": 390
+}
+```
