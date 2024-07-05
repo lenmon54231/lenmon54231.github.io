@@ -16,25 +16,22 @@
   <meta name="author" content="Meng_Lee">
   <meta name="keywords" content="">
   
-    <meta name="description" content="路由守卫使用-判断登录状态之前已经通过local storage模拟了注册登录机制，从而控制了页面根据不同的登录状态显示内容的不同。 当用户已经登录的情况下：   首页右上角会显示center和register，而不是login和register 可以直接通过movielist界面看到购物车内容，并且进入pay界面  当没有登录的情况下，不能显示center和购物车内容。 这其中还有一个问题，">
+    <meta name="description" content="Vue3上奇奇怪怪的点Vue3新增了组合式api，所以可以实现很多Vue2无法实现的逻辑，同时，也新增了很多新的写法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="路由守卫使用-判断登录状态">
-<meta property="og:url" content="http://lenmon54231.github.io/2020/03/24/%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB%E4%BD%BF%E7%94%A8-%E5%88%A4%E6%96%AD%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81/index.html">
+<meta property="og:title" content="Vue3上奇奇怪怪的点">
+<meta property="og:url" content="http://lenmon54231.github.io/2024/07/05/Vue3%E4%B8%8A%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%82%B9/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="路由守卫使用-判断登录状态之前已经通过local storage模拟了注册登录机制，从而控制了页面根据不同的登录状态显示内容的不同。 当用户已经登录的情况下：   首页右上角会显示center和register，而不是login和register 可以直接通过movielist界面看到购物车内容，并且进入pay界面  当没有登录的情况下，不能显示center和购物车内容。 这其中还有一个问题，">
+<meta property="og:description" content="Vue3上奇奇怪怪的点Vue3新增了组合式api，所以可以实现很多Vue2无法实现的逻辑，同时，也新增了很多新的写法">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB%E5%AE%9E%E7%8E%B0/1.gif">
-<meta property="article:published_time" content="2020-03-24T10:16:26.000Z">
-<meta property="article:modified_time" content="2024-06-27T09:28:13.221Z">
+<meta property="article:published_time" content="2024-07-05T06:26:35.000Z">
+<meta property="article:modified_time" content="2024-07-05T06:33:07.528Z">
 <meta property="article:author" content="Meng_Lee">
-<meta property="article:tag" content="路由守卫">
-<meta property="article:tag" content="vue-router">
+<meta property="article:tag" content="vue3">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB%E5%AE%9E%E7%8E%B0/1.gif">
   
   
   
-  <title>路由守卫使用-判断登录状态 - Hexo</title>
+  <title>Vue3上奇奇怪怪的点 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -199,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="路由守卫使用-判断登录状态"></span>
+            <span id="subtitle" data-typed-text="Vue3上奇奇怪怪的点"></span>
           
         </div>
 
@@ -210,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2020-03-24 18:16" pubdate>
-          2020年3月24日 晚上
+        <time datetime="2024-07-05 14:26" pubdate>
+          2024年7月5日 下午
         </time>
       </span>
     
@@ -223,7 +220,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2k 字
+          902 字
         
       </span>
     
@@ -235,7 +232,7 @@
         
         
           <!-- compatible with older versions-->
-          17 分钟
+          8 分钟
         
       </span>
     
@@ -273,41 +270,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">路由守卫使用-判断登录状态</h1>
+            <h1 style="display: none">Vue3上奇奇怪怪的点</h1>
             
             
               <div class="markdown-body">
                 
-                <meta name="referrer" content="no-referrer"/>
-
-<h2 id="路由守卫使用-判断登录状态"><a href="#路由守卫使用-判断登录状态" class="headerlink" title="路由守卫使用-判断登录状态"></a>路由守卫使用-判断登录状态</h2><p>之前已经通过local storage模拟了注册登录机制，从而控制了页面根据不同的登录状态显示内容的不同。</p>
-<p>当用户已经登录的情况下：</p>
-<ol>
-<li> 首页右上角会显示center和register，而不是login和register</li>
-<li>可以直接通过movielist界面看到购物车内容，并且进入pay界面</li>
-</ol>
-<p>当没有登录的情况下，不能显示center和购物车内容。</p>
-<p>这其中还有一个问题，登录状态模拟的是10分钟有效期。当有效期结束，但是页面还停留在center页面时，再次刷新页面，依旧会停留再center页面，这个不符合逻辑。</p>
-<p>应当再次刷新后，直接跳转到login界面。</p>
-<p>这个可以通过vue-router的路由守卫去实现，如下；</p>
+                <h2 id="Vue3上奇奇怪怪的点"><a href="#Vue3上奇奇怪怪的点" class="headerlink" title="Vue3上奇奇怪怪的点"></a>Vue3上奇奇怪怪的点</h2><p>Vue3新增了组合式api，所以可以实现很多Vue2无法实现的逻辑，同时，也新增了很多新的写法</p>
 <span id="more"></span>
 
-<h3 id="vue-router路由守卫配置"><a href="#vue-router路由守卫配置" class="headerlink" title="vue-router路由守卫配置"></a>vue-router路由守卫配置</h3><p>一开始犯了一个错误，将router.beforeEach（）放到了router中的index.js中了，这个明显不对。、</p>
-<p>应当将其配置到main.js中。</p>
-<p>并且需要注意的是，router.beforeEach（）需要放置到new vue之前</p>
-<p>main.js配置如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./router&#x27;</span> <span class="hljs-comment">//引入router</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store&#x27;</span><br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-property">config</span>.<span class="hljs-property">productionTip</span> = <span class="hljs-literal">false</span><br><br><span class="hljs-keyword">import</span> common <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/comF/common.js&#x27;</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">common</span> = common<br><br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">axios</span> = axios<br><br><span class="hljs-comment">// 路由变化跳转页面回到顶部</span><br>router.<span class="hljs-title function_">afterEach</span>(<span class="hljs-function">(<span class="hljs-params">to,<span class="hljs-keyword">from</span>,next</span>) =&gt;</span> &#123;<br>  <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">scrollTo</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);<br>&#125;)<br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-string">&quot;price&quot;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">var</span> num2 = <span class="hljs-title class_">Number</span>(value).<span class="hljs-title function_">toFixed</span>(<span class="hljs-number">2</span>);<br>  <span class="hljs-keyword">var</span> num = num2.<span class="hljs-title function_">toString</span>().<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/(\d)(?=(\d&#123;3&#125;)+(?!\d))/g</span>, <span class="hljs-string">&quot;$1,&quot;</span>);<br>  <span class="hljs-keyword">return</span> num;<br>&#125;)<br><br><span class="hljs-comment">// 全局路由守卫</span><br>router.<span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">let</span> nameLists = [<span class="hljs-string">&quot;/center&quot;</span>, <span class="hljs-string">&quot;/mall/pay&quot;</span>]<br>  <span class="hljs-keyword">let</span> isLogin = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&quot;passUsrInfo&quot;</span>)) ? <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&quot;passUsrInfo&quot;</span>)).<span class="hljs-property">token</span> : <span class="hljs-string">&quot;&quot;</span>;<br>  <span class="hljs-keyword">let</span> index = nameLists.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v == to.<span class="hljs-property">path</span>)<br>  <span class="hljs-keyword">if</span> (index &gt; -<span class="hljs-number">1</span>) &#123;  <span class="hljs-comment">// 判断该路由是否需要登录权限</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;1&quot;</span>)<br>    <span class="hljs-keyword">if</span> (isLogin) &#123; <span class="hljs-comment">// 判断是否已经登录</span><br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;11&quot;</span>)<br>      <span class="hljs-title function_">next</span>()<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;12&quot;</span>)<br>      <span class="hljs-title function_">next</span>(&#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/loading&#x27;</span>,<br>        <span class="hljs-attr">query</span>: &#123; <span class="hljs-attr">redirect</span>: to.<span class="hljs-property">fullPath</span> &#125;  <span class="hljs-comment">// 将跳转的路由path作为参数，登录成功后跳转到该路由</span><br>      &#125;)<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title function_">next</span>()<br>  &#125;<br>&#125;)<br><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>  router,<br>  store,<br>  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-params">h</span> =&gt;</span> <span class="hljs-title function_">h</span>(<span class="hljs-title class_">App</span>)<br>&#125;).$mount(<span class="hljs-string">&#x27;#app&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+<h3 id="通过watch鉴定对象，为什么回调中获取的新值和旧值是相同的？"><a href="#通过watch鉴定对象，为什么回调中获取的新值和旧值是相同的？" class="headerlink" title="通过watch鉴定对象，为什么回调中获取的新值和旧值是相同的？"></a>通过watch鉴定对象，为什么回调中获取的新值和旧值是相同的？</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> searchForm = <span class="hljs-title function_">ref</span>(&#123;<br>  <span class="hljs-attr">key</span>:<span class="hljs-string">&#x27;&#x27;</span><br>&#125;)<br><span class="hljs-title function_">watch</span>(<br>  <span class="hljs-function">() =&gt;</span> searchForm.<span class="hljs-property">value</span>,<br>  <span class="hljs-function">(<span class="hljs-params">newValue, oldValue</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;oldValue: &quot;</span>, oldValue);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;newValue: &quot;</span>, newValue);<br>  &#125;,<br>  &#123; <span class="hljs-attr">deep</span>: <span class="hljs-literal">true</span> &#125;<br>);<br></code></pre></td></tr></table></figure>
 
-<p>说明：</p>
+<p>此写法，第二次获取值时，newValue和oldValue会是同样的值</p>
+<p>如果需要根据old和new的值来做业务逻辑，有两种写法:</p>
 <ol>
-<li>import router from ‘./router’ //引入router</li>
-<li>router.beforeEach((to, from, next) //设置路由守卫</li>
-<li>new Vue（）//new 一个vue</li>
+<li>改成监听对象的某个值</li>
 </ol>
-<p>router的配置就按照正常的配置进行。</p>
-<h3 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h3><p>如下图：</p>
-<p>登录至个人中心后，删除local storage的token，然后刷新页面，会自动跳转至loading，两秒钟后再跳转至login页面。</p>
-<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB%E5%AE%9E%E7%8E%B0/1.gif" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> searchForm = <span class="hljs-title function_">ref</span>(&#123;<br>  <span class="hljs-attr">key</span>:<span class="hljs-string">&#x27;&#x27;</span><br>&#125;)<br><span class="hljs-title function_">watch</span>(<br>  <span class="hljs-function">() =&gt;</span> searchForm.<span class="hljs-property">value</span>.<span class="hljs-property">key</span>,<br>  <span class="hljs-function">(<span class="hljs-params">newValue, oldValue</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;oldValue: &quot;</span>, oldValue);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;newValue: &quot;</span>, newValue);<br>  &#125;,<br> );<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>改成结构的形式</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> searchForm = <span class="hljs-title function_">ref</span>(&#123;<br>  <span class="hljs-attr">key</span>:<span class="hljs-string">&#x27;&#x27;</span><br>&#125;)<br><span class="hljs-title function_">watch</span>(<br>  <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123;...searchForm.<span class="hljs-property">value</span>&#125;<br>  &#125;,<br>  <span class="hljs-function">(<span class="hljs-params">newValue, oldValue</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;oldValue: &quot;</span>, oldValue);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;newValue: &quot;</span>, newValue);<br>  &#125;,<br> ),<br> &#123;<span class="hljs-attr">deep</span>:<span class="hljs-literal">true</span>&#125;;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -320,9 +303,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/">#路由守卫</a>
-      
-        <a href="/tags/vue-router/">#vue-router</a>
+        <a href="/tags/vue3/">#vue3</a>
       
     </div>
   
@@ -334,8 +315,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>路由守卫使用-判断登录状态</div>
-      <div>http://lenmon54231.github.io/2020/03/24/路由守卫使用-判断登录状态/</div>
+      <div>Vue3上奇奇怪怪的点</div>
+      <div>http://lenmon54231.github.io/2024/07/05/Vue3上奇奇怪怪的点/</div>
     </div>
     <div class="license-meta">
       
@@ -347,7 +328,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2020年3月24日</div>
+          <div>2024年7月5日</div>
         </div>
       
       
@@ -379,18 +360,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/12/%E6%AD%A3%E5%88%99%E8%AE%B0%E5%BD%95/" title="正则记录">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">正则记录</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/03/12/vue%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF%E4%BC%98%E5%8C%96%E8%AE%B0%E5%BD%95/" title="vue项目上线优化记录">
-                        <span class="hidden-mobile">vue项目上线优化记录</span>
+                      <a href="/2023/10/15/three-js%E4%BD%BF%E7%94%A8/" title="Three.js开发3D项目！">
+                        <span class="hidden-mobile">Three.js开发3D项目！</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
