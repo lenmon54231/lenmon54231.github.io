@@ -8,7 +8,7 @@ npm install
 cd ./blog
 npm install hexo-cli -g // 当报错hexo: command not found，此时也应当执行当前命令
 npm install
-hexo s
+hexo server
 // 此时会生成一个http://localhost:4000地址
 ```
 
