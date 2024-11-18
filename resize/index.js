@@ -1,5 +1,5 @@
 const sharp = require('sharp');
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
 // 要压缩的图片文件夹路径
@@ -7,38 +7,55 @@ const inputDirectory = './input';
 // 压缩后的图片存放的文件夹路径
 const outputDirectory = './output';
 
-// 确保输出目录存在，如果不存在则创建
-if (!fs.existsSync(outputDirectory)) {
-  fs.mkdirSync(outputDirectory, { recursive: true });
-}
+const filterImageList = ['png','jpg','jpeg']
 
-// 读取输入目录中的所有文件
-fs.readdir(inputDirectory, (err, files) => {
-  if (err) {
-    console.error('Error reading the directory', err);
-    return;
-  }
+// 递归读取目录中的所有文件
+async function processFiles(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
 
-  // 遍历所有文件
-  files.forEach(file => {
-    // 构建完整的文件路径
-    const inputPath = path.join(inputDirectory, file);
-    const outputPath = path.join(outputDirectory, file);
+  for (let entry of entries) {
+    const res = path.resolve(dir, entry.name);
+    if (entry.isDirectory()) {
+      // 如果是目录，则递归调用processFiles
+      await processFiles(res);
+    } else if (entry.isFile() && filterImageList.includes(entry.name.split('.').pop())) {
+      // 如果是文件且是图片格式，则进行压缩
+      const outputPath = path.join(outputDirectory, path.relative(inputDirectory, res));
+      const outputDir = path.dirname(outputPath);
 
-    // 检查是否为图片文件
-    if (sharp.format[inputPath.split('.').pop()]) {
-      // 使用sharp压缩图片
-      sharp(inputPath)
-        .toFormat(inputPath.split('.').pop(), { quality: 80 }) // 可以设置你想要的格式和质量，这里以JPEG格式和80%的质量为例
+      // 确保输出目录存在，如果不存在则创建
+      await ensureDir(outputDir);
+
+      await sharp(res)
+         .toFormat(entry.name.split('.').pop(), { quality: 80 }) // 可以设置你想要的格式和质量，这里以JPEG格式和80%的质量为例
         .toFile(outputPath)
         .then(() => {
-          console.log(`Image ${file} has been compressed and saved to ${outputPath}`);
+          console.log(`Image ${entry.name} has been compressed and saved to ${outputPath}`);
         })
         .catch(err => {
-          console.error(`Error compressing image ${file}`, err);
+          console.error(`Error compressing image ${entry.name}`, err);
         });
-    } else {
-      console.log(`Skipping non-image file ${file}`);
     }
-  });
-});
+  }
+}
+
+// 确保目录存在，如果不存在则创建
+async function ensureDir(dir) {
+  try {
+    await fs.access(dir);
+  } catch (err) {
+    await fs.mkdir(dir, { recursive: true });
+  }
+}
+
+// 开始处理文件
+async function startProcessing() {
+  try {
+    await ensureDir(outputDirectory);
+    await processFiles(inputDirectory);
+  } catch (err) {
+    console.error('An error occurred:', err);
+  }
+}
+
+startProcessing();

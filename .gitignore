@@ -48,3 +48,9 @@ public/video
 *.rar
 
 # settting
+
+
+# resize
+
+resize/input
+resize/output
