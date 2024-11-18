@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 // 要压缩的图片文件夹路径
-const inputDirectory = 'path/to/input/directory';
+const inputDirectory = './input';
 // 压缩后的图片存放的文件夹路径
-const outputDirectory = 'path/to/output/directory';
+const outputDirectory = './output';
 
 // 确保输出目录存在，如果不存在则创建
 if (!fs.existsSync(outputDirectory)) {
@@ -29,8 +29,7 @@ fs.readdir(inputDirectory, (err, files) => {
     if (sharp.format[inputPath.split('.').pop()]) {
       // 使用sharp压缩图片
       sharp(inputPath)
-        .resize(1024) // 可以设置你想要的尺寸，这里以1024为例
-        .toFormat('jpeg', { quality: 80 }) // 可以设置你想要的格式和质量，这里以JPEG格式和80%的质量为例
+        .toFormat(inputPath.split('.').pop(), { quality: 80 }) // 可以设置你想要的格式和质量，这里以JPEG格式和80%的质量为例
         .toFile(outputPath)
         .then(() => {
           console.log(`Image ${file} has been compressed and saved to ${outputPath}`);
