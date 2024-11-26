@@ -67,9 +67,45 @@ async function ensureDir(dir) {
   }
 }
 
+// 删除文件夹（递归删除）
+async function deleteFolder(folderPath) {
+  try {
+    const entries = await fsp.readdir(folderPath, { withFileTypes: true });
+    const files = entries.map((entry) => entry.name);
+
+    for (let file of files) {
+      const fullPath = path.join(folderPath, file);
+      const stats = await fsp.stat(fullPath);
+
+      if (stats.isDirectory()) {
+        await deleteFolder(fullPath); // 递归删除子文件夹
+      } else {
+        await fsp.unlink(fullPath); // 删除文件
+      }
+    }
+
+    await fsp.rmdir(folderPath);
+  } catch (error) {
+    console.error("删除文件夹时出错:", error);
+  }
+}
+
+async function ensureDirAndDelete(dir) {
+  try {
+    await fsp.access(dir);
+    console.log(`删除已存在的文件夹`);
+    await deleteFolder(dir);
+    console.log(`删除完成`);
+  } catch (error) {
+    return true;
+  }
+}
+
 // 开始处理文件
 async function startProcessing() {
   try {
+    await ensureDirAndDelete(outputDirectory);
+
     console.log(`开始执行压缩`);
     await ensureDir(outputDirectory);
     await processFiles(inputDirectory);
