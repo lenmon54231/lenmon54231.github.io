@@ -27,3 +27,12 @@ cnpm install
 npm config set registry=http://registry.npmjs.org
 pnpm install
 ```
+
+
+### 使用.npmrc来控制安装源
+
+根目录下新建一个.npmrc文件，内容如下即可
+
+```js
+registry=https://registry.npmmirror.com
+```
