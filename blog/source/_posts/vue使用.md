@@ -8,6 +8,14 @@ tags: [vue]
 
 <!-- more -->
 
+### Vue常用库
+
+#### toast库
+
+```js
+npm install vue-sonner
+```
+
 ### $refs 的使用
 
 有时候会访问子组件实例或子元素
