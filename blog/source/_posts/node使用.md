@@ -768,3 +768,44 @@ router.post("/api/download/:id", function (req, res) {
             proxy_cache_bypass $http_upgrade;
         }
    ```
+
+
+#### node基本操作
+
+
+删除文件
+```js
+import fs from "fs/promises";
+ await fs.rm('./src/assets/thumb', { recursive: true, force: true });
+```
+
+
+创建目录
+```js
+await fs.mkdir('./src/assets/thumb', { recursive: true });
+```
+
+读取所有文件和文件夹
+```js
+// 读取源目录中的所有文件和文件夹
+  const items = await fs.readdir('./src/assets/thumb', { withFileTypes: true });
+```
+
+复制文件
+```js
+import path from "path";
+
+const newDstPath = path.join("./src/assets/thumb/", 'name.jpg');
+await fs.copyFile(`./src/assets/thumb/thumb.jpg`, newDstPath);
+```
+
+读取文件内容
+```js
+const data = await fs.readFile('./src/config/scene-options.js', "utf-8");
+```
+
+写内容到目标文件
+```js
+const newContent = "export { sceneOptionsList };"
+await fs.writeFile('./src/config/scene-options.js', newContent, "utf-8");
+```
