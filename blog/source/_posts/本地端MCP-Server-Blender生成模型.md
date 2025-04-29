@@ -16,6 +16,16 @@ tags: [MCP,Blender,AI]
 <!-- more -->
 
 
+### 示例视频
+
+[演示Demo](https://www.youtube.com/watch?v=DqgKuLYUv00&ab_channel=ahujasid)
+
+[演示Demo](https://www.youtube.com/watch?v=I29rn92gkC4&ab_channel=ahujasid)
+
+[演示Demo](https://www.youtube.com/watch?v=FDRb03XPiRo&ab_channel=ahujasid)
+
+[演示Demo](https://www.youtube.com/watch?v=jxbNI5L7AH8&ab_channel=ahujasid)
+
 ### 安装和配置
 
 #### 安装软件
@@ -72,7 +82,7 @@ tags: [MCP,Blender,AI]
 
 ##### 配置Blender
 
-* 下载addon.py配置文件（blender-mcp[https://github.com/ahujasid/blender-mcp/blob/main/addon.py]）
+* 下载addon.py配置文件（[blender-mcp](https://github.com/ahujasid/blender-mcp/blob/main/addon.py)）
 
 * 打开 Blender
 
