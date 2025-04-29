@@ -34,11 +34,11 @@ tags: [MCP,Blender,AI]
 >```js
 >brew install uv
 >```
->在 Windows 上
+>如果你使用的是 Windows 
 >```js
 >powershell -c "irm https://astral.sh/uv/install.ps1 | iex" 
 >```
->配置PATH环境变量（这一命令在window上略有不同，无妨，命令行会给出提示）
+>配置PATH环境变量（这一命令在我的window上略有不同，无妨，命令行会给出提示）
 >
 >```js
 >set Path=C:\Users\nntra\.local\bin;%Path%
@@ -49,7 +49,7 @@ tags: [MCP,Blender,AI]
 
 ##### 配置Claude
 
-* 转到 Claude > setting > Developer > Edit Config > Claude_desktop_config.json 以包含以下内容：
+* 转到 Claude > setting > Developer > Edit Config > Claude_desktop_config.json 修改成以下内容：
 
 ```js
 {
@@ -83,10 +83,12 @@ tags: [MCP,Blender,AI]
 * 单击“install from disk”并选择addon.py文件
 
 * 安装完成后，应该是已经默认勾选了MCP
+
 ![勾选了MCP](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/start.png)
 
 * 回到Blender主界面，右边有个小箭头，打开即可看到MCP工具栏
-![MCP工具栏](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/blender.png)
+
+![MCP工具栏](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/arrow.png)
 
 * 开启MCP服务
 
