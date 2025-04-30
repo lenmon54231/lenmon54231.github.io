@@ -57,7 +57,7 @@ tags: [MCP,Blender,AI]
 #### 配置软件
 
 
-##### 配置Claude
+##### 配置Claude(当然你也可以选择使用Cursor)
 
 * 转到 Claude > setting > Developer > Edit Config > Claude_desktop_config.json 修改成以下内容：
 
@@ -80,15 +80,45 @@ tags: [MCP,Blender,AI]
 
 ![Claude配置成功](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/Claude.png)
 
+##### 配置Cursor(当然你也可以选择使用Claude)
+
+* 转到File > Preferences > Cursor Setting > MCP > Add new global MCP server
+
+* 填写如下配置
+
+```js
+{
+  "mcpServers": {
+      "blender": {
+          "command": "cmd",
+          "args": [
+              "/c",
+              "uvx",
+              "blender-mcp"
+          ]
+      }
+  }
+}
+```
+
+保存配置后，生成有blender配置项即可
+
+![MCP配置](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/cursor.png)
+
+
+* 必要时，重新启动下Cursor
+
+* Ctrl + L，打开chat窗口，即可对话
+
 ##### 配置Blender
 
 * 下载addon.py配置文件（[blender-mcp](https://github.com/ahujasid/blender-mcp/blob/main/addon.py)）
 
 * 打开 Blender
 
-* 前往edit > preferences > add-ons > install from disk
+* 前往edit > Preferences > add-ons > install from disk
 
-![preferences配置](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/preferences.png)
+![Preferences配置](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/preferences.png)
 
 * 单击“install from disk”并选择addon.py文件
 
@@ -116,6 +146,38 @@ tags: [MCP,Blender,AI]
 ![生成了一个球体](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/create.png)
 
 
-### 探索（待续）
+### 探索（待验证）
+
+根据[GitHub](https://github.com/ahujasid/blender-mcp)上的文档，blender-mcp目前提供了如下特性：
+
+* 双向通信：通过基于 socket-based 服务器连接 Claude AI 和 Blender
+* 物体操作：创建、修改和删除 Blender 中的 3D 对象
+* 材质控制：应用和修改材质与颜色
+* 场景检查：获取当前 Blender 场景的详细信息
+* 代码执行：直接从 Claude 在 Blender 中运行 Python 代码
+
+那么我们可以尝试做以下的探索：
+
+#### 生成简单几何模型
+
+#### 给几何模型添加材质、颜色、贴图
+
+#### 生成常见的简单模型
+
+#### 生成常见的复杂模型
+
+#### 通过图片生成模型
+
+#### 加载模型并修改模型
+
+#### 修改部分材质
+
+#### 修改部分贴图
+
+#### 设计灯光
+
+#### 设计shader
+
+#### 设计运镜
 
 ### 结论（待续）
