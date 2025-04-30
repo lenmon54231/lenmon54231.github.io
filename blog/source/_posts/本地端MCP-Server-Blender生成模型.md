@@ -135,6 +135,11 @@ tags: [MCP,Blender,AI]
 ![开启MCP服务](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/startBlender.png)
 
 
+* 当你需要使用ai生成3d模型时，需要勾选Hyper3D服务；需要使用素材时，需要勾选Poly Haven
+
+![开启MCP服务](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/sethyper3d.png)
+
+
 ### 使用
 
 回到Claude界面，输入以下文字：
