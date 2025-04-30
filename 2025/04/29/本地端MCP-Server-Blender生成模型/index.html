@@ -24,13 +24,14 @@
 <meta property="og:description" content="通过自然语言让Blender生成模型正常如果我们需要展示一个模型，都需要让建模师进行建模，并导出一个OBJ模型，最终展示到客户端。 那么，我们有可能通过简单的语言描述就生成一些基础的模型么？甚至当业务需求对模型质量要求不高的情况下，我们可不可以使用自然语言生成的模型来完成整个模型需求，从而直接跳过建模师建模这个步骤！？ 使用MCP+BLender尝试一下！">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/Claude.png">
+<meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/cursor.png">
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/preferences.png">
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/start.png">
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/arrow.png">
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/startBlender.png">
 <meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/create.png">
 <meta property="article:published_time" content="2025-04-29T09:33:04.000Z">
-<meta property="article:modified_time" content="2025-04-29T10:36:21.142Z">
+<meta property="article:modified_time" content="2025-04-30T02:34:52.041Z">
 <meta property="article:author" content="Meng_Lee">
 <meta property="article:tag" content="MCP">
 <meta property="article:tag" content="Blender">
@@ -229,7 +230,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.1k 字
+          1.8k 字
         
       </span>
     
@@ -241,7 +242,7 @@
         
         
           <!-- compatible with older versions-->
-          10 分钟
+          15 分钟
         
       </span>
     
@@ -313,7 +314,7 @@
 <p>配置PATH环境变量（这一命令在我的window上略有不同，无妨，命令行会给出提示）</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">&gt;set <span class="hljs-title class_">Path</span>=<span class="hljs-attr">C</span>:\<span class="hljs-title class_">Users</span>\nntra\.<span class="hljs-property">local</span>\bin;%<span class="hljs-title class_">Path</span>%<br></code></pre></td></tr></table></figure>
 </blockquote>
-<h4 id="配置软件"><a href="#配置软件" class="headerlink" title="配置软件"></a>配置软件</h4><h5 id="配置Claude"><a href="#配置Claude" class="headerlink" title="配置Claude"></a>配置Claude</h5><ul>
+<h4 id="配置软件"><a href="#配置软件" class="headerlink" title="配置软件"></a>配置软件</h4><h5 id="配置Claude-当然你也可以选择使用Cursor"><a href="#配置Claude-当然你也可以选择使用Cursor" class="headerlink" title="配置Claude(当然你也可以选择使用Cursor)"></a>配置Claude(当然你也可以选择使用Cursor)</h5><ul>
 <li>转到 Claude &gt; setting &gt; Developer &gt; Edit Config &gt; Claude_desktop_config.json 修改成以下内容：</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>    <span class="hljs-string">&quot;mcpServers&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;blender&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;command&quot;</span>: <span class="hljs-string">&quot;uvx&quot;</span>,<br>            <span class="hljs-string">&quot;args&quot;</span>: [<br>                <span class="hljs-string">&quot;blender-mcp&quot;</span><br>            ]<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -325,15 +326,31 @@
 </li>
 </ul>
 <p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/Claude.png" srcset="/img/loading.gif" lazyload alt="Claude配置成功"></p>
+<h5 id="配置Cursor-当然你也可以选择使用Claude"><a href="#配置Cursor-当然你也可以选择使用Claude" class="headerlink" title="配置Cursor(当然你也可以选择使用Claude)"></a>配置Cursor(当然你也可以选择使用Claude)</h5><ul>
+<li><p>转到File &gt; Preferences &gt; Cursor Setting &gt; MCP &gt; Add new global MCP server</p>
+</li>
+<li><p>填写如下配置</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-string">&quot;mcpServers&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;blender&quot;</span>: &#123;<br>          <span class="hljs-string">&quot;command&quot;</span>: <span class="hljs-string">&quot;cmd&quot;</span>,<br>          <span class="hljs-string">&quot;args&quot;</span>: [<br>              <span class="hljs-string">&quot;/c&quot;</span>,<br>              <span class="hljs-string">&quot;uvx&quot;</span>,<br>              <span class="hljs-string">&quot;blender-mcp&quot;</span><br>          ]<br>      &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>保存配置后，生成有blender配置项即可</p>
+<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/cursor.png" srcset="/img/loading.gif" lazyload alt="MCP配置"></p>
+<ul>
+<li><p>必要时，重新启动下Cursor</p>
+</li>
+<li><p>Ctrl + L，打开chat窗口，即可对话</p>
+</li>
+</ul>
 <h5 id="配置Blender"><a href="#配置Blender" class="headerlink" title="配置Blender"></a>配置Blender</h5><ul>
 <li><p>下载addon.py配置文件（<a target="_blank" rel="noopener" href="https://github.com/ahujasid/blender-mcp/blob/main/addon.py">blender-mcp</a>）</p>
 </li>
 <li><p>打开 Blender</p>
 </li>
-<li><p>前往edit &gt; preferences &gt; add-ons &gt; install from disk</p>
+<li><p>前往edit &gt; Preferences &gt; add-ons &gt; install from disk</p>
 </li>
 </ul>
-<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/preferences.png" srcset="/img/loading.gif" lazyload alt="preferences配置"></p>
+<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/preferences.png" srcset="/img/loading.gif" lazyload alt="Preferences配置"></p>
 <ul>
 <li><p>单击“install from disk”并选择addon.py文件</p>
 </li>
@@ -355,7 +372,16 @@
 </blockquote>
 <p>等待Claude执行完成，即可看到Blender在场景中心位置生成了一个球体</p>
 <p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/create.png" srcset="/img/loading.gif" lazyload alt="生成了一个球体"></p>
-<h3 id="探索（待续）"><a href="#探索（待续）" class="headerlink" title="探索（待续）"></a>探索（待续）</h3><h3 id="结论（待续）"><a href="#结论（待续）" class="headerlink" title="结论（待续）"></a>结论（待续）</h3>
+<h3 id="探索（待验证）"><a href="#探索（待验证）" class="headerlink" title="探索（待验证）"></a>探索（待验证）</h3><p>根据<a target="_blank" rel="noopener" href="https://github.com/ahujasid/blender-mcp">GitHub</a>上的文档，blender-mcp目前提供了如下特性：</p>
+<ul>
+<li>双向通信：通过基于 socket-based 服务器连接 Claude AI 和 Blender</li>
+<li>物体操作：创建、修改和删除 Blender 中的 3D 对象</li>
+<li>材质控制：应用和修改材质与颜色</li>
+<li>场景检查：获取当前 Blender 场景的详细信息</li>
+<li>代码执行：直接从 Claude 在 Blender 中运行 Python 代码</li>
+</ul>
+<p>那么我们可以尝试做以下的探索：</p>
+<h4 id="生成简单几何模型"><a href="#生成简单几何模型" class="headerlink" title="生成简单几何模型"></a>生成简单几何模型</h4><h4 id="给几何模型添加材质、颜色、贴图"><a href="#给几何模型添加材质、颜色、贴图" class="headerlink" title="给几何模型添加材质、颜色、贴图"></a>给几何模型添加材质、颜色、贴图</h4><h4 id="生成常见的简单模型"><a href="#生成常见的简单模型" class="headerlink" title="生成常见的简单模型"></a>生成常见的简单模型</h4><h4 id="生成常见的复杂模型"><a href="#生成常见的复杂模型" class="headerlink" title="生成常见的复杂模型"></a>生成常见的复杂模型</h4><h4 id="通过图片生成模型"><a href="#通过图片生成模型" class="headerlink" title="通过图片生成模型"></a>通过图片生成模型</h4><h4 id="加载模型并修改模型"><a href="#加载模型并修改模型" class="headerlink" title="加载模型并修改模型"></a>加载模型并修改模型</h4><h4 id="修改部分材质"><a href="#修改部分材质" class="headerlink" title="修改部分材质"></a>修改部分材质</h4><h4 id="修改部分贴图"><a href="#修改部分贴图" class="headerlink" title="修改部分贴图"></a>修改部分贴图</h4><h4 id="设计灯光"><a href="#设计灯光" class="headerlink" title="设计灯光"></a>设计灯光</h4><h4 id="设计shader"><a href="#设计shader" class="headerlink" title="设计shader"></a>设计shader</h4><h4 id="设计运镜"><a href="#设计运镜" class="headerlink" title="设计运镜"></a>设计运镜</h4><h3 id="结论（待续）"><a href="#结论（待续）" class="headerlink" title="结论（待续）"></a>结论（待续）</h3>
                 
               </div>
             
