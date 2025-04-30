@@ -142,7 +142,7 @@ tags: [MCP,Blender,AI]
 
 ### 使用
 
-回到Claude界面，输入以下文字：
+#### 回到Claude界面，输入以下文字：
 
 > create a sphere for me in the center of the scene in Blender
 
@@ -150,6 +150,15 @@ tags: [MCP,Blender,AI]
 
 ![生成了一个球体](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/create.png)
 
+#### 或者使用Cursor
+
+进入Cursor界面，Ctrl + L 打开chat对话框，输入以下文字：
+
+> create a sphere for me in the center of the scene in Blender
+
+需要手动点击，执行tool按钮，等待Cursor执行完成，即可看到Blender在场景中心位置生成了一个球体
+
+![chat对话](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/cursor_chat.png)
 
 ### 探索（待验证）
 
@@ -172,6 +181,38 @@ tags: [MCP,Blender,AI]
 #### 生成常见的复杂模型
 
 #### 通过图片生成模型
+
+ 
+
+> 目前没有看到本质上的提升。
+
+> 图生模型还是使用的Hyper3D AI生成模型，然后加载到场景中，加载的模型依然无法单独对模型的局部进行修改，也就是说，我们拿到的依旧不是模型的工程文件，而是导出的一整个模型文件。
+
+![模型文件](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/file.png)
+
+
+-----------------------TODO：测试用--------------
+
+![原始图片](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/buddha.png)
+
+![buddhahead1](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/buddhahead1.png)
+
+![buddhahead2](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/buddhahead2.png)
+
+![buddhahead3](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/buddhahead3.png)
+
+后脑勺多了诡异的一部分，需要重新设计下提示词
+
+**** 
+
+![正面效果](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/fianl_1.png)
+
+
+![侧面效果](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/final_2.png)
+
+> **这次模型完成度较高**
+
+但是模型依旧跟图片差距较大(跟使用Hyper3D的测试key有关?),后续更新
 
 #### 加载模型并修改模型
 
