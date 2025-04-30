@@ -34,7 +34,7 @@ tags: [MCP,Blender,AI]
 
 > Blender 3.0 或更新版本（[blender](https://www.blender.org/)）
 
-> Claude桌面版（部分地区有限制访问，需要挂全局代理）（[Claude](https://Claude.ai/download)）
+> Claude桌面版（部分地区有限制访问，需要挂全局代理）（[Claude](https://Claude.ai/download)）或者 Cursor 编辑器（[Cursor](https://www.cursor.com/cn)）
 
 > Python 3.10 或更高版本（[Python](https://www.python.org/downloads/)）
 
