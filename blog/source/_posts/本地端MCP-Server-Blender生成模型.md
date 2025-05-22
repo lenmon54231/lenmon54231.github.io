@@ -227,3 +227,12 @@ tags: [MCP,Blender,AI]
 #### 设计运镜
 
 ### 结论（待续）
+
+
+### 一些MCP上有意思的点
+
+#### 关于MCP的安全性质疑
+
+一开始我无法理解MCP会泄露使用者敏感信息或者放大提示注入攻击的可能性，我会想所有的操作不都是“使用者”自身设计好的么？直到我生成模型时做了以下这种操作，才明白MCP理论上可以将电脑上所有数据资源都泄露出去：
+
+![代码读取本地文件](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/buddha/safe.png)
