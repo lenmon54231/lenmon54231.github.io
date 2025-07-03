@@ -55,6 +55,8 @@ ufw allow 8377
 ufw allow 443
 ```
 
+也可以使用2053（2053端口同样也支持cf转发）
+
 5. 浏览器中打开64.176.37.182:8377（64.176.37.182替换成自己的服务器ip）
 
 
@@ -104,6 +106,8 @@ x-ui
 
 
 ![入站列表](https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/xui/vmess.png)
+
+之前用的是443，同样如果之前的端口改成了2053，此处配置也需要改成2053
 
 ### 使用
 
