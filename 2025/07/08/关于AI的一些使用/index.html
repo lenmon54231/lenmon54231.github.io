@@ -16,18 +16,21 @@
   <meta name="author" content="Meng_Lee">
   <meta name="keywords" content="">
   
-    <meta name="description" content="使用AI编辑器也应该有技巧AI编辑器可以直接根据用户输入的自然语言进行代码生成。 那么，如何组织好提示词或者使用一些技巧来帮助AI更准确的理解并生成代码就变得十分重要！ 这里需要记录一下对AI工具的一些使用技巧，目前主要使用cursor。">
+    <meta name="description" content="使用AI编辑器也应该有技巧AI编辑器可以直接根据用户输入的自然语言进行代码生成。 那么，如何组织好提示词或者使用一些技巧来帮助AI更准确的理解并生成代码就变得十分重要！ 同时，Cursor作为一个工具，必然有一些配置或者使用技巧，我们会跟随Cursor新版本的发布，一起同步更新。 这里记录一下对AI工具的一些使用技巧，目前主要使用cursor。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于AI的一些使用">
 <meta property="og:url" content="http://lenmon54231.github.io/2025/07/08/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="使用AI编辑器也应该有技巧AI编辑器可以直接根据用户输入的自然语言进行代码生成。 那么，如何组织好提示词或者使用一些技巧来帮助AI更准确的理解并生成代码就变得十分重要！ 这里需要记录一下对AI工具的一些使用技巧，目前主要使用cursor。">
+<meta property="og:description" content="使用AI编辑器也应该有技巧AI编辑器可以直接根据用户输入的自然语言进行代码生成。 那么，如何组织好提示词或者使用一些技巧来帮助AI更准确的理解并生成代码就变得十分重要！ 同时，Cursor作为一个工具，必然有一些配置或者使用技巧，我们会跟随Cursor新版本的发布，一起同步更新。 这里记录一下对AI工具的一些使用技巧，目前主要使用cursor。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/rules.png">
+<meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/%E6%A8%A1%E5%BC%8F.png">
 <meta property="article:published_time" content="2025-07-08T07:01:00.000Z">
-<meta property="article:modified_time" content="2025-07-10T01:55:20.225Z">
+<meta property="article:modified_time" content="2025-07-16T03:11:18.890Z">
 <meta property="article:author" content="Meng_Lee">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/rules.png">
   
   
   
@@ -220,7 +223,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.7k 字
+          2.9k 字
         
       </span>
     
@@ -232,7 +235,7 @@
         
         
           <!-- compatible with older versions-->
-          15 分钟
+          25 分钟
         
       </span>
     
@@ -277,10 +280,11 @@
                 
                 <h2 id="使用AI编辑器也应该有技巧"><a href="#使用AI编辑器也应该有技巧" class="headerlink" title="使用AI编辑器也应该有技巧"></a>使用AI编辑器也应该有技巧</h2><p>AI编辑器可以直接根据用户输入的自然语言进行代码生成。</p>
 <p>那么，如何<strong>组织好提示词</strong>或者<strong>使用一些技巧来帮助AI更准确的理解并生成代码</strong>就变得十分重要！</p>
-<p>这里需要记录一下对AI工具的一些使用技巧，目前主要使用<strong>cursor</strong>。</p>
+<p>同时，Cursor作为一个工具，必然有一些<strong>配置或者使用技巧</strong>，我们会跟随Cursor新版本的发布，一起同步更新。</p>
+<p>这里记录一下对AI工具的一些使用技巧，目前主要使用<strong>cursor</strong>。</p>
 <span id="more"></span>
 
-<h3 id="配置rules（给AI指定一个代码规范）"><a href="#配置rules（给AI指定一个代码规范）" class="headerlink" title="配置rules（给AI指定一个代码规范）"></a>配置rules（给AI指定一个代码规范）</h3><p>在项目根目录下新建文件夹/.cursor/rules，里面添加如下文件</p>
+<h3 id="以下内容主要针对Cursor的使用"><a href="#以下内容主要针对Cursor的使用" class="headerlink" title="以下内容主要针对Cursor的使用"></a>以下内容主要针对Cursor的使用</h3><h3 id="配置rules（给AI指定一个代码规范）"><a href="#配置rules（给AI指定一个代码规范）" class="headerlink" title="配置rules（给AI指定一个代码规范）"></a>配置rules（给AI指定一个代码规范）</h3><p>在项目根目录下新建文件夹/.cursor/rules，里面添加如下文件</p>
 <p><a target="_blank" rel="noopener" href="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/css.mdc">css.mdc</a></p>
 <p><a target="_blank" rel="noopener" href="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/general.mdc">general.mdc</a></p>
 <p><a target="_blank" rel="noopener" href="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/react.mdc">react.mdc</a></p>
@@ -293,6 +297,48 @@
 <blockquote>
 <p>当然实际上测试过程中也会发生不按照规则生成的情况，这种情况可以让他重新根据规则修改。</p>
 </blockquote>
+<p>我们可以在cursor设置》rules中看到规则配置</p>
+<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/rules.png" srcset="/img/loading.gif" lazyload alt="rules"></p>
+<h3 id="Cursor的几大模式分别代表着什么？"><a href="#Cursor的几大模式分别代表着什么？" class="headerlink" title="Cursor的几大模式分别代表着什么？"></a>Cursor的几大模式分别代表着什么？</h3><p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/ai/%E6%A8%A1%E5%BC%8F.png" srcset="/img/loading.gif" lazyload alt="模式"></p>
+<h4 id="Ask模式：不只是问答-主要用于搜索方案"><a href="#Ask模式：不只是问答-主要用于搜索方案" class="headerlink" title="Ask模式：不只是问答(主要用于搜索方案)"></a>Ask模式：不只是问答(主要用于搜索方案)</h4><ul>
+<li><p>允许Cursor理解和索引你的整个代码库</p>
+</li>
+<li><p>允许Cursor连接互联网，检索最新的技术信息、文档和解决方案</p>
+</li>
+<li><p>在项目中快速定位特定代码模式，比系统自带的搜索功能更智能</p>
+</li>
+</ul>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">// 使用Grep功能<br>在项目中找出所有未处理Promise错误的代码段<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>允许Cursor在对话中直接引用和分析项目中的特定文件，无需你手动复制内容。</li>
+</ul>
+<h4 id="Manual模式：精准控制（主要用于局部代码修改）"><a href="#Manual模式：精准控制（主要用于局部代码修改）" class="headerlink" title="Manual模式：精准控制（主要用于局部代码修改）"></a>Manual模式：精准控制（主要用于局部代码修改）</h4><ul>
+<li><p>聚焦于代码修改</p>
+</li>
+<li><p>批量修改、重构和Reapply（重新应用之前的修改）。</p>
+</li>
+<li><p>允许你在Manual模式下直接删除文件，这在重构和清理项目时特别有用。</p>
+</li>
+</ul>
+<h4 id="Agent模式：全能开发（整个项目都可以使用Agent模式开发）"><a href="#Agent模式：全能开发（整个项目都可以使用Agent模式开发）" class="headerlink" title="Agent模式：全能开发（整个项目都可以使用Agent模式开发）"></a>Agent模式：全能开发（整个项目都可以使用Agent模式开发）</h4><ul>
+<li><p>Agent模式集成了所有搜索功能（Codebase、Web、Grep、Read File），并能够在任务过程中自主决定何时使用哪种搜索方式</p>
+</li>
+<li><p>Agent模式拥有完整的代码编辑能力，可以创建、修改、重构和删除代码，同时保持代码质量和一致性。</p>
+</li>
+<li><p>Run能力是Agent模式独有的，它允许Cursor执行代码、运行测试、启动服务，并根据结果调整实现。</p>
+</li>
+</ul>
+<h4 id="不同模式组合使用"><a href="#不同模式组合使用" class="headerlink" title="不同模式组合使用"></a>不同模式组合使用</h4><ol>
+<li><p>使用Ask模式+Web功能探索最佳实现方法</p>
+</li>
+<li><p>使用Agent模式规划和执行主要开发工作</p>
+</li>
+<li><p>使用Manual模式+Rules功能进行精细调整</p>
+</li>
+<li><p>使用Agent模式+Run功能进行测试和修复</p>
+</li>
+</ol>
 <h3 id="使用AI编辑器的几个建议"><a href="#使用AI编辑器的几个建议" class="headerlink" title="使用AI编辑器的几个建议"></a>使用AI编辑器的几个建议</h3><h4 id="1-尽量不要自己修改代码，而是让AI去修改"><a href="#1-尽量不要自己修改代码，而是让AI去修改" class="headerlink" title="1. 尽量不要自己修改代码，而是让AI去修改"></a>1. 尽量不要自己修改代码，而是让AI去修改</h4><p>经过测试可以发现，AI是不会每时每刻都关注代码有了哪些变化。</p>
 <p>也就是说有时候，你自己修改了一些代码，比如：将延迟settimeout从500改成了1000，后面AI修改新的需求时又涉及到这部分代码，AI很有可能会将1000的延迟改回500，因为AI还停留在之前的延迟500的需求之上。</p>
 <h4 id="2-将commit的频率增加，方便回退代码"><a href="#2-将commit的频率增加，方便回退代码" class="headerlink" title="2. 将commit的频率增加，方便回退代码"></a>2. 将commit的频率增加，方便回退代码</h4><p>AI有时候会进行大量的代码修改并且产生新的bug，此时你觉得已经无法继续往下生成代码了，想让AI返回到某个版本或者某个功能时。</p>
@@ -322,6 +368,9 @@
 <blockquote>
 <p>由此我们可以得到一个结论：<strong>在AI编程的过程中，频繁的将正确代码进行commit是一件非常有必要的事情</strong>，可以方便我们随时回退到上一个正确版本</p>
 </blockquote>
+<h4 id="经常创建新的对话"><a href="#经常创建新的对话" class="headerlink" title="经常创建新的对话"></a>经常创建新的对话</h4><p>当你新的功能跟之前的代码没有任何关系时，最好新开对话，避免之前的上下文对后面的功能开发造成污染。</p>
+<p>当然，现在Cursor也提供了记忆模式，可以通过用户手动输入：”记住……” 类似这种关键词来保留之前的一些逻辑，同时，Cursor自身也会自动的记忆某些重要代码。</p>
+<p>所以，我们生成代码时，更倾向于小范围变动代码，而不是输入一个很大很宽泛的需求。</p>
 <h3 id="有现成代码给AI作参考会是很高效的一种方式"><a href="#有现成代码给AI作参考会是很高效的一种方式" class="headerlink" title="有现成代码给AI作参考会是很高效的一种方式"></a>有现成代码给AI作参考会是很高效的一种方式</h3><p>当你能够找到一份已经实现了功能的代码，你只是需要将其移植过来，并进行一些修改时。</p>
 <p>这种情况下，将两个项目都放入同一个工作区（同一个文件夹下），用AI编辑器打开，AI编辑器就能够读取两个项目的文件。</p>
 <p>你可以让<strong>AI读取某些已完成的功能并进行移植</strong>。</p>
@@ -334,7 +383,15 @@
 <p>当你排查出了bug之后，推荐跟AI进行沟通，否则可能会出现AI在后续的迭代中偷偷将代码还原的问题。</p>
 <p>沟通内容可以是：我通过XXX实现了YYY功能，为什么XXX可以实现功能？</p>
 <p>这样，后续AI也可以同步当前你修改的这部分代码。</p>
-<h3 id="待续…"><a href="#待续…" class="headerlink" title="待续…"></a>待续…</h3>
+<h3 id="Cursor已经提供了MCP的使用配置项，未来MCP会如何发展？"><a href="#Cursor已经提供了MCP的使用配置项，未来MCP会如何发展？" class="headerlink" title="Cursor已经提供了MCP的使用配置项，未来MCP会如何发展？"></a>Cursor已经提供了MCP的使用配置项，未来MCP会如何发展？</h3><p>之前尝试<strong>Cursor + MCP + Blender</strong>，设想可以改变项目中建模和模型设计的工作流。</p>
+<p>实际上，现阶段的Blender所提供的api功能，无法支撑复杂的建模需求，特别是修改模型形状的需求。</p>
+<p>但是，MCP的发展不是一蹴而就的，一开始必然是一些简单、机械、重复的工作被MCP替代。</p>
+<p>在可以预见的未来，我们的工作模式很可能会通过多个Service来完成，</p>
+<p>比如操作Figma，那么就使用Figma Service，生成设计图；</p>
+<p>操作高德地图，那么就使用Tmap Service，生成地图；</p>
+<p>操作Git，那么就使用Git Service，进行版本管理；</p>
+<p>操作CI/CD，那么就使用CI/CD Service，进行服务更新部署；</p>
+
                 
               </div>
             
