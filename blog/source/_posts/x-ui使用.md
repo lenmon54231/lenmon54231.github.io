@@ -116,3 +116,8 @@ x-ui
 ### 开启cdn
 
 此时可以进入cf开启cdn，即将橙色的小云朵打开
+
+
+### 还有一个3x-ui应该也是傻瓜化部署
+
+[3x-ui](https://github.com/MHSanaei/3x-ui)
