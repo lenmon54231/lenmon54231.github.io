@@ -1,11 +1,11 @@
 ---
-title: Krpano+Vue3使用
+title: 利用Krpano实现全景图
 date: 2024-08-29 10:30:14
 tags: [kapano,vue3,vite]
 ---
 
 
-## Krpano+Vue3使用
+## 利用Krpano实现全景图
 
 Krpano语法非常古老，并且当需求有更新时（比如替换某一张全景图），需要通过Krpano提供的工具重新生成一次vtour文件，之前的代码都会被替换掉，那么，需要一种重新生成xml文件后，不被替换掉的方案，这里使用的是Vue3+Vite。
 

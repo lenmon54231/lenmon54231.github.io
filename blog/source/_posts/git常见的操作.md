@@ -1,10 +1,12 @@
 ---
-title: git操作
-date: 2021-9-22 15:45:49
+title: Git操作（常用置顶）
+date: 2026-9-22 15:45:49
 tags: [git]
 ---
 
-## Git 操作
+## Git操作（常用置顶）
+
+git remote update origin --prune
 
 <!-- more -->
 

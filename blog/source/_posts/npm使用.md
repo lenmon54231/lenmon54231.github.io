@@ -1,10 +1,10 @@
 ---
-title: npm使用
+title: NPM使用
 date: 2021-09-15 11:05:03
 tags: [npm]
 ---
 
-## npm 使用
+## NPM使用
 
 <!-- more -->
 
