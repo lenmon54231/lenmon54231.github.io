@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Meng_Lee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Three.js使用前端搞 3D 图形化这块的入门首选就是：Three.js，主要还是文档全面（并且支持中文，这点很难得），支持的工具也比较丰富，对应网上也可以查到一些大神做的 3D 方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Three.js使用">
+<meta property="og:url" content="http://lenmon54231.github.io/2023/10/15/Three.js%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Three.js使用前端搞 3D 图形化这块的入门首选就是：Three.js，主要还是文档全面（并且支持中文，这点很难得），支持的工具也比较丰富，对应网上也可以查到一些大神做的 3D 方案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E6%9D%90%E8%B4%A8%E6%95%88%E6%9E%9C.png">
+<meta property="og:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/PerspectiveCameraIntrduce.jpg">
+<meta property="article:published_time" content="2023-10-15T03:38:42.000Z">
+<meta property="article:modified_time" content="2025-09-16T10:11:27.571Z">
+<meta property="article:author" content="Meng_Lee">
+<meta property="article:tag" content="three.js">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E6%9D%90%E8%B4%A8%E6%95%88%E6%9E%9C.png">
+  
+  
+  
+  <title>Three.js使用 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lenmon54231.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Three.js使用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-15 11:38" pubdate>
+          2023年10月15日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          72 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Three.js使用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Three-js使用"><a href="#Three-js使用" class="headerlink" title="Three.js使用"></a>Three.js使用</h2><p>前端搞 3D 图形化这块的入门首选就是：Three.js，主要还是文档全面（并且支持中文，这点很难得），支持的工具也比较丰富，对应网上也可以查到一些大神做的 3D 方案。</p>
+<span id="more"></span>
+
+<h3 id="常用代码块"><a href="#常用代码块" class="headerlink" title="常用代码块"></a>常用代码块</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> mainHDR = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadEnvMapByHDR</span>(<br>  <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@/assets/hdr/diamond.hdr&quot;</span>),<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">render3dCtx</span>.<span class="hljs-property">renderer</span><br>);<br><span class="hljs-title function_">setAllMaterials</span>(<br>  model,<br>  &#123;<br>    <span class="hljs-attr">envMap</span>: mainHDR,<br>    <span class="hljs-attr">envMapIntensity</span>: <span class="hljs-number">1.2</span>,<br>    <span class="hljs-attr">side</span>: <span class="hljs-title class_">FrontSide</span>,<br>    <span class="hljs-attr">forceSinglePass</span>: <span class="hljs-literal">true</span>,<br>  &#125;,<br>  <span class="hljs-function">(<span class="hljs-params">material</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> !material.<span class="hljs-property">isMeshBasicMaterial</span>;<br>  &#125;<br>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="坐标系-axisHelper"><a href="#坐标系-axisHelper" class="headerlink" title="坐标系 axisHelper"></a>坐标系 axisHelper</h3><p>three 用的是右手坐标系</p>
+<p>即：x 朝右，y 朝上，z 朝外面</p>
+<h4 id="反转角度"><a href="#反转角度" class="headerlink" title="反转角度"></a>反转角度</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">rotation.<span class="hljs-property">x</span> = -<span class="hljs-number">0.5</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>; <span class="hljs-comment">// 沿x轴顺时针旋转90°</span><br>rotation.<span class="hljs-property">x</span> = -<span class="hljs-number">1</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>; <span class="hljs-comment">// 沿x轴顺时针旋转180°</span><br><br>rotation.<span class="hljs-property">x</span> = <span class="hljs-number">0.5</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>; <span class="hljs-comment">// 沿x轴逆时针旋转90°</span><br>rotation.<span class="hljs-property">x</span> = <span class="hljs-number">1</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>; <span class="hljs-comment">// 沿x轴逆时针旋转180°</span><br></code></pre></td></tr></table></figure>
+
+<p>其他轴同理</p>
+<h3 id="渲染器-WebGLRenderer"><a href="#渲染器-WebGLRenderer" class="headerlink" title="渲染器 WebGLRenderer"></a>渲染器 WebGLRenderer</h3><h4 id="构造器实例化"><a href="#构造器实例化" class="headerlink" title="构造器实例化"></a>构造器实例化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#three&quot;</span>);<br><span class="hljs-keyword">const</span> renderer = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">WebGLRenderer</span>(&#123; canvas, <span class="hljs-attr">antialias</span>: <span class="hljs-literal">true</span> &#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="属性功能"><a href="#属性功能" class="headerlink" title="属性功能"></a>属性功能</h4><ol>
+<li><p>添加阴影 shadowMap</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">renderer.<span class="hljs-property">shadowMap</span>.<span class="hljs-property">enabled</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 添加阴影</span><br></code></pre></td></tr></table></figure></li>
+<li><p>开始渲染 render</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">renderer.<span class="hljs-title function_">render</span>(scene, camera);<br></code></pre></td></tr></table></figure></li>
+<li><p>输出颜色 toneMappingExposure</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">renderer.<span class="hljs-property">toneMapping</span> = <span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">ACESFilmicToneMapping</span>;<br>renderer.<span class="hljs-property">toneMappingExposure</span> = <span class="hljs-number">8</span>; <span class="hljs-comment">//色调映射的曝光级别。默认是1(显示色彩)</span><br>renderer.<span class="hljs-property">outputEncoding</span> = <span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">sRGBEncoding</span>;<br></code></pre></td></tr></table></figure>
+
+<p>toneMapping:色调映射</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">NoToneMapping</span>;<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">LinearToneMapping</span>;<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">ReinhardToneMapping</span>;<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">CineonToneMapping</span>;<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">ACESFilmicToneMapping</span>;<br></code></pre></td></tr></table></figure>
+
+<p>outputEncoding:渲染器的输出编码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">LinearEncoding</span>;<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">sRGBEncoding</span>;<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">BasicDepthPacking</span>;<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-property">RGBADepthPacking</span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>光照模式 physicallyCorrectLights</p>
+<p>是否使用物理上正确的光照模式。 默认是 false</p>
+</li>
+<li><p>test</p>
+</li>
+</ol>
+<h3 id="几何体-Geometry"><a href="#几何体-Geometry" class="headerlink" title="几何体 Geometry"></a>几何体 Geometry</h3><h4 id="立方体-BoxBufferGeometry"><a href="#立方体-BoxBufferGeometry" class="headerlink" title="立方体 BoxBufferGeometry"></a>立方体 BoxBufferGeometry</h4><p>BoxGeometry 是四边形几何类, 它通常用给定的长宽高参数构造立方体或不规则四边形</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">BoxGeometry</span>(<br>  width,<br>  height,<br>  depth,<br>  widthSegments,<br>  heightSegments,<br>  depthSegments<br>);<br></code></pre></td></tr></table></figure>
+
+<p>width — X 轴上面的宽度，默认值为 1。<br>height — Y 轴上面的高度，默认值为 1。<br>depth — Z 轴上面的深度，默认值为 1。<br>widthSegments — （可选）宽度的分段数，默认值是 1。<br>heightSegments — （可选）高度的分段数，默认值是 1。<br>depthSegments — （可选）深度的分段数，默认值是 1。</p>
+<h4 id="平面类-PlaneGeometry"><a href="#平面类-PlaneGeometry" class="headerlink" title="平面类 PlaneGeometry"></a>平面类 PlaneGeometry</h4><p>PlaneGeometry 是平面类, 其实是一个长方形，而不是数学意义上无限大小的平面;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">PlaneGeometry</span>(width, height, widthSegments, heightSegments);<br></code></pre></td></tr></table></figure>
+
+<h4 id="球体-SphereBufferGeometry"><a href="#球体-SphereBufferGeometry" class="headerlink" title="球体 SphereBufferGeometry"></a>球体 SphereBufferGeometry</h4><p>SphereGeometry 是球体类, 构造函数如下所示 ( radius 是半径； segmentsWidth 表示经度上的切片数； segmentsHeight 表示纬度上的切片数； phiStart 表示经度开始的弧度； phiLength 表示经度跨过的弧度； thetaStart 表示纬度开始的弧度； thetaLength 表示纬度跨过的弧度), 其中需要注意的是在使用时可以根据经纬度切片数来定制球形外形, 可以通过经纬度弧度来定制球形起始形状;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">SphereGeometry</span>(<br>  radius,<br>  segmentsWidth,<br>  segmentsHeight,<br>  phiStart,<br>  phiLength,<br>  thetaStart,<br>  thetaLength<br>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="圆形或者扇形类-CircleGeometry"><a href="#圆形或者扇形类-CircleGeometry" class="headerlink" title="圆形或者扇形类 CircleGeometry"></a>圆形或者扇形类 CircleGeometry</h4><p>CircleGeometry 几何类可以创建圆形或者扇形;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">CircleGeometry</span>(radius, segments, thetaStart, thetaLength);<br></code></pre></td></tr></table></figure>
+
+<h4 id="圆柱体-CylinderBufferGeometry"><a href="#圆柱体-CylinderBufferGeometry" class="headerlink" title="圆柱体 CylinderBufferGeometry"></a>圆柱体 CylinderBufferGeometry</h4><p>构造函数如下所示( radiusTop 与 radiusBottom 分别是顶面和底面的半径，由此可知，当这两个参数设置为不同的值时，实际上创建的是一个圆台； height 是圆柱体的高度； radiusSegments 与 heightSegments 可类比球体中的分段； openEnded 是一个布尔值，表示是否没有顶面和底面，缺省值为 false，表示有顶面和底面);</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">CylinderGeometry</span>(<br>  radiusTop,<br>  radiusBottom,<br>  height,<br>  radiusSegments,<br>  heightSegments,<br>  openEnded<br>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="TetrahedronGeometry-正多边体"><a href="#TetrahedronGeometry-正多边体" class="headerlink" title="TetrahedronGeometry 正多边体"></a>TetrahedronGeometry 正多边体</h4><p>TetrahedronGeometry / 正四面体、OctahedronGeometry / 正八面体、IcosahedronGeometry / 正二十面体的构造函数分别如下所示;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">TetrahedronGeometry</span>(radius, detail);<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">OctahedronGeometry</span>(radius, detail);<br><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">IcosahedronGeometry</span>(radius, detail);<br></code></pre></td></tr></table></figure>
+
+<h4 id="圆环面-也为甜甜圈的形状-TorusGeometry"><a href="#圆环面-也为甜甜圈的形状-TorusGeometry" class="headerlink" title="圆环面, 也为甜甜圈的形状 TorusGeometry"></a>圆环面, 也为甜甜圈的形状 TorusGeometry</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">TorusGeometry</span>(radius, tube, radialSegments, tubularSegments, arc);<br></code></pre></td></tr></table></figure>
+
+<h4 id="圆环结-TorusKnotGeometry"><a href="#圆环结-TorusKnotGeometry" class="headerlink" title="圆环结 TorusKnotGeometry"></a>圆环结 TorusKnotGeometry</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">TorusKnotGeometry</span>(<br>  radius,<br>  tube,<br>  radialSegments,<br>  tubularSegments,<br>  p,<br>  q,<br>  heightScale<br>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="锥形几何类-ConeGeometry"><a href="#锥形几何类-ConeGeometry" class="headerlink" title="锥形几何类 ConeGeometry"></a>锥形几何类 ConeGeometry</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">ConeGeometry</span>(<br>  radius,<br>  height,<br>  radialSegments,<br>  heightSegments,<br>  openEnded,<br>  thetaStart,<br>  thetaLength<br>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="材质-Material"><a href="#材质-Material" class="headerlink" title="材质 Material"></a>材质 Material</h3><h4 id="基础网格材质-MeshBasicMaterial"><a href="#基础网格材质-MeshBasicMaterial" class="headerlink" title="基础网格材质 MeshBasicMaterial"></a>基础网格材质 MeshBasicMaterial</h4><p>一个以简单着色（平面或线框）方式来绘制几何体的材质。</p>
+<p>这种材质不受光照的影响。</p>
+<h4 id="Lambert-网格材质-MeshLambertMaterial"><a href="#Lambert-网格材质-MeshLambertMaterial" class="headerlink" title="Lambert 网格材质 MeshLambertMaterial"></a>Lambert 网格材质 MeshLambertMaterial</h4><p>一种非光泽表面的材质，没有镜面高光。</p>
+<p>这可以很好地模拟一些表面（例如未经处理的木材或石材），但不能模拟具有镜面高光的光泽表面（例如涂漆木材）</p>
+<h4 id="Phong-网格材质-MeshPhongMaterial"><a href="#Phong-网格材质-MeshPhongMaterial" class="headerlink" title="Phong 网格材质 MeshPhongMaterial"></a>Phong 网格材质 MeshPhongMaterial</h4><p>一种用于具有镜面高光的光泽表面的材质。</p>
+<p>该材质可以模拟具有镜面高光的光泽表面（例如涂漆木材）</p>
+<h4 id="标准网格材质-MeshStandardMaterial"><a href="#标准网格材质-MeshStandardMaterial" class="headerlink" title="标准网格材质 MeshStandardMaterial"></a>标准网格材质 MeshStandardMaterial</h4><p>一种基于物理的标准材质</p>
+<p>这种方法与旧方法的不同之处在于，不使用近似值来表示光与表面的相互作用，而是使用物理上正确的模型。 我们的想法是，不是在特定照明下调整材质以使其看起来很好，而是可以创建一种材质，能够“正确”地应对所有光照场景。</p>
+<h3 id="材质属性"><a href="#材质属性" class="headerlink" title="材质属性"></a>材质属性</h3><ol>
+<li>颜色 color</li>
+<li>环境贴图 envMap:应该添加由 PMREMGenerator 预处理过的环境贴图</li>
+<li>环境贴图系数 envMapIntensity: 缩放环境贴图的效果。</li>
+<li>金属材质感 metalness</li>
+<li>粗糙材质感 roughness</li>
+<li>法线贴图纹理 normalMap：用于创建法线贴图的纹理</li>
+</ol>
+<p>envMapIntensity 可以查看一下图示：</p>
+<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/%E6%9D%90%E8%B4%A8%E6%95%88%E6%9E%9C.png" srcset="/img/loading.gif" lazyload alt="金属感和粗糙感"></p>
+<h3 id="相机-camera"><a href="#相机-camera" class="headerlink" title="相机 camera"></a>相机 camera</h3><h4 id="透视相机-PerspectiveCamera"><a href="#透视相机-PerspectiveCamera" class="headerlink" title="透视相机 PerspectiveCamera"></a>透视相机 PerspectiveCamera</h4><p>模拟真实人眼看到的相机，即：远大近小</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> camera = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">PerspectiveCamera</span>(<br>  <span class="hljs-number">75</span>,<br>  <span class="hljs-variable language_">window</span>.<span class="hljs-property">innerWidth</span> / <span class="hljs-variable language_">window</span>.<span class="hljs-property">innerHeight</span>,<br>  <span class="hljs-number">0.1</span>,<br>  <span class="hljs-number">1000</span><br>);<br>camera.<span class="hljs-property">position</span>.<span class="hljs-property">x</span> = <span class="hljs-number">0</span>;<br>camera.<span class="hljs-property">position</span>.<span class="hljs-property">y</span> = <span class="hljs-number">0</span>;<br>camera.<span class="hljs-property">position</span>.<span class="hljs-property">z</span> = <span class="hljs-number">60</span>;<br></code></pre></td></tr></table></figure>
+
+<p>fov — 摄像机视锥体垂直视野角度<br>aspect — 摄像机视锥体长宽比<br>near — 摄像机视锥体近端面<br>far — 摄像机视锥体远端面</p>
+<p><img src="https://limengtupian.oss-cn-beijing.aliyuncs.com/%E5%8D%9A%E5%AE%A2BLOG%E4%B8%93%E7%94%A8%E5%9B%BE%E5%BA%93/PerspectiveCameraIntrduce.jpg" srcset="/img/loading.gif" lazyload alt="透视相机图示"></p>
+<h3 id="光源-light"><a href="#光源-light" class="headerlink" title="光源 light"></a>光源 light</h3><h4 id="平行光-DirectionalLight"><a href="#平行光-DirectionalLight" class="headerlink" title="平行光 DirectionalLight"></a>平行光 DirectionalLight</h4><p>通常模拟太阳光</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">DirectionalLight</span>(<span class="hljs-number">0xffffff</span>, <span class="hljs-number">0.6</span>);<br></code></pre></td></tr></table></figure>
+
+<p>color - (可选参数) 16 进制表示光的颜色。 缺省值为 0xffffff (白色)。<br>intensity - (可选参数) 光照的强度。缺省值为 1。</p>
+<h4 id="球形光源-HemisphereLight"><a href="#球形光源-HemisphereLight" class="headerlink" title="球形光源 HemisphereLight"></a>球形光源 HemisphereLight</h4><p>固定在场景上方的光源，所以第一个参数是天空颜色，第二个参数是地面颜色，中间会有渐变的光线颜色</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">HemisphereLight</span>(<span class="hljs-number">0xffffff</span>, <span class="hljs-number">0xffffff</span>, <span class="hljs-number">0.6</span>);<br></code></pre></td></tr></table></figure>
+
+<p>skyColor - (可选参数) 天空中发出光线的颜色。 缺省值 0xffffff。<br>groundColor - (可选参数) 地面发出光线的颜色。 缺省值 0xffffff。<br>intensity - (可选参数) 光照强度。 缺省值 1。</p>
+<h4 id="点光源-PointLight"><a href="#点光源-PointLight" class="headerlink" title="点光源 PointLight"></a>点光源 PointLight</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> light = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">PointLight</span>(<span class="hljs-number">0xff0000</span>, <span class="hljs-number">1</span>, <span class="hljs-number">100</span>);<br>light.<span class="hljs-property">position</span>.<span class="hljs-title function_">set</span>(<span class="hljs-number">50</span>, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>);<br></code></pre></td></tr></table></figure>
+
+<p>PointLight( color : Integer, intensity : Float, distance : Number, decay : Float )<br>color - (可选参数)) 十六进制光照颜色。 缺省值 0xffffff (白色)。<br>intensity - (可选参数) 光照强度。 缺省值 1。</p>
+<p>distance - 这个距离表示从光源到光照强度为 0 的位置。 当设置为 0 时，光永远不会消失(距离无穷大)。缺省值 0.<br>decay - 沿着光照距离的衰退量。缺省值 1。 在 physically correct 模式中，decay = 2。</p>
+<h3 id="阴影-shadow"><a href="#阴影-shadow" class="headerlink" title="阴影 shadow"></a>阴影 shadow</h3><p>阴影需要投射到一个平面上，并且模型要处于光源和平面之间</p>
+<ol>
+<li>开启渲染器的阴影<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> renderer = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">WebGLRenderer</span>(&#123; canvas, <span class="hljs-attr">antialias</span>: <span class="hljs-literal">true</span> &#125;); <span class="hljs-comment">//是否执行抗锯齿</span><br>renderer.<span class="hljs-property">shadowMap</span>.<span class="hljs-property">enabled</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 允许添加阴影</span><br></code></pre></td></tr></table></figure></li>
+<li>设定一个平面<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> plane = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">PlaneGeometry</span>(<span class="hljs-number">300</span>, <span class="hljs-number">300</span>); <span class="hljs-comment">// 生成模型</span><br><span class="hljs-keyword">let</span> material = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">MeshPhongMaterial</span>(&#123;<br>  <span class="hljs-comment">// 生成材质</span><br>  <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;#d9d9d9&quot;</span>,<br>  <span class="hljs-attr">shininess</span>: <span class="hljs-number">0</span>,<br>&#125;);<br><span class="hljs-keyword">let</span> floor = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">Mesh</span>(plane, material); <span class="hljs-comment">// 赋予模型材质</span><br>floor.<span class="hljs-property">rotation</span>.<span class="hljs-property">x</span> = -<span class="hljs-number">0.5</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>;<br>floor.<span class="hljs-property">receiveShadow</span> = <span class="hljs-literal">true</span>;<br>floor.<span class="hljs-property">position</span>.<span class="hljs-property">y</span> = -<span class="hljs-number">15</span>;<br></code></pre></td></tr></table></figure></li>
+<li>添加光源<br>添加平行光，平行光可以产生阴影<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> dirLight = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">DirectionalLight</span>(<span class="hljs-number">0xffffff</span>, <span class="hljs-number">0.6</span>);<br><span class="hljs-comment">//光源等位置</span><br>dirLight.<span class="hljs-property">position</span>.<span class="hljs-title function_">set</span>(-<span class="hljs-number">10</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0</span>);<br><span class="hljs-comment">//可以产生阴影</span><br>dirLight.<span class="hljs-property">castShadow</span> = <span class="hljs-literal">true</span>;<br>dirLight.<span class="hljs-property">shadow</span>.<span class="hljs-property">mapSize</span> = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">Vector2</span>(<span class="hljs-number">1024</span>, <span class="hljs-number">1024</span>);<br></code></pre></td></tr></table></figure></li>
+<li>添加模型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> textureLoader = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">TextureLoader</span>();<br><span class="hljs-keyword">let</span> sphereGeometry = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">SphereGeometry</span>(<span class="hljs-number">15</span>, <span class="hljs-number">32</span>, <span class="hljs-number">16</span>);<br><span class="hljs-keyword">let</span> material = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">MeshBasicMaterial</span>(&#123;<br>  <span class="hljs-attr">color</span>: <span class="hljs-number">0xffff00</span>,<br>&#125;);<br><span class="hljs-keyword">const</span> sphere = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">Mesh</span>(sphereGeometry, material);<br>sphere.<span class="hljs-property">castShadow</span> = <span class="hljs-literal">true</span>;<br></code></pre></td></tr></table></figure></li>
+<li>调整光源、模型、平面的相对位置</li>
+</ol>
+<h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><ul>
+<li><p>rotation:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">floor.<span class="hljs-property">rotation</span>.<span class="hljs-property">x</span> = -<span class="hljs-number">0.5</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>; <span class="hljs-comment">// 沿着x轴顺时针旋转90度</span><br><br>floor.<span class="hljs-property">rotation</span>.<span class="hljs-property">x</span> = <span class="hljs-number">0.5</span> * <span class="hljs-title class_">Math</span>.<span class="hljs-property">PI</span>; <span class="hljs-comment">// 沿着x轴逆时针旋转90度</span><br></code></pre></td></tr></table></figure></li>
+<li><p>receiveShadow<br>是否接受阴影</p>
+</li>
+<li><p>castShadow<br>对象是否被渲染到阴影贴图中，需要 平行光和模型都 开启 castShadow=true</p>
+</li>
+<li><p>调整位置<br>需要考虑四个位置：1、相机位置，2、平行光位置，3、模型位置，4、平面位置</p>
+<ol>
+<li>相机处于 z 轴正方向，并离模型有一定距离</li>
+<li>平行光位于 y 轴上方，朝下投影</li>
+<li>模型在 y 轴方向上处于平行光下面</li>
+<li>平面在 y 轴方向上处于模型下方</li>
+</ol>
+</li>
+</ul>
+<h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><p>Orbit controls（轨道控制器）可以使得相机围绕目标进行轨道运动</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> controls = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OrbitControls</span>(camera, renderer.<span class="hljs-property">domElement</span>);<br>controls.<span class="hljs-property">enableDamping</span> = <span class="hljs-literal">true</span>;<br></code></pre></td></tr></table></figure>
+
+<p>object: （必须）将要被控制的相机。该相机不允许是其他任何对象的子级，除非该对象是场景自身。</p>
+<p>domElement: 用于事件监听的 HTML 元素。</p>
+<p>renderer.domElement 是 WebGLRenderer 实例化的一个对象，包含了基于 canvas 渲染的元素</p>
+<h4 id="控制器属性"><a href="#控制器属性" class="headerlink" title="控制器属性"></a>控制器属性</h4><ol>
+<li><p>minDistance（最小距离）</p>
+</li>
+<li><p>maxDistance （最大距离）</p>
+</li>
+<li><p>target.set(0, 0, 60)（控制器焦点位置）</p>
+<p>当旋转整个模型时，需要围绕一个焦点来进行运动，比如：围绕一个房子进行旋转，保持房子在中心位置，则需要将焦点放置到房子的坐标</p>
+</li>
+<li><p>test</p>
+</li>
+</ol>
+<h3 id="控制显示精细度"><a href="#控制显示精细度" class="headerlink" title="控制显示精细度"></a>控制显示精细度</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">resizeRendererToDisplaySize</span>(<span class="hljs-params">renderer</span>) &#123;<br>  <span class="hljs-keyword">const</span> canvas = renderer.<span class="hljs-property">domElement</span>;<br>  <span class="hljs-keyword">var</span> width = <span class="hljs-variable language_">window</span>.<span class="hljs-property">innerWidth</span>;<br>  <span class="hljs-keyword">var</span> height = <span class="hljs-variable language_">window</span>.<span class="hljs-property">innerHeight</span>;<br>  <span class="hljs-keyword">var</span> canvasPixelWidth = canvas.<span class="hljs-property">width</span> / <span class="hljs-variable language_">window</span>.<span class="hljs-property">devicePixelRatio</span>;<br>  <span class="hljs-keyword">var</span> canvasPixelHeight = canvas.<span class="hljs-property">height</span> / <span class="hljs-variable language_">window</span>.<span class="hljs-property">devicePixelRatio</span>;<br><br>  <span class="hljs-keyword">const</span> needResize =<br>    canvasPixelWidth !== width || canvasPixelHeight !== height;<br>  <span class="hljs-keyword">if</span> (needResize) &#123;<br>    renderer.<span class="hljs-title function_">setSize</span>(width, height, <span class="hljs-literal">false</span>);<br>  &#125;<br>  <span class="hljs-keyword">return</span> needResize;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p>如果 canvas 的宽高不等于设备的实际宽高，则需要重新 setSize 一下</p>
+<h3 id="组-Group"><a href="#组-Group" class="headerlink" title="组 Group"></a>组 Group</h3><p>目的是使得组中对象在语法上的结构更加清晰。</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> group = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">Group</span>();<br>group.<span class="hljs-title function_">add</span>(cubeA);<br>group.<span class="hljs-title function_">add</span>(cubeB);<br><br>scene.<span class="hljs-title function_">add</span>(group);<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用场景举例"><a href="#使用场景举例" class="headerlink" title="使用场景举例"></a>使用场景举例</h4><p>做一个太阳东升西落的效果，那么需要一个 太阳模型+平行光，而这两个对象都是有一摸一样的轨迹和动作。</p>
+<p>此时，可以使用 group 来控制分组</p>
+<h3 id="自定义事件-EventDispatcher"><a href="#自定义事件-EventDispatcher" class="headerlink" title="自定义事件 EventDispatcher"></a>自定义事件 EventDispatcher</h3><h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">EventDispatcher</span> &#123;<br>  <span class="hljs-title function_">start</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">dispatchEvent</span>(&#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;start&quot;</span>,<br>      <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;lee Test&quot;</span>,<br>    &#125;);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> littleCat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cat</span>();<br><br>littleCat.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;start&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> &#123;<br>  <span class="hljs-title function_">alert</span>(event.<span class="hljs-property">message</span>);<br>&#125;);<br><br>littleCat.<span class="hljs-title function_">start</span>();<br></code></pre></td></tr></table></figure>
+
+<p>littleCat.start()调用 dispatchEvent 触发自定义事件，<br>找到实例上名称为 start 的自定义事件，显示 alert</p>
+<h3 id="TWEEN-js-入门"><a href="#TWEEN-js-入门" class="headerlink" title="TWEEN.js 入门"></a>TWEEN.js 入门</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">npm i @tweenjs/tween.<span class="hljs-property">js</span>@^<span class="hljs-number">18</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="缓动效果查询网站"><a href="#缓动效果查询网站" class="headerlink" title="缓动效果查询网站"></a>缓动效果查询网站</h4><p><a target="_blank" rel="noopener" href="https://easings.net/">查询网站</a></p>
+<h4 id="如何设计一个连续的动作变化"><a href="#如何设计一个连续的动作变化" class="headerlink" title="如何设计一个连续的动作变化"></a>如何设计一个连续的动作变化</h4><p>tween.chain 可以将一个 tween 和另一个 tween 连接起来，从而实现连续的动作，注意：需要从后往前不停叠加 chain。</p>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> tween1 = <span class="hljs-title function_">createShoesTWEEN</span>(&#123; <span class="hljs-attr">y</span>: <span class="hljs-number">1.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, &#123; <span class="hljs-attr">y</span>: <span class="hljs-number">2.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, model);<br><span class="hljs-keyword">let</span> tween2 = <span class="hljs-title function_">createShoesTWEEN</span>(&#123; <span class="hljs-attr">y</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, &#123; <span class="hljs-attr">y</span>: <span class="hljs-number">1.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, model);<br><span class="hljs-keyword">let</span> tween3 = <span class="hljs-title function_">createShoesTWEEN</span>(&#123; <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, &#123; <span class="hljs-attr">y</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, model);<br>tween2.<span class="hljs-title function_">chain</span>(tween1);<br>tween3.<span class="hljs-title function_">chain</span>(tween2);<br>tween3.<span class="hljs-title function_">start</span>();<br></code></pre></td></tr></table></figure>
+
+<p>上面的动作会是： 从 y：0 到 0.5 到 1.5 到 2.5</p>
+<h4 id="如何设计一个无限循环的动作变化"><a href="#如何设计一个无限循环的动作变化" class="headerlink" title="如何设计一个无限循环的动作变化"></a>如何设计一个无限循环的动作变化</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> tween1 = <span class="hljs-title function_">createShoesTWEEN</span>(&#123; <span class="hljs-attr">y</span>: <span class="hljs-number">1.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, &#123; <span class="hljs-attr">y</span>: <span class="hljs-number">2.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, model);<br><span class="hljs-keyword">let</span> tween2 = <span class="hljs-title function_">createShoesTWEEN</span>(&#123; <span class="hljs-attr">y</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, &#123; <span class="hljs-attr">y</span>: <span class="hljs-number">1.5</span>, <span class="hljs-attr">z</span>: <span class="hljs-number">60</span> &#125;, model);<br>tween1.<span class="hljs-title function_">chain</span>(tween2);<br>tween2.<span class="hljs-title function_">chain</span>(tween1);<br>tween2.<span class="hljs-title function_">start</span>();<br></code></pre></td></tr></table></figure>
+
+<p>两个 tween 相互调用可以实现无限循环</p>
+<h3 id="GLTF-加载"><a href="#GLTF-加载" class="headerlink" title="GLTF 加载"></a>GLTF 加载</h3><ol>
+<li><p>引入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">GLTFLoader</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;three/examples/jsm/loaders/GLTFLoader.js&quot;</span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>实例化</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> gltfLoader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">GLTFLoader</span>();<br></code></pre></td></tr></table></figure></li>
+<li><p>创建对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">gltfLoader.<span class="hljs-title function_">load</span>(<br>  <span class="hljs-string">&quot;/models/MaterialsVariantsShoe/glTF/MaterialsVariantsShoe.gltf&quot;</span>,<br>  <span class="hljs-function">(<span class="hljs-params">gltf</span>) =&gt;</span> &#123;<br>    gltf.<span class="hljs-property">scene</span>.<span class="hljs-property">scale</span>.<span class="hljs-title function_">set</span>(<span class="hljs-number">300</span>, <span class="hljs-number">300</span>, <span class="hljs-number">300</span>);<br>    gltf.<span class="hljs-property">scene</span>.<span class="hljs-property">position</span>.<span class="hljs-property">x</span> = <span class="hljs-number">0</span>;<br>    gltf.<span class="hljs-property">scene</span>.<span class="hljs-property">position</span>.<span class="hljs-property">y</span> = -<span class="hljs-number">20</span>;<br>    gltf.<span class="hljs-property">scene</span>.<span class="hljs-property">position</span>.<span class="hljs-property">z</span> = <span class="hljs-number">0</span>;<br>    <span class="hljs-title function_">resolve</span>(gltf.<span class="hljs-property">scene</span>);<br>  &#125;<br>);<br></code></pre></td></tr></table></figure></li>
+<li><p>场景中添加</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">scene.<span class="hljs-title function_">add</span>(gltf.<span class="hljs-property">scene</span>);<br></code></pre></td></tr></table></figure></li>
+<li><p>test</p>
+</li>
+</ol>
+<h3 id="CSS2DRenderer-标签点击事件无效"><a href="#CSS2DRenderer-标签点击事件无效" class="headerlink" title="CSS2DRenderer 标签点击事件无效"></a>CSS2DRenderer 标签点击事件无效</h3><p>在 three.js 0.13X 版本后,上面 dom 的 onclick 不会触发，原因是控制器 Controls</p>
+<h4 id="OrbitControls-改成-canvas-的-renderer"><a href="#OrbitControls-改成-canvas-的-renderer" class="headerlink" title="OrbitControls 改成 canvas 的 renderer"></a>OrbitControls 改成 canvas 的 renderer</h4><p>let obtControls = new OrbitControls(camera, renderer.domElement);</p>
+<h4 id="将-labelRenderer-改成-none"><a href="#将-labelRenderer-改成-none" class="headerlink" title="将 labelRenderer 改成 none"></a>将 labelRenderer 改成 none</h4><p>let labelRenderer = new CSS2DRenderer()</p>
+<p>labelRenderer.domElement.style.pointerEvents = “none”;</p>
+<h4 id="将-CSS2DObject-的-pointerEvents-改成-auto"><a href="#将-CSS2DObject-的-pointerEvents-改成-auto" class="headerlink" title="将 CSS2DObject 的 pointerEvents 改成 auto"></a>将 CSS2DObject 的 pointerEvents 改成 auto</h4>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/three-js/">#three.js</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Three.js使用</div>
+      <div>http://lenmon54231.github.io/2023/10/15/Three.js使用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Meng_Lee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/21/Diff%E5%8E%9F%E7%90%86%E5%8F%8A%E7%A4%BA%E4%BE%8B/" title="Diff原理及示例">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Diff原理及示例</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/23/%E4%BB%8EVue%E8%BF%87%E6%B8%A1%E5%88%B0React/" title="从Vue过渡到React">
+                        <span class="hidden-mobile">从Vue过渡到React</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
