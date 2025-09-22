@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1486162/201907/1486162-20190710113208809-336235091.png">
 <meta property="article:published_time" content="2025-09-16T03:51:19.000Z">
-<meta property="article:modified_time" content="2025-09-16T10:12:15.118Z">
+<meta property="article:modified_time" content="2025-09-22T03:42:04.997Z">
 <meta property="article:author" content="Meng_Lee">
 <meta property="article:tag" content="node">
 <meta property="article:tag" content="server">
@@ -224,7 +224,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.9k 字
+          3.1k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
           <!-- compatible with older versions-->
-          16 分钟
+          27 分钟
         
       </span>
     
@@ -282,12 +282,25 @@
                 <h1 id="服务器使用和配置"><a href="#服务器使用和配置" class="headerlink" title="服务器使用和配置"></a>服务器使用和配置</h1><p>之前已经实现了利用node实现前端代码更新和部署，现在要实现后端代码和部署，因为后端代码不需要打包，所以准备采用WebHook的形式来更新部署，后续还会有更多的功能陆续实现。</p>
 <span id="more"></span>
 
-<h2 id="服务器后端Node代码自动更新"><a href="#服务器后端Node代码自动更新" class="headerlink" title="服务器后端Node代码自动更新"></a>服务器后端Node代码自动更新</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>只需要本地提交代码，自动更新服务器上的Node后端代码</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>通过GitHub的Deploy+宝塔WebHook可以轻松实现上述目标</p>
-<h4 id="首先去GitHub添加Deploy-keys"><a href="#首先去GitHub添加Deploy-keys" class="headerlink" title="首先去GitHub添加Deploy keys"></a>首先去GitHub添加Deploy keys</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">1. 切换到 www 用户</span><br>sudo -u www bash<br><span class="hljs-meta prompt_"># </span><span class="language-bash">2. 生成新钥匙（若已有可跳过）</span><br>ssh-keygen -t ed25519 -C &quot;www-webhook&quot; -N &quot;&quot; -f ~/.ssh/id_ed25519<br><span class="hljs-meta prompt_"># </span><span class="language-bash">3. 把公钥加到 GitHub Deploy keys</span><br>cat ~/.ssh/id_ed25519.pub<br></code></pre></td></tr></table></figure>
+<h2 id="服务器后端Node代码自动更新"><a href="#服务器后端Node代码自动更新" class="headerlink" title="服务器后端Node代码自动更新"></a>服务器后端Node代码自动更新</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>只需要本地提交代码git push，就会自动更新服务器上的Node后端代码</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>通过GitHub的WebHook + 宝塔WebHook可以轻松实现上述目标</p>
+<h4 id="1-首先去GitHub添加SSH-Key，使服务器有git-pull的权限"><a href="#1-首先去GitHub添加SSH-Key，使服务器有git-pull的权限" class="headerlink" title="1. 首先去GitHub添加SSH Key，使服务器有git pull的权限"></a>1. 首先去GitHub添加SSH Key，使服务器有git pull的权限</h4><p>我们这里采用的公共SSH Key，如果不想要使用公共SSH Key的形式，可以使用Deploy keys</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">1. 切换到 www 用户</span><br>sudo -u www bash<br><span class="hljs-meta prompt_"># </span><span class="language-bash">2. 生成新钥匙（若已有可跳过）</span><br>ssh-keygen -t ed25519 -C &quot;www-webhook&quot; -N &quot;&quot; -f ~/.ssh/id_ed25519<br><span class="hljs-meta prompt_"># </span><span class="language-bash">3. 把公钥加到 GitHub Deploy keys</span><br>cat ~/.ssh/id_ed25519.pub<br></code></pre></td></tr></table></figure>
 
+<p>在 GitHub → Settings → SSH and GPG keys → New SSH key 里添加这把公钥（个人级别）。</p>
+<h5 id="备选：如果你不想要将所有的仓库都赋予git-pull权限，则需要使用-Deploy-keys-这一步是让服务器有git-pull拉取仓库代码的权限"><a href="#备选：如果你不想要将所有的仓库都赋予git-pull权限，则需要使用-Deploy-keys-这一步是让服务器有git-pull拉取仓库代码的权限" class="headerlink" title="备选：如果你不想要将所有的仓库都赋予git pull权限，则需要使用 Deploy keys(这一步是让服务器有git pull拉取仓库代码的权限)"></a>备选：如果你不想要将所有的仓库都赋予git pull权限，则需要使用 Deploy keys(这一步是让服务器有git pull拉取仓库代码的权限)</h5><blockquote>
 <p>进入对应的仓库，然后在setting里找到Deploy keys菜单，将cat输出的公钥添加到Deploy keys中即可</p>
-<h4 id="然后去宝塔中添加WebHook"><a href="#然后去宝塔中添加WebHook" class="headerlink" title="然后去宝塔中添加WebHook"></a>然后去宝塔中添加WebHook</h4><ol>
+</blockquote>
+<blockquote>
+<p>但是这里的key不能重复在其他仓库中添加了，会报错，说这个key已经被使用掉了</p>
+</blockquote>
+<h4 id="2-去服务器中新建文件夹并从GitHub上pull-仓库到服务器上"><a href="#2-去服务器中新建文件夹并从GitHub上pull-仓库到服务器上" class="headerlink" title="2. 去服务器中新建文件夹并从GitHub上pull 仓库到服务器上"></a>2. 去服务器中新建文件夹并从GitHub上pull 仓库到服务器上</h4><ol>
+<li><p>在/www/wwwroot目录下，新建api文件夹</p>
+</li>
+<li><p>在终端中cd /www/wwwroot/api并执行git pull，建立与GitHub的仓库地址链接(其中可能会遇到git账号登录、权限之类的问题，按照正常git配置操作公钥、邮箱即可)</p>
+</li>
+</ol>
+<h4 id="3-去宝塔中添加WebHook"><a href="#3-去宝塔中添加WebHook" class="headerlink" title="3. 去宝塔中添加WebHook"></a>3. 去宝塔中添加WebHook</h4><ol>
 <li>安装“宝塔WebHook”</li>
 <li>打开WebHook，并添加Hook</li>
 </ol>
@@ -296,12 +309,24 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">cd</span> /www/wwwroot/api<br><span class="hljs-built_in">whoami</span><br>sudo -u www git fetch --depth=1<br>sudo -u www git reset --hard origin/main<br>sudo -u www npm ci --omit=dev<br>sudo -u www pm2 reload app --update-env || \<br>sudo -u www pm2 start server.js --name app --<span class="hljs-built_in">env</span> production --update-env<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;-----------------------done-----------------------&quot;</span><br></code></pre></td></tr></table></figure>
 
 <p>这里使用的是www用户，根据AI的说法，使用root用户来执行WebHook是有注入风险的</p>
-<p>以上脚本推荐先由自己手动链接上服务器操作一次，中间可能会遇到很多提示，需要用户手动操作，比如：</p>
+<p>以上脚本推荐先由自己手动ssh上服务器操作一次，中间可能会遇到很多提示，需要用户手动配置，比如：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">[www@VM-4-3-opencloudos api]$ git remote -v<br>fatal: detected dubious ownership in repository at &#x27;/www/wwwroot/api&#x27;<br>To add an exception for this directory, call:<br><br>        git config --global --add safe.directory /www/wwwroot/api<br></code></pre></td></tr></table></figure>
 
-<p>这里就会有权限问题，需要手动操作一次，后续才能正常执行git</p>
+<p>这里就会有权限问题，需要使用root账号手动操作一次，后续才能正常执行git</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">退出 www 用户</span><br>exit<br><span class="hljs-meta prompt_"># </span><span class="language-bash">用刚才能 sudo 的账号执行</span><br>sudo chown -R www:www /www/wwwroot/api<br></code></pre></td></tr></table></figure>
 
+<p><strong>另一个更新网站的脚本website-deploy.sh</strong>也放在这里参考：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo -u www bash<br>cd /www/wwwroot/main-web-site<br><span class="hljs-meta prompt_"># </span><span class="language-bash">带时间戳的 git pull 进度</span><br>echo &quot;[$(date +&quot;%F %T&quot;)] 正在 git pull ...&quot;<br>git pull origin main 2&gt;&amp;1 | while IFS= read -r line; do<br>  printf &quot;[%s] %s\n&quot; &quot;$(date +&quot;%F %T&quot;)&quot; &quot;$line&quot;<br>done<br>echo &quot;[$(date +&quot;%F %T&quot;)] git pull done&quot;<br>npm ci<br>echo &quot;[$(date +&quot;%F %T&quot;)] npm install done&quot;<br>npm run build<br>echo &quot;[$(date +&quot;%F %T&quot;)] npm run build done&quot;<br>rm -rf /www/wwwroot/www.3dweb.top/*<br>cp -r dist/* /www/wwwroot/www.3dweb.top/<br>echo &quot;[$(date +&quot;%F %T&quot;)] done&quot;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>宝塔webhook添加成功后，在菜单栏可以看到“查看密钥”选项，可以获取到形如：<a href="https://xx.xxx.xx.253:37874/hook?access_key=xxxxxx&amp;param=aaa的数据">https://xx.xxx.xx.253:37874/hook?access_key=xxxxxx&amp;param=aaa的数据</a></li>
+</ol>
+<h4 id="4-去GitHub中添加WebHook"><a href="#4-去GitHub中添加WebHook" class="headerlink" title="4. 去GitHub中添加WebHook"></a>4. 去GitHub中添加WebHook</h4><ol>
+<li><p>进入GitHub对应仓库</p>
+</li>
+<li><p>左侧有webhook选项，进入配置：1. Payload URL（即上面在宝塔中获取的链接）；2.Content type （选择json即可）；3.SSL verification可以直接选择disabled，然后add webhook即完成</p>
+</li>
+</ol>
 <h2 id="ffmpeg-处理视频功能"><a href="#ffmpeg-处理视频功能" class="headerlink" title="ffmpeg 处理视频功能"></a>ffmpeg 处理视频功能</h2><p>本次是因为更新 ffmpeg 处理视频功能，上传 server 后，引入的 fluent-ffmpeg 没有在 centOS 中安装。需要安装后再启动 node</p>
 <ol>
 <li><p><a target="_blank" rel="noopener" href="https://johnvansickle.com/ffmpeg/release-source/">官网下载 linux 版本的 ffmpeg 源码包 ffmpeg-4.1.tar.xz</a></p>
