@@ -1,74 +1,161 @@
 ---
-title: Node、工程化、自动化、脚本（效率工具）
-date: 2025-05-20 09:48:19
-tags: [工程化,node,vite,sharp]
+title: 服务器使用和Node工具链
+date: 2025-09-16 11:51:19
+tags: [server,node,服务器]
 ---
 
-## Node、工程化、自动化、脚本（效率工具）
+# 服务器使用和Node工具链
 
-Node可以操作文件、登录服务器、请求接口、操作数据库等等，Node可以做的事情太多了。
-
-基于此，可以实现很多工程上的自动化处理、检测、替换、上传、更新、配置等业务。
+利用node实现前端静态资源更新和部署;利用WebHook的形式来部署前端网站和后端Node服务;后续还会有更多的功能陆续实现...
 
 <!-- more -->
 
-### 利用Node脚本生成一个最简单的CI/CD？或许还缺少test步骤
+## 服务器后端Node代码自动更新
 
-新配置了一个完全由AI编辑器生成的网站，地址如下：[3dweb](https://www.3dweb.top/)
+### 目标
 
-那么我们就有了自动将打包好的dist文件上传到服务器对应文件夹的需求，这个可以通过Node脚本来实现。
+只需要本地提交代码git push，就会自动更新服务器上的Node后端代码
 
-> 或许我们需要一个最简单的CI/CD流程？
+### 实现
 
-> 一个完整的CI/CD应该包括：代码提交，触发自动化构建、测试和部署。
+通过GitHub的WebHook + 宝塔WebHook可以轻松实现上述目标
 
-> 现在我们包含了：代码提交、本地build、服务器部署
+#### 1. 首先去GitHub添加SSH Key，使服务器有git pull的权限
 
-脚本如下：
+我们这里采用的公共SSH Key，如果不想要使用公共SSH Key的形式，可以使用Deploy keys
 
-使用
-
-```js
-npm run deploy
+```shell
+# 1. 切换到 www 用户
+sudo -u www bash
+# 2. 生成新钥匙（若已有可跳过）
+ssh-keygen -t ed25519 -C "www-webhook" -N "" -f ~/.ssh/id_ed25519
+# 3. 把公钥加到 GitHub Deploy keys
+cat ~/.ssh/id_ed25519.pub
 ```
 
-package.json
+在 GitHub → Settings → SSH and GPG keys → New SSH key 里添加这把公钥（个人级别）。
+
+
+##### 备选：如果你不想要将所有的仓库都赋予git pull权限，则需要使用 Deploy keys(这一步是让服务器有git pull拉取仓库代码的权限)
+
+> 进入对应的仓库，然后在setting里找到Deploy keys菜单，将cat输出的公钥添加到Deploy keys中即可
+
+> 但是这里的key不能重复在其他仓库中添加了，会报错，说这个key已经被使用掉了
+
+#### 2. 去服务器中新建文件夹并从GitHub上pull 仓库到服务器上
+
+1. 在/www/wwwroot目录下，新建api文件夹
+
+2. 在终端中cd /www/wwwroot/api并执行git pull，建立与GitHub的仓库地址链接(其中可能会遇到git账号登录、权限之类的问题，按照正常git配置操作公钥、邮箱即可)
+
+#### 3. 去宝塔中添加WebHook
+
+1. 安装“宝塔WebHook”
+ 
+2. 打开WebHook，并添加Hook
+
+名称可以用：node-deploy
+
+执行脚本如下：
+```
+#!/bin/bash
+cd /www/wwwroot/api
+whoami
+sudo -u www git fetch --depth=1
+sudo -u www git reset --hard origin/main
+sudo -u www npm ci --omit=dev
+sudo -u www pm2 reload app --update-env || \
+sudo -u www pm2 start server.js --name app --env production --update-env
+echo "-----------------------done-----------------------"
+```
+
+这里使用的是www用户，根据AI的说法，使用root用户来执行WebHook是有注入风险的
+
+以上脚本推荐先由自己手动ssh上服务器操作一次，中间可能会遇到很多提示，需要用户手动配置，比如：
+
+```shell
+[www@VM-4-3-opencloudos api]$ git remote -v
+fatal: detected dubious ownership in repository at '/www/wwwroot/api'
+To add an exception for this directory, call:
+
+        git config --global --add safe.directory /www/wwwroot/api
+```
+
+这里就会有权限问题，需要使用root账号手动操作一次，后续才能正常执行git
+
+```shell
+# 退出 www 用户
+exit
+# 用刚才能 sudo 的账号执行
+sudo chown -R www:www /www/wwwroot/api
+```
+
+**另一个更新网站的脚本website-deploy.sh**也放在这里参考：
+
+```shell
+#!/bin/bash
+cd /www/wwwroot/main-web-site || exit
+echo "[$(date +"%F %T")] 进入目录：$(pwd)"
+
+whoami
+echo "[$(date +"%F %T")] 当前用户：$(whoami)"
+
+# 给 www 用户一次性加白（不存在才加）
+sudo -u www bash -c '
+git config --global --get safe.directory /www/wwwroot/main-web-site &>/dev/null ||
+git config --global --add safe.directory /www/wwwroot/main-web-site
+'
+echo "[$(date +"%F %T")] Git 安全目录配置 done"
+
+# 拉最新代码
+echo "[$(date +"%F %T")] 正在 git pull ..."
+sudo -u www git pull origin main 2>&1 | while IFS= read -r line; do
+  printf "[%s] %s\n" "$(date +"%F %T")" "$line"
+done
+
+sudo -u www git reset --hard origin/main
+echo "[$(date +"%F %T")] git reset done"
+
+# 装依赖 + 构建（无日志输出）
+sudo -u www npm ci > /dev/null 2>&1
+echo "[$(date +"%F %T")] npm ci done"
+
+sudo -u www npm run build > /dev/null 2>&1
+echo "[$(date +"%F %T")] npm run build done"
+
+# 发布
+sudo -u www rm -rf /www/wwwroot/www.3dweb.top/*
+echo "[$(date +"%F %T")] 清空目标目录 done"
+
+sudo -u www cp -r dist/* /www/wwwroot/www.3dweb.top/
+echo "[$(date +"%F %T")] 拷贝文件 done"
+
+echo "[$(date +"%F %T")] 全部流程完成"
+```
+
+3. 宝塔webhook添加成功后，在菜单栏可以看到“查看密钥”选项，可以获取到形如：https://xx.xxx.xx.253:37874/hook?access_key=xxxxxx&param=aaa的数据
+
+#### 4. 去GitHub中添加WebHook
+
+1. 进入GitHub对应仓库
+
+2. 左侧有webhook选项，进入配置：1. Payload URL（即上面在宝塔中获取的链接）；2.Content type （选择json即可）；3.SSL verification可以直接选择disabled，然后add webhook即完成
+
+
+## 部署纯前端代码到服务器上去
+
+#### package.json配置
+
 ```json
 {
-    "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+ "scripts": {
     "deploy": "npm run push && npm run build && node deploy",
-    "push": "node d"
   },
 }
 ```
 
-d.js
-```js
-// @ts-nocheck
-import shell from 'shelljs'
+#### deploy.js
 
-const runGit = async function () {
-  let currentTime = String(
-    new Date().toLocaleString("chinese", { hour12: false })
-  );
-  let commitStr = `git commit -m "${currentTime}"`;
-  shell.exec("git pull", { silent: true });
-  shell.echo("git pull完成");
-  shell.exec("git add .", { silent: true });
-  shell.echo("git add .完成");
-  shell.exec(commitStr, { silent: true });
-  shell.echo("git commit完成");
-  shell.exec("git push");
-  shell.echo("git操作完成");
-  return true;
-};
-
-runGit();
-```
-
-deploy.js
 ```js
 import fs from 'fs';
 import ora from 'ora';
@@ -99,11 +186,11 @@ async function uploadDist() {
   spinner = ora('连接到服务器...').start();
 
   const sftp = new Client();
-  const serverIp = 'xxx'; // 替换为你的服务器 IP
-  const username = 'xxx'; // 替换为你的服务器用户名
-  const password = 'xxx!'; // 替换为你的服务器密码
+  const serverIp = 'xx.xxx.xx.xxx'; // 替换为你的服务器 IP
+  const username = 'root'; // 替换为你的服务器用户名
+  const password = 'xxxxxx!'; // 替换为你的服务器密码
   const localPath = path.join(__dirname, 'dist'); // 本地 dist 文件夹路径
-  const remotePath = '/www/wwwroot/xxx'; // 服务器上的目标文件夹路径
+  const remotePath = '/www/wwwroot/3dweb.top'; // 服务器上的目标文件夹路径
 
   let deployNum = 0;
   const totalNum = countFiles(localPath);
@@ -135,15 +222,17 @@ async function uploadDist() {
 }
 
 uploadDist();
+
 ```
 
-### 微信小程序压缩文件并上传到服务器
+
+## 微信小程序压缩文件并上传到服务器
 
 微信小程序有一个很常见的需求：将静态文件放到oss或者服务器上，减少微信小程序打包体积。
 
 这个需求很适合用Node来实现。
 
-#### 压缩文件
+### 压缩文件
 
 ```js
 // index.js
@@ -236,7 +325,7 @@ startProcessing();
 
 ```
 
-#### 上传图片到服务器
+### 上传图片到服务器
 
 ```js
 // upload.js
@@ -307,7 +396,7 @@ module.exports = { uploadFiles };
 ```
 
 
-#### 依赖
+### 依赖
 
 package.json
 ```json
@@ -322,13 +411,14 @@ package.json
 
 
 
-### Hexo 和 Github 页面实现个人博客
+
+## Hexo 和 Github 页面实现个人博客
 
 之前使用 express 和 vue 搭建的博客所使用的云服务器到期，导致个人博客无处安放，用 GitHub 和 Hexo 做个人博客，这下应该就不会再折腾博客了。
 
 **流程如下：**
 
-#### Hexo 配置
+### Hexo 配置
 
 ```js
 npm install -g hexo-cli
@@ -365,7 +455,7 @@ hexo d
 
 经过以上命令，就可以打开 localhost:4000，来本地访问 hexo 博客
 
-#### GitHub 配置
+### GitHub 配置
 
 GitHub 需要两个仓库，1、Hexo 博客源码仓库；2、GitHub 的.github.io 仓库
 
@@ -387,7 +477,7 @@ deploy:
 
 通过 hexo d 来推送数据到 GitHub 的时候，可能会需求添加 SSH Key，参考[SSH 配置](https://lenmon54231.github.io/2021/03/21/GitHub%E7%9A%84SSH%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE/)
 
-#### 通过 node 来执行重复操作
+### 通过 node 来执行重复操作
 
 每次修改或者新增文章都会执行以下的操作
 
@@ -498,7 +588,7 @@ const runHexoCI = async function () {
 runHexoCI();
 ```
 
-### node 实现自动备份数据库
+## node 实现自动备份数据库
 
 在 Mongodb 中我们使用 mongodump 命令来备份 MongoDB 数据。该命令可以导出所有数据到指定目录中。
 
@@ -508,7 +598,7 @@ mongodump 命令可以通过参数指定导出的数据量级转存的服务器
 
 > 手动备份比较麻烦并且没有必要。所以找了下自动备份的实现代码
 
-#### 备份命令
+### 备份命令
 
 mongodump 命令脚本语法如下：
 
@@ -522,7 +612,7 @@ mongodump 命令脚本语法如下：
 >mongodump
 ```
 
-#### 数据恢复
+### 数据恢复
 
 mongodb 使用 mongorestore 命令来恢复备份的数据。
 
@@ -534,7 +624,7 @@ mongodb 使用 mongorestore 命令来恢复备份的数据。
 >mongorestore
 ```
 
-#### 自动备份
+### 自动备份
 
 1. 创建一个定时任务
 2. 调用 cmd
@@ -621,7 +711,7 @@ scheduleCronstyle();
 
 将文件放入 node 环境下，执行 node index.js,在规定时间会在当前目录下生成数据库 zip 压缩包
 
-#### 定时任务 scheduleCronstyle
+### 定时任务 scheduleCronstyle
 
 传入参数的意思:
 
@@ -637,7 +727,7 @@ scheduleCronstyle();
 
 每周 1 的 1 点 1 分 30 秒触发 ：'30 1 1 \* \* 1'
 
-### 使用 node 上传和下载文件
+## 使用 node 上传和下载文件
 
 前后端分离的情况下，如何上传和下载不同格式的文件，环境：node+vue+elementUI+press
 
@@ -649,7 +739,7 @@ scheduleCronstyle();
 
 `Blob` 对象表示一个不可变、原始数据的类文件对象。它的数据可以按文本或二进制的格式进行读取，也可以转换成 [`ReadableStream`](https://developer.mozilla.org/zh-CN/docs/Web/API/ReadableStream) 来用于数据操作
 
-#### 上传前端
+### 上传前端
 
 ```vue
 <el-upload
@@ -682,7 +772,7 @@ scheduleCronstyle();
 
 2. file list 接收到赋值，用于回显
 
-#### 上传后端
+### 上传后端
 
 安装 multer
 
@@ -724,7 +814,7 @@ router.post('/api/infor', function (req, res, next) {
 
 1. 调用 fs 的 rename 方法，用来对文件进行重命名，保证文件的唯一性。
 
-#### 下载前端
+### 下载前端
 
 ```js
 import { exportInfo } from "../../../static/js/export.js";
@@ -907,7 +997,7 @@ export function exportInfo(info) {
    a.download = info.name;
    ```
 
-#### 下载后端
+### 下载后端
 
 ```js
 router.post("/api/download/:id", function (req, res) {
@@ -944,7 +1034,7 @@ router.post("/api/download/:id", function (req, res) {
    fs.createReadStream(filePath).pipe(res);
    ```
 
-#### 部署到云服务器
+### 部署到云服务器
 
 1. 使用宝塔安装 mongodb，pm2，nginx。
 
@@ -1082,7 +1172,7 @@ router.post("/api/download/:id", function (req, res) {
    ```
 
 
-#### node基本操作
+## node基本操作
 
 
 删除文件
@@ -1121,3 +1211,72 @@ const data = await fs.readFile('./src/config/scene-options.js', "utf-8");
 const newContent = "export { sceneOptionsList };"
 await fs.writeFile('./src/config/scene-options.js', newContent, "utf-8");
 ```
+
+
+## ffmpeg 处理视频功能
+
+本次是因为更新 ffmpeg 处理视频功能，上传 server 后，引入的 fluent-ffmpeg 没有在 centOS 中安装。需要安装后再启动 node
+
+1. [官网下载 linux 版本的 ffmpeg 源码包 ffmpeg-4.1.tar.xz](https://johnvansickle.com/ffmpeg/release-source/)
+
+2. 使用 xftp 将源码包 ffmpeg-4.1.tar.xz 上传至 linux 主机，解压源码包
+
+   ```js
+   cd /usr/local/
+   mkdir ffmpeg    #在usr/local目录下创建ffmpeg目录
+   cd /usr/local/ffmpeg
+   tar xvJf ffmpeg-4.1.tar.xz
+   cd ffmpeg-4.1
+   yum install gcc
+   yum install yasm
+   ./configure --enable-shared --prefix=/usr/local/ffmpeg
+   make
+   make install
+   ```
+
+3. 编译完成后，需要修改 path
+
+   ```js
+   vim / etc / ld.so.conf;
+   ```
+
+   ```js
+   内容如下：
+   include ld.so.conf.d/*.conf
+   /usr/local/ffmpeg/lib/
+   ```
+
+   输入**ldconfig**使修改生效。
+
+   ```js
+   ldconfig;
+   ```
+
+4. 查看版本
+
+   ```JS
+   /usr/local/ffmpeg/ffmpeg-4.1/ffmpeg -version
+   ```
+
+5. 配置环境变量
+
+   ```JS
+   # vim /etc/profile
+   ```
+
+   ```js
+   内容如下：
+   #set ffmpeg environment
+   PATH=$PATH:/usr/local/ffmpeg/bin
+   export PATH
+   ```
+
+   ```js
+   source /etc/profile #使配置生效
+   ```
+
+   ```js
+   ffmpeg - version;
+   ```
+
+   最终：可以在任意地方使用 ffmpeg
