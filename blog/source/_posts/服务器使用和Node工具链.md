@@ -94,6 +94,8 @@ sudo chown -R www:www /www/wwwroot/api
 
 ```shell
 #!/bin/bash
+set -e   # 任何命令报错立即退出，防止继续跑
+
 cd /www/wwwroot/main-web-site || exit
 echo "[$(date +"%F %T")] 进入目录：$(pwd)"
 
@@ -117,10 +119,13 @@ sudo -u www git reset --hard origin/main
 echo "[$(date +"%F %T")] git reset done"
 
 # 装依赖 + 构建（无日志输出）
-sudo -u www npm ci > /dev/null 2>&1
-echo "[$(date +"%F %T")] npm ci done"
+echo "[$(date +"%F %T")] npm install ..."
+sudo -u www rm -f package-lock.json
+sudo -u www npm install
+echo "[$(date +"%F %T")] npm install done"
 
-sudo -u www npm run build > /dev/null 2>&1
+echo "[$(date +"%F %T")] npm run build ..."
+sudo -u www npm run build
 echo "[$(date +"%F %T")] npm run build done"
 
 # 发布
@@ -130,7 +135,8 @@ echo "[$(date +"%F %T")] 清空目标目录 done"
 sudo -u www cp -r dist/* /www/wwwroot/www.3dweb.top/
 echo "[$(date +"%F %T")] 拷贝文件 done"
 
-echo "[$(date +"%F %T")] 全部流程完成"
+echo "[$(date +"%F %T")] ===== 部署完成 ====="
+
 ```
 
 3. 宝塔webhook添加成功后，在菜单栏可以看到“查看密钥”选项，可以获取到形如：https://xx.xxx.xx.253:37874/hook?access_key=xxxxxx&param=aaa的数据
