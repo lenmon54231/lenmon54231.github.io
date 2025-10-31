@@ -1,15 +1,19 @@
 ---
-title: AI、AI文章、AI配套工具、工作流
+title: 推荐博客、AI文章、AI配套工具、工作流
 date: 2025-10-30 10:49:08
 tags: [AI]
 ---
 
 
-# AI、AI文章、AI配套工具、工作流
+# 推荐博客、AI文章、AI配套工具、工作流
 
- AI相关的文章、让AI更好用的工具、如何将AI接入工作流
+ 推荐博客(AI相关的文章)、让AI更好用的工具、如何将AI接入工作流
 
 <!-- more -->
+
+## 推荐博客
+
+[guangzhengli.com](https://guangzhengli.com/blog)
 
 ## AI配套工具
 
