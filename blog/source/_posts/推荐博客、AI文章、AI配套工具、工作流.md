@@ -11,10 +11,6 @@ tags: [AI]
 
 <!-- more -->
 
-## 推荐博客
-
-[guangzhengli.com](https://guangzhengli.com/blog)
-
 ## AI配套工具
 
 ### Context7 MCP（从源码获取最新、版本特定的文档和代码示例，并将其直接注入提示词）
@@ -44,7 +40,11 @@ GitHub：[Ruler](https://github.com/intellectronica/ruler)
 
 [从ChatGPT到AI Agent，一文讲透 Agent 的底层逻辑](https://mp.weixin.qq.com/s/tewBKHgbyrjxUjAOmkXI7A)
 
-## AI工具配置
+## 推荐博客
+
+[guangzhengli.com](https://guangzhengli.com/blog)
+
+## AI工具配置(AI相关)
 
 ### Cursor
 
